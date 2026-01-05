@@ -208,10 +208,7 @@ export type AppView =
   | 'discover'
   | 'blacklist'
   | 'missions'
-  | 'mission-dashboard'
-  | 'verify-email'
-  | 'signup-complete'
-  | 'pricing';
+  | 'verify-email'; 
 
 export type DashboardTab = 
   | 'feed' 

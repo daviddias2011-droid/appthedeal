@@ -3,27 +3,25 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { User, UserType, AppView } from './types';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import LoginScreen from './src/components/LoginScreen';
-import Dashboard from './src/components/Dashboard';
-import LandingPage from './src/components/LandingPage';
-import InvitationPage from './src/components/InvitationPage';
-import ValidationPage from './src/components/ValidationPage';
-import WelcomePage from './src/components/WelcomePage';
-import AdminAprovar from './src/components/AdminAprovar';
-import VerifyEmailScreen from './src/components/VerifyEmailScreen';
-import HowItWorksPage from './src/components/HowItWorksPage';
-import CookieConsent from './src/components/CookieConsent';
-import MissionsPage from './src/components/MissionsPage';
-import MissionDashboard from './src/components/MissionDashboard';
-import AcademyPage from './src/components/AcademyPage';
-import SimulatorPage from './src/components/SimulatorPage';
-import BlogPage from './src/components/BlogPage';
-import ForBrandsPage from './src/components/ForBrandsPage';
-import ForCreatorsPage from './src/components/ForCreatorsPage';
-import DiscoverPage from './src/components/DiscoverPage';
-import InvestorPage from './src/components/InvestorPage';
-import LegalPage from './src/components/LegalPage';
-import PricingPage from './src/components/PricingPage';
+import LoginScreen from './components/LoginScreen';
+import Dashboard from './components/Dashboard';
+import LandingPage from './components/LandingPage';
+import InvitationPage from './components/InvitationPage';
+import ValidationPage from './components/ValidationPage';
+import WelcomePage from './components/WelcomePage';
+import AdminAprovar from './components/AdminAprovar';
+import VerifyEmailScreen from './components/VerifyEmailScreen';
+import HowItWorksPage from './components/HowItWorksPage';
+import CookieConsent from './components/CookieConsent';
+import MissionsPage from './components/MissionsPage';
+import AcademyPage from './components/AcademyPage';
+import SimulatorPage from './components/SimulatorPage';
+import BlogPage from './components/BlogPage';
+import ForBrandsPage from './components/ForBrandsPage';
+import ForCreatorsPage from './components/ForCreatorsPage';
+import DiscoverPage from './components/DiscoverPage';
+import InvestorPage from './components/InvestorPage';
+import LegalPage from './components/LegalPage';
 import { translations } from './translations';
 import { ReferralSystem } from './lib/referral';
 
@@ -31,8 +29,6 @@ const AppContent = () => {
   const { profile, loading, signIn, signOut } = useAuth();
   const [view, setView] = useState<AppView>('landing');
   const [pendingEmail, setPendingEmail] = useState('');
-  const [pendingPlan, setPendingPlan] = useState<string | null>(null);
-  const [missionCode, setMissionCode] = useState<string | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
   const [language] = useState<'pt' | 'en'>('pt');
   
@@ -40,14 +36,6 @@ const AppContent = () => {
 
   useEffect(() => {
     ReferralSystem.captureFromUrl();
-
-    // Detectar código de missão na URL
-    const params = new URLSearchParams(window.location.search);
-    const missionParam = params.get('mission');
-    if (missionParam) {
-      setMissionCode(missionParam);
-      setView('mission-dashboard');
-    }
 
     if (loading) return;
 
@@ -64,7 +52,8 @@ const AppContent = () => {
         setView('dashboard');
       }
     } else {
-      const restricted: AppView[] = ['dashboard', 'validation', 'welcome', 'admin-approval', 'verify-email'];
+      // FIX: Impedir redirecionamento para landing se o usuário estiver no fluxo de convite ou verificação
+      const restricted: AppView[] = ['dashboard', 'validation', 'welcome', 'admin-approval'];
       if (restricted.includes(view)) {
         setView('landing');
       }
@@ -91,13 +80,10 @@ const AppContent = () => {
   }
 
   const renderView = () => {
-    // Redirecionamentos de estado de perfil
     if (view === 'dashboard' && profile) return <Dashboard user={profile} onLogout={signOut} />;
     if (view === 'welcome' && profile) return <WelcomePage userName={profile.name} onContinue={() => setView('dashboard')} />;
     if (view === 'validation' && profile) return <ValidationPage userName={profile.name} userEmail={profile.email} onSelectFree={() => setView('dashboard')} onBack={() => setView('landing')} />;
-    if (view === 'mission-dashboard') return <MissionDashboard activationCode={missionCode || undefined} onBack={() => setView('landing')} />;
     
-    // Switch de Views Principais
     switch (view) {
       case 'landing':
         return <LandingPage 
@@ -161,40 +147,14 @@ const AppContent = () => {
         return <LegalPage title="Termos de Uso" content={<p>Conteúdo em auditoria...</p>} onBack={() => setView('landing')} />;
 
       case 'verify-email':
-        return <VerifyEmailScreen email={pendingEmail} onVerified={() => {
-          // Após verificação, se usuário escolheu plano PRO, ir para oferta de checkout
-          if (pendingPlan === 'pro') setView('signup-complete');
-          else setView('welcome');
-        }} onBack={() => setView('invitation')} />;
+        return <VerifyEmailScreen email={pendingEmail} onVerified={() => setView('welcome')} onBack={() => setView('invitation')} />;
       
       case 'login':
         return <LoginScreen onLogin={handleLogin} onStartSignup={() => setView('invitation')} onBackToLanding={() => setView('landing')} onForgotPassword={() => {}} error={loginError} onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')} t={t} />;
       
       case 'invitation':
-        return <InvitationPage onBack={() => setView('landing')} t={t} language={language} toggleLanguage={() => {}} theme="dark" toggleTheme={() => {}} onSignupSuccess={(email, plan) => { setPendingEmail(email); setPendingPlan(plan || null); setView('verify-email'); }} />;
-
-      case 'signup-complete':
-        return <div className="min-h-screen bg-black pt-20 px-6">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-white font-black text-3xl mb-4">Cadastro concluído</h2>
-            <p className="text-thedeal-gray400 mb-6">Um e-mail de confirmação foi enviado para <strong className="text-white">{pendingEmail}</strong>.</p>
-            {pendingPlan === 'pro' ? (
-              <div className="space-y-4">
-                <p className="text-thedeal-gray400">Você escolheu o Plano PRO. Complete a ativação com o checkout abaixo.</p>
-                <button onClick={() => setView('pricing')} className="bg-thedeal-goldBright text-black font-black py-4 px-6 rounded-2xl">Ir para Checkout PRO</button>
-                <button onClick={() => { setPendingPlan(null); setView('landing'); }} className="text-white/70 underline">Voltar à página inicial</button>
-              </div>
-            ) : (
-              <div>
-                <button onClick={() => setView('landing')} className="bg-thedeal-goldBright text-black font-black py-4 px-6 rounded-2xl">Voltar à página inicial</button>
-              </div>
-            )}
-          </div>
-        </div>;
+        return <InvitationPage onBack={() => setView('landing')} t={t} language={language} toggleLanguage={() => {}} theme="dark" toggleTheme={() => {}} onSignupSuccess={(email) => { setPendingEmail(email); setView('verify-email'); }} />;
       
-      case 'pricing':
-        return <PricingPage onBack={() => setView('landing')} />;
-
       default:
         return <LandingPage onGoToDemo={() => setView('login')} onGoToSignup={() => setView('invitation')} onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')} onGoToForBrands={() => setView('for-brands')} onGoToForCreators={() => setView('for-creators')} onGoToHowItWorks={() => setView('how-it-works')} onGoToHub={() => setView('landing')} onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')} onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')} onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')} language={language} t={t} />;
     }

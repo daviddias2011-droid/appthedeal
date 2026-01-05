@@ -8,14 +8,14 @@ let stripePromise: Promise<Stripe | null>;
  */
 export const getStripe = () => {
   if (!stripePromise) {
-    const publishableKey = (typeof import.meta !== 'undefined' && (import.meta as any).env && (import.meta as any).env.VITE_STRIPE_PUBLISHABLE_KEY)
-      || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-      || 'pk_test_placeholder';
-
+    const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_placeholder';
+    
+    // O Stripe exige contexto seguro. Em ambientes de teste sem SSL, o erro de certificado
+    // é comum. Esta verificação previne o crash do app.
     try {
-      stripePromise = loadStripe(publishableKey as string);
+      stripePromise = loadStripe(publishableKey);
     } catch (e) {
-      console.warn('Stripe Terminal Security: ambiente sem SSL detectado ou chave ausente. O checkout pode não carregar.');
+      console.warn("Stripe Terminal Security: Ambiente sem SSL detectado. O checkout pode não carregar.");
       return Promise.resolve(null);
     }
   }
