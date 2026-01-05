@@ -5,7 +5,7 @@ import { User, UserType, AppView } from './types';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import LoginScreen from './src/components/LoginScreen';
 import Dashboard from './src/components/Dashboard';
-import LandingPage from './components/LandingPage';
+import LandingPage from './src/components/LandingPage';
 import InvitationPage from './components/InvitationPage';
 import ValidationPage from './components/ValidationPage';
 import WelcomePage from './components/WelcomePage';
