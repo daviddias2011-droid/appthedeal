@@ -1,0 +1,9 @@
+{
+  "name": "THE DEAL - Inteligência & Performance",
+  "description": "A plataforma definitiva para contratos de LTV e Licenciamento de IP. Entrada gratuita para Aspirantes. Prove seu valor, suba de nível e conquiste estabilidade financeira.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera",
+    "microphone"
+  ]
+}
