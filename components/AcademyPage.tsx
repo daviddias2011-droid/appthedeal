@@ -66,7 +66,7 @@ const AcademyPage: React.FC<AcademyPageProps> = ({ onBack, t }) => {
                 <header className="mb-24 text-center">
                     <div className="inline-flex items-center gap-2 bg-thedeal-gold/10 border border-thedeal-gold/20 px-4 py-1.5 rounded-full mb-8">
                         <Sparkles className="w-3 h-3 text-thedeal-gold animate-pulse" />
-                        <span className="text-[9px] font-black text-thedeal-gold uppercase tracking-widest">Centro de Inteligência The Deal</span>
+                        <span className="text-[9px] font-black text-thedeal-gold uppercase tracking-widest">The Deal Academia</span>
                     </div>
                     <h1 className="text-5xl md:text-8xl font-display font-bold tracking-tight mb-8 leading-none uppercase">
                         DOMINE O <br/>
