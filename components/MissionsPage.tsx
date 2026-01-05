@@ -1,10 +1,11 @@
+
 import React, { useState } from 'react';
-import { ArrowLeft, User, Mail, Phone, FileText, Check, Copy, Trophy, Target, ShieldCheck, Loader, ArrowRight } from 'lucide-react';
+import { ArrowLeft, User, Mail, Phone, FileText, Check, Copy, Trophy, Target, ShieldCheck, Loader, ArrowRight, Briefcase } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { ReferralSystem } from '../lib/referral';
 
 interface MissionsPageProps {
-  onBack?: () => void;
+  onBack: () => void;
 }
 
 const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
@@ -99,17 +100,30 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col items-center py-20 px-6 animate-fade-in">
-      <div className="max-w-2xl w-full space-y-12">
+    <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col items-center animate-fade-in selection:bg-thedeal-gold selection:text-black">
+      {/* Standard Header Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-[100] bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20 transition-all">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
+            <div className="flex flex-col items-start gap-1 cursor-pointer group" onClick={onBack}>
+                <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                        <Briefcase size={18} className="text-black" />
+                    </div>
+                    <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
+                </div>
+                <p className="text-[7px] md:text-[8px] font-black uppercase text-thedeal-gold tracking-[0.3em] pl-0.5">Rede Social Privada</p>
+            </div>
+            
+            <div className="flex items-center gap-3">
+                <button onClick={onBack} className="flex items-center gap-2 px-4 py-2 text-[9px] font-black uppercase tracking-widest text-thedeal-gray400 hover:text-white transition-colors">
+                  <ArrowLeft size={14} className="text-thedeal-gold" /> Voltar
+                </button>
+            </div>
+        </div>
+      </nav>
+
+      <div className="max-w-2xl w-full space-y-12 pt-32 md:pt-40 pb-20 px-6">
         <header className="text-center space-y-4">
-           <button 
-            onClick={onBack} 
-            className="inline-flex items-center gap-2 text-[#A0A0A0] hover:text-[#D4AF37] transition-all mb-8 group"
-           >
-            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-            <span className="text-[10px] font-black uppercase tracking-widest">Retornar</span>
-           </button>
-           
            <div className="inline-flex items-center gap-3 bg-[#D4AF37]/10 border border-[#D4AF37]/20 px-5 py-2 rounded-full mb-4">
               <Target size={14} className="text-[#D4AF37]" />
               <span className="text-[9px] font-black text-[#D4AF37] uppercase tracking-[0.3em]">SISTEMA DE MISSÕES</span>

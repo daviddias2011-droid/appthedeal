@@ -22,8 +22,10 @@ import ForCreatorsPage from './components/ForCreatorsPage';
 import DiscoverPage from './components/DiscoverPage';
 import InvestorPage from './components/InvestorPage';
 import LegalPage from './components/LegalPage';
+import BlacklistPage from './components/Blacklist';
 import { translations } from './translations';
 import { ReferralSystem } from './lib/referral';
+import { BriefcaseIcon, ArrowLeftIcon } from './components/Icons';
 
 const AppContent = () => {
   const { profile, loading, signIn, signOut } = useAuth();
@@ -36,27 +38,17 @@ const AppContent = () => {
 
   useEffect(() => {
     ReferralSystem.captureFromUrl();
-
     if (loading) return;
-
     if (profile) {
-      if (!profile.isEmailVerified && view !== 'verify-email' && view !== 'welcome') {
-        setPendingEmail(profile.email);
-        setView('verify-email');
-        return;
-      }
-
+      // Fluxo de boas-vindas direto se logado e não vetted (após registro/pagamento)
       if (!profile.isVetted && (view === 'landing' || view === 'login' || view === 'invitation')) {
-        setView('validation');
+        setView('welcome');
       } else if (profile.isVetted && (view === 'landing' || view === 'login' || view === 'invitation')) {
         setView('dashboard');
       }
     } else {
-      // FIX: Impedir redirecionamento para landing se o usuário estiver no fluxo de convite ou verificação
       const restricted: AppView[] = ['dashboard', 'validation', 'welcome', 'admin-approval'];
-      if (restricted.includes(view)) {
-        setView('landing');
-      }
+      if (restricted.includes(view)) setView('landing');
     }
   }, [profile, loading, view]);
 
@@ -87,22 +79,15 @@ const AppContent = () => {
     switch (view) {
       case 'landing':
         return <LandingPage 
-          onGoToDemo={() => setView('login')} 
-          onGoToSignup={() => setView('invitation')}
-          onGoToPrivacy={() => setView('privacy')} 
-          onGoToTerms={() => setView('terms')}
-          onGoToForBrands={() => setView('for-brands')} 
-          onGoToForCreators={() => setView('for-creators')}
-          onGoToHowItWorks={() => setView('how-it-works')} 
-          onGoToHub={() => setView('landing')}
-          onGoToBlog={() => setView('blog')} 
-          onGoToAcademy={() => setView('academy')}
-          onGoToMissions={() => setView('missions')} 
-          onGoToInvestor={() => setView('investor')}
-          onGoToSimulator={() => setView('simulator')} 
-          onGoToDiscover={() => setView('discover')}
-          language={language} 
-          t={t}
+          onGoToDemo={() => setView('login')} onGoToSignup={() => setView('invitation')}
+          onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')}
+          onGoToForBrands={() => setView('for-brands')} onGoToForCreators={() => setView('for-creators')}
+          onGoToHowItWorks={() => setView('how-it-works')} onGoToHub={() => setView('landing')}
+          onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')}
+          onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')}
+          onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')}
+          onGoToBlacklist={() => setView('blacklist')}
+          language={language} t={t}
         />;
       
       case 'how-it-works':
@@ -114,14 +99,31 @@ const AppContent = () => {
       case 'academy':
         return <AcademyPage onBack={() => setView('landing')} t={t} />;
 
+      case 'blacklist':
+        return <BlacklistPage onBack={() => setView('landing')} />;
+
       case 'simulator':
         return (
-          <div className="min-h-screen bg-black pt-20 px-6">
-            <button onClick={() => setView('landing')} className="text-white flex items-center gap-2 mb-8 uppercase text-[10px] font-black">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-                Voltar
-            </button>
-            <SimulatorPage userIsLoggedIn={!!profile} onRestrictedAction={() => setView('login')} />
+          <div className="min-h-screen bg-black">
+            <nav className="fixed top-0 left-0 right-0 z-[100] bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20">
+                <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
+                    <div className="flex flex-col items-start gap-1 cursor-pointer group" onClick={() => setView('landing')}>
+                        <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center">
+                                <BriefcaseIcon size={18} className="text-black" />
+                            </div>
+                            <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
+                        </div>
+                        <p className="text-[7px] md:text-[8px] font-black uppercase text-thedeal-gold tracking-[0.3em] pl-0.5">Rede Social Privada</p>
+                    </div>
+                    <button onClick={() => setView('landing')} className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-[9px] font-black uppercase tracking-widest text-white transition-all hover:bg-white/10">
+                        <ArrowLeftIcon size={14} className="text-thedeal-gold" /> Voltar
+                    </button>
+                </div>
+            </nav>
+            <div className="pt-24 px-6 max-w-7xl mx-auto">
+              <SimulatorPage userIsLoggedIn={!!profile} onRestrictedAction={() => setView('login')} />
+            </div>
           </div>
         );
 
@@ -135,7 +137,7 @@ const AppContent = () => {
         return <ForBrandsPage onBack={() => setView('landing')} onGoToSignup={() => setView('invitation')} />;
 
       case 'for-creators':
-        return <ForCreatorsPage onBack={() => setView('landing')} onGoToSignup={() => setView('invitation')} />;
+        return <ForCreatorsPage onBack={() => setView('landing')} onGoToSignup={() => setView('invitation')} onGoToDiscover={() => setView('discover')} />;
 
       case 'blog':
         return <BlogPage posts={[]} onViewArticle={() => {}} onBack={() => setView('landing')} />;
@@ -153,10 +155,10 @@ const AppContent = () => {
         return <LoginScreen onLogin={handleLogin} onStartSignup={() => setView('invitation')} onBackToLanding={() => setView('landing')} onForgotPassword={() => {}} error={loginError} onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')} t={t} />;
       
       case 'invitation':
-        return <InvitationPage onBack={() => setView('landing')} t={t} language={language} toggleLanguage={() => {}} theme="dark" toggleTheme={() => {}} onSignupSuccess={(email) => { setPendingEmail(email); setView('verify-email'); }} />;
+        return <InvitationPage onBack={() => setView('landing')} t={t} language={language} toggleLanguage={() => {}} theme="dark" toggleTheme={() => {}} onSignupSuccess={() => setView('welcome')} />;
       
       default:
-        return <LandingPage onGoToDemo={() => setView('login')} onGoToSignup={() => setView('invitation')} onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')} onGoToForBrands={() => setView('for-brands')} onGoToForCreators={() => setView('for-creators')} onGoToHowItWorks={() => setView('how-it-works')} onGoToHub={() => setView('landing')} onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')} onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')} onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')} language={language} t={t} />;
+        return <LandingPage onGoToDemo={() => setView('login')} onGoToSignup={() => setView('invitation')} onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')} onGoToForBrands={() => setView('for-brands')} onGoToForCreators={() => setView('for-creators')} onGoToHowItWorks={() => setView('how-it-works')} onGoToHub={() => setView('landing')} onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')} onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')} onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')} onGoToBlacklist={() => setView('blacklist')} language={language} t={t} />;
     }
   };
 

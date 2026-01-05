@@ -73,7 +73,7 @@ export const translations = {
     
     memberAccess: "Acessar Hub de Operações",
     back: "Retornar",
-    loginSubtitle: "Acesso Meritocrático"
+    loginSubtitle: "Acesso Alpha"
   },
   en: {
     headerSlogan: "Private Social Network",
@@ -107,6 +107,6 @@ export const translations = {
     formSecurity: "Data processed via Encrypted Terminal. Audited by AI Intelligence.",
     memberAccess: "Enter Operations Hub",
     back: "Back",
-    loginSubtitle: "Meritocratic Access"
+    loginSubtitle: "Alpha Access"
   }
 };

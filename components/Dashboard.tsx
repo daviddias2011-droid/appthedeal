@@ -11,7 +11,7 @@ import SimulatorPage from './SimulatorPage';
 import KnowledgeHub from './KnowledgeHub';
 import PricingPage from './PricingPage';
 import DiscoverPage from './DiscoverPage';
-import BlacklistPage from './blacklist';
+import BlacklistPage from './Blacklist';
 import { MOCK_POSTS, USERS } from '../constants';
 import { useAuth } from '../contexts/AuthContext';
 import { Briefcase, X, ShieldCheck, AlertTriangle, RefreshCw, CheckCircle, Menu } from 'lucide-react';
@@ -31,7 +31,6 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
   const currentUser = profile || user;
 
   const renderTabContent = () => {
-    console.log("Rendering Tab:", activeTab);
     switch (activeTab) {
       case 'painel':
         return <AdminDashboard adminUser={currentUser} allUsers={USERS} allDeals={[]} allApplications={[]} allTransactions={[]} onLogout={onLogout} onUpdateUser={() => {}} onDeleteUser={() => {}} onDeleteDeal={() => {}} onApproveApplication={() => {}} onRejectApplication={() => {}} onMarkAsWonka={() => {}} onAddTransaction={() => {}} onEnterUserView={() => {}} onGoHome={() => setActiveTab('feed')} language="pt" toggleLanguage={() => {}} theme="dark" toggleTheme={() => {}} t={{}} />;
@@ -56,9 +55,8 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
             {posts.map(post => <PostCard key={post.id} post={post} isLocked={!currentUser.isVetted && post.type === 'deal'} onAction={() => setActiveTab('planos')} />)}
           </div>
         );
-      // FIX: Added required onBack and onSignup props to DiscoverPage component to resolve missing properties error.
       case 'discover': return <DiscoverPage onBack={() => setActiveTab('feed')} onSignup={() => setActiveTab('planos')} />;
-      case 'blacklist': return <BlacklistPage />;
+      case 'blacklist': return <BlacklistPage onBack={() => setActiveTab('feed')} />;
       case 'missoes': return <MissionsPanel />;
       case 'planos': return <PricingPage onBack={() => setActiveTab('feed')} />;
       case 'cursos': return <KnowledgeHub onNavigateBack={() => setActiveTab('feed')} />;

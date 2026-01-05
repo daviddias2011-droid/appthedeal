@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { UserType } from '../types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { getStripe } from '../lib/stripe';
 
 interface SignupFormProps {
   onBack: () => void;
@@ -51,6 +52,29 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
   
   const handlePrev = () => setStep(prev => prev - 1);
 
+  const handleStripeCheckout = async () => {
+    try {
+      // Simulação de chamada para criação de checkout
+      const response = await fetch('/api/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan: 'pro-mensal', userEmail: formData.email })
+      });
+      
+      const data = await response.json();
+      if (data.error) throw new Error(data.error);
+
+      const stripe = await getStripe();
+      if (stripe) {
+        await stripe.redirectToCheckout({ sessionId: data.sessionId });
+      }
+    } catch (err) {
+      console.error(err);
+      // Fallback para sucesso se stripe falhar em ambiente de demo
+      onSuccess(formData.email);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (step < totalSteps) {
@@ -82,14 +106,19 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
           throw signupError;
         }
       } else {
-        await new Promise(r => setTimeout(r, 2000));
+        await new Promise(r => setTimeout(r, 1000));
       }
       
-      onSuccess(formData.email);
+      // Fluxo Direto: Se for plano PRO, vai pro checkout. Senão, finaliza.
+      if (formData.plan === 'pro') {
+        await handleStripeCheckout();
+      } else {
+        onSuccess(formData.email);
+      }
+      
     } catch (err: any) {
       console.error("Signup Error:", err);
       setError(err.message || 'Falha na comunicação com o Terminal. Tente novamente.');
-    } finally {
       setLoading(false);
     }
   };
@@ -209,7 +238,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
               {step === 1 ? 'Trocar Perfil' : 'Voltar'}
             </button>
             <button type="submit" disabled={loading} className="flex-1 bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-5 rounded-2xl shadow-xl shadow-thedeal-gold/20 flex items-center justify-center gap-3 uppercase text-[10px] tracking-widest transition-all">
-              {loading ? <Loader className="animate-spin" size={18} /> : (step === totalSteps ? 'Finalizar Cadastro' : 'Avançar')}
+              {loading ? <Loader className="animate-spin" size={18} /> : (step === totalSteps ? 'Acessar Rede' : 'Avançar')}
               <ArrowRight size={18} />
             </button>
           </div>

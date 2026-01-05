@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { DashboardTab, UserType } from '../types';
-import { UserIcon, LayoutGridIcon, BriefcaseIcon, ZapIcon, Compass } from 'lucide-react';
+import { UserIcon, LayoutGridIcon, ZapIcon, Calculator } from 'lucide-react';
 
 interface FooterProps {
     activeTab: DashboardTab;
@@ -13,7 +13,7 @@ const Footer: React.FC<FooterProps> = ({ activeTab, setActiveTab }) => {
     const navItems: { tab: DashboardTab; label: string; icon: any }[] = [
         { tab: 'feed', label: 'Feed', icon: LayoutGridIcon },
         { tab: 'missoes', label: 'Missões', icon: ZapIcon },
-        { tab: 'discover', label: 'Explorar', icon: Compass },
+        { tab: 'simulador', label: 'Calculadora', icon: Calculator },
         { tab: 'perfil', label: 'Perfil', icon: UserIcon },
     ];
 

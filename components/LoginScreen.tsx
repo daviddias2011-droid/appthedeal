@@ -60,8 +60,8 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin, onStartSignup, onBac
           <div className="bg-thedeal-card border border-thedeal-gray700 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-thedeal-gold/20 to-transparent"></div>
             
-            <h2 className="text-[11px] font-black tracking-[0.1em] text-white mb-10 text-center uppercase leading-relaxed px-4 opacity-90">
-              Terminal de Acesso Meritocrático
+            <h2 className="text-2xl font-black tracking-tight text-white mb-10 text-center uppercase leading-none px-4">
+              Seja bem vindo de volta
             </h2>
 
             {isDemoMode && (

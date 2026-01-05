@@ -9,9 +9,10 @@ import {
 interface ForCreatorsPageProps {
   onBack: () => void;
   onGoToSignup: () => void;
+  onGoToDiscover: () => void;
 }
 
-export default function ForCreatorsPage({ onBack, onGoToSignup }: ForCreatorsPageProps) {
+export default function ForCreatorsPage({ onBack, onGoToSignup, onGoToDiscover }: ForCreatorsPageProps) {
   const currencyFormatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
 
   return (
@@ -67,8 +68,8 @@ export default function ForCreatorsPage({ onBack, onGoToSignup }: ForCreatorsPag
               <span>Começar Jornada</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button onClick={onBack} className="bg-white/5 hover:bg-white/10 border-2 border-thedeal-gray700 hover:border-thedeal-goldDim text-white font-semibold px-10 py-4 rounded-xl text-lg transition-all backdrop-blur-sm uppercase tracking-widest">
-              Ver Criadores Elite
+            <button onClick={onGoToDiscover} className="bg-white/5 hover:bg-white/10 border-2 border-thedeal-gray700 hover:border-thedeal-goldDim text-white font-semibold px-10 py-4 rounded-xl text-lg transition-all backdrop-blur-sm uppercase tracking-widest">
+              Ver Criadores
             </button>
           </div>
 
