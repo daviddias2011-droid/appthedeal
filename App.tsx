@@ -25,7 +25,8 @@ import LegalPage from './components/LegalPage';
 import BlacklistPage from './components/Blacklist';
 import { translations } from './translations';
 import { ReferralSystem } from './lib/referral';
-import { BriefcaseIcon, ArrowLeftIcon } from './components/Icons';
+import { BriefcaseIcon, ArrowLeftIcon, ShieldCheck } from './components/Icons';
+import { MessageCircle } from 'lucide-react';
 
 const AppContent = () => {
   const { profile, loading, signIn, signOut } = useAuth();
@@ -39,10 +40,11 @@ const AppContent = () => {
   useEffect(() => {
     ReferralSystem.captureFromUrl();
     if (loading) return;
+    
+    // Roteamento condicional se logado
     if (profile) {
-      // Fluxo de boas-vindas direto se logado e não vetted (após registro/pagamento)
       if (!profile.isVetted && (view === 'landing' || view === 'login' || view === 'invitation')) {
-        setView('welcome');
+        // Fluxo de redirecionamento para membros não validados
       } else if (profile.isVetted && (view === 'landing' || view === 'login' || view === 'invitation')) {
         setView('dashboard');
       }
@@ -102,6 +104,47 @@ const AppContent = () => {
       case 'blacklist':
         return <BlacklistPage onBack={() => setView('landing')} />;
 
+      case 'thank-you':
+        return (
+          <div className="min-h-screen bg-black flex flex-col items-center justify-center p-6 text-center animate-fade-in">
+            <div className="max-w-xl w-full bg-thedeal-card border border-thedeal-gold/30 rounded-[3rem] p-10 md:p-16 space-y-10 shadow-2xl relative overflow-hidden">
+               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-thedeal-gold to-transparent"></div>
+               <div className="w-24 h-24 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto animate-subtle-pulse border border-thedeal-gold/20">
+                  <ShieldCheck size={48} className="text-thedeal-gold" />
+               </div>
+               <div className="space-y-6">
+                  <h1 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter leading-none">
+                    SOLICITAÇÃO <br/><span className="text-thedeal-gold">REGISTRADA.</span>
+                  </h1>
+                  <p className="text-thedeal-gray400 text-lg font-medium leading-relaxed">
+                    Estamos avaliando o seu perfil e retornaremos em breve. Por enquanto, entre no grupo do WhatsApp e fique por dentro das novidades.
+                  </p>
+                  
+                  <div className="pt-4 flex flex-col items-center gap-4">
+                    <a 
+                      href="https://chat.whatsapp.com/LtU8Bqsn7VQ6taTdflImTO" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-3 bg-[#25D366] text-white font-black px-10 py-5 rounded-2xl text-xs uppercase tracking-widest hover:brightness-110 transition-all shadow-xl shadow-[#25D366]/20 active:scale-95"
+                    >
+                      <MessageCircle size={20} fill="currentColor" className="text-white" />
+                      Entrar no Grupo
+                    </a>
+                  </div>
+               </div>
+               <div className="pt-8 border-t border-white/5">
+                  <button 
+                    onClick={() => setView('landing')}
+                    className="bg-white/5 hover:bg-white/10 text-white font-black px-12 py-5 rounded-2xl text-[10px] uppercase tracking-[0.3em] transition-all border border-white/10"
+                  >
+                    Voltar ao Início
+                  </button>
+               </div>
+               <p className="text-[7px] font-black text-thedeal-gray700 uppercase tracking-[0.6em]">The Deal Network • Protocolo de Curadoria v3.0</p>
+            </div>
+          </div>
+        );
+
       case 'simulator':
         return (
           <div className="min-h-screen bg-black">
@@ -155,7 +198,7 @@ const AppContent = () => {
         return <LoginScreen onLogin={handleLogin} onStartSignup={() => setView('invitation')} onBackToLanding={() => setView('landing')} onForgotPassword={() => {}} error={loginError} onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')} t={t} />;
       
       case 'invitation':
-        return <InvitationPage onBack={() => setView('landing')} t={t} language={language} toggleLanguage={() => {}} theme="dark" toggleTheme={() => {}} onSignupSuccess={() => setView('welcome')} />;
+        return <InvitationPage onBack={() => setView('landing')} t={t} language={language} toggleLanguage={() => {}} theme="dark" toggleTheme={() => {}} onSignupSuccess={() => setView('thank-you')} />;
       
       default:
         return <LandingPage onGoToDemo={() => setView('login')} onGoToSignup={() => setView('invitation')} onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')} onGoToForBrands={() => setView('for-brands')} onGoToForCreators={() => setView('for-creators')} onGoToHowItWorks={() => setView('how-it-works')} onGoToHub={() => setView('landing')} onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')} onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')} onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')} onGoToBlacklist={() => setView('blacklist')} language={language} t={t} />;

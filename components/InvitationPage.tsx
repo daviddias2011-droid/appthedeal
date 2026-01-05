@@ -11,7 +11,7 @@ interface InvitationPageProps {
     toggleLanguage: () => void;
     theme: 'light' | 'dark';
     toggleTheme: () => void;
-    onSignupSuccess?: (email: string) => void;
+    onSignupSuccess?: () => void;
 }
 
 const InvitationPage: React.FC<InvitationPageProps> = ({ onBack, onSignupSuccess }) => {
@@ -22,7 +22,7 @@ const InvitationPage: React.FC<InvitationPageProps> = ({ onBack, onSignupSuccess
                     <div className="flex flex-col items-start gap-1 cursor-pointer" onClick={onBack}>
                         <div className="flex items-center gap-3">
                             <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center">
-                                <BriefcaseIcon className="w-5 h-5 text-black" />
+                                <BriefcaseIcon size={18} className="text-black" />
                             </div>
                             <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
                         </div>
@@ -42,7 +42,7 @@ const InvitationPage: React.FC<InvitationPageProps> = ({ onBack, onSignupSuccess
                 </div>
                 
                 <div className="max-w-full">
-                  <SignupForm onBack={onBack} onSuccess={(email) => onSignupSuccess?.(email)} />
+                  <SignupForm onBack={onBack} onSuccess={() => onSignupSuccess?.()} />
                 </div>
             </main>
 

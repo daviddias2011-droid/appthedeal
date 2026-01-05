@@ -208,6 +208,7 @@ export type AppView =
   | 'discover'
   | 'blacklist'
   | 'missions'
+  | 'thank-you'
   | 'verify-email'; 
 
 export type DashboardTab = 
