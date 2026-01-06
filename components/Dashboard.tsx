@@ -55,15 +55,15 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
             {posts.map(post => <PostCard key={post.id} post={post} isLocked={!currentUser.isVetted && post.type === 'deal'} onAction={() => setActiveTab('planos')} />)}
           </div>
         );
-      case 'discover': return <div className="pb-32"><DiscoverPage onBack={() => setActiveTab('feed')} onSignup={() => setActiveTab('planos')} /></div>;
-      case 'blacklist': return <div className="pb-32"><BlacklistPage onBack={() => setActiveTab('feed')} /></div>;
-      case 'missoes': return <div className="px-4 pb-32"><MissionsPanel /></div>;
+      case 'discover': return <DiscoverPage onBack={() => setActiveTab('feed')} onSignup={() => setActiveTab('planos')} />;
+      case 'blacklist': return <BlacklistPage onBack={() => setActiveTab('feed')} />;
+      case 'missoes': return <MissionsPanel />;
       case 'planos': return <PricingPage onBack={() => setActiveTab('feed')} />;
       case 'cursos': return <KnowledgeHub onNavigateBack={() => setActiveTab('feed')} />;
-      case 'simulador': return <div className="pb-32"><SimulatorPage userIsLoggedIn={true} onRestrictedAction={() => {}} /></div>;
+      case 'simulador': return <SimulatorPage userIsLoggedIn={true} onRestrictedAction={() => {}} />;
       case 'perfil':
         return (
-          <div className="animate-fade-in py-6 space-y-8 px-4 pb-32 text-left">
+          <div className="animate-fade-in py-6 space-y-8 px-4 pb-32">
             <h1 className="text-2xl font-black text-white uppercase tracking-tighter">Meu <span className="text-thedeal-gold">Espaço</span></h1>
             <div className="bg-thedeal-card border border-thedeal-gray700 rounded-3xl p-8 flex flex-col items-center shadow-2xl space-y-6">
               <img src={currentUser.logoUrl || `https://ui-avatars.com/api/?name=${currentUser.name}&background=C9A961&color=000`} className="w-32 h-32 rounded-3xl border-4 border-thedeal-gold/30 object-cover shadow-2xl" />

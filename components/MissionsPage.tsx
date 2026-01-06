@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+// FIX: Added missing Users and Clock icons to the lucide-react imports.
 import { ArrowLeft, User, Mail, Phone, FileText, Check, Copy, Trophy, Target, ShieldCheck, Loader, ArrowRight, Briefcase, Zap, Star, Users, Clock } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { ReferralSystem } from '../lib/referral';
@@ -94,6 +95,12 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
           <div className="pt-4">
             <button onClick={onBack} className="text-[10px] font-black uppercase text-[#666666] hover:text-white tracking-[0.5em] transition-all">Voltar ao Início</button>
           </div>
+          <div className="space-y-4 opacity-30 pt-8 text-center">
+            <p className="text-[8px] font-black uppercase tracking-[0.5em] text-thedeal-gray600">THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO</p>
+            <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-lg mx-auto leading-relaxed">
+                A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -101,6 +108,7 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col items-center animate-fade-in selection:bg-thedeal-gold selection:text-black text-left">
+      {/* Standard Header Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-[100] bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20 transition-all">
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
             <div className="flex flex-col items-start gap-1 cursor-pointer group" onClick={onBack}>
@@ -125,7 +133,7 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
         <header className="text-center space-y-4">
            <div className="inline-flex items-center gap-3 bg-[#D4AF37]/10 border border-[#D4AF37]/20 px-5 py-2 rounded-full mb-4">
               <Target size={14} className="text-[#D4AF37]" />
-              <span className="text-[9px] font-black text-[#D4AF37] uppercase tracking-[0.3em]">MISSÕES THE DEAL</span>
+              <span className="text-[9px] font-black text-[#D4AF37] uppercase tracking-[0.3em]">HUB DE MISSÕES ALPHA</span>
            </div>
            
            <h1 className="text-4xl md:text-7xl font-display font-black uppercase tracking-tighter leading-none">
@@ -137,6 +145,7 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
            </p>
         </header>
 
+        {/* EXPLICATIVO DAS MISSÕES */}
         <section className="grid md:grid-cols-3 gap-6">
             <div className="bg-thedeal-card border border-white/5 p-8 rounded-[2rem] flex flex-col gap-4 group hover:border-thedeal-gold/30 transition-all">
                 <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-thedeal-gold"><Users size={20} /></div>
