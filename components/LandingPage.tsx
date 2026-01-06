@@ -98,7 +98,7 @@ export default function LandingPage({
       avatar: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a4/4c/ee/a44cee2c-07bd-af1c-3b5a-74aeeb451e50/Placeholder.mill/400x400bb-75.webp",
       tag: "MOBILIDADE URBANA",
       time: "Ativa agora",
-      content: "Embaixadores 2026. Campanha de mobilidade urbana. Buscamos criadores locais em Leme, Encantando, Porto Alegre, Sapucaia do Sul, Ribeirão Preto e Itaquaquecetuba.",
+      content: "Embaixadores 2026. Campanha de mobilidade urbana. Buscamos criadores locais em Leme, Encantado, Porto Alegre, Sapucaia do Sul, Ribeirão Preto e Itaquaquecetuba.",
       imageUrl: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop",
       stats: "Exclusivo para membros",
       isDeal: true
