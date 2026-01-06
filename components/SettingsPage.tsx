@@ -7,7 +7,6 @@ import {
   DeviceIcon, 
   TrashIcon, 
   CheckCircleIcon,
-  Github,
   Instagram,
   ExternalLink,
   Unlink
@@ -26,7 +25,6 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ user, onLogout }) => {
     });
 
     const [connections, setConnections] = useState([
-        { id: 'github', name: 'GitHub', username: 'dev-master-alpha', connected: true, icon: Github },
         { id: 'instagram', name: 'Instagram', username: `@${user.username || 'membro'}`, connected: true, icon: Instagram }
     ]);
 
@@ -47,7 +45,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ user, onLogout }) => {
     };
 
     return (
-        <div className="space-y-8 max-w-3xl mx-auto pb-32 animate-fade-in px-4">
+        <div className="space-y-8 max-w-3xl mx-auto pb-32 animate-fade-in px-4 text-left">
             <header className="mb-10">
                 <h1 className="text-3xl font-black text-white uppercase tracking-tighter">Configurações de <span className="text-thedeal-gold">Segurança.</span></h1>
                 <p className="text-thedeal-gray400 text-sm font-medium mt-1">Gerencie seu terminal de acesso e conexões externas.</p>
@@ -192,7 +190,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ user, onLogout }) => {
             <div className="border border-red-500/20 bg-red-500/5 rounded-3xl p-8">
                 <div className="flex items-start gap-4">
                     <TrashIcon className="w-6 h-6 text-red-500 mt-1" />
-                    <div>
+                    <div className="text-left">
                         <h2 className="text-lg font-black text-white uppercase tracking-tight">Protocolo de Exclusão</h2>
                         <p className="text-sm text-thedeal-gray400 mt-2 leading-relaxed">
                             A exclusão da conta é permanente e irreversível. Todos os seus dados, histórico de deals, certificados e acesso ao ClubAlpha serão destruídos.
@@ -204,9 +202,12 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ user, onLogout }) => {
                 </div>
             </div>
             
-            <footer className="text-center opacity-20 py-10">
+            <footer className="text-center opacity-30 py-10 flex flex-col items-center gap-2">
                  <p className="text-[8px] font-black text-thedeal-gray600 uppercase tracking-[0.5em]">
-                    CONFIGURAÇÕES DE TERMINAL • v3.0.42
+                    THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO
+                </p>
+                <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-md">
+                    A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
                 </p>
             </footer>
         </div>

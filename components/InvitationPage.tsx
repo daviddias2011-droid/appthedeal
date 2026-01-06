@@ -46,8 +46,11 @@ const InvitationPage: React.FC<InvitationPageProps> = ({ onBack, onSignupSuccess
                 </div>
             </main>
 
-            <footer className="py-8 md:py-12 border-t border-white/5 flex flex-col items-center justify-center px-4 md:px-6 opacity-30">
-                <p className="text-[7px] md:text-[8px] font-black text-thedeal-gray700 uppercase tracking-[0.4em] md:tracking-[0.5em] text-center">Protocolo de Expansão Privada • v3.0</p>
+            <footer className="py-8 md:py-12 border-t border-white/5 flex flex-col items-center justify-center px-4 md:px-6 opacity-30 gap-3">
+                <p className="text-[7px] md:text-[8px] font-black text-thedeal-gray700 uppercase tracking-[0.4em] md:tracking-[0.5em] text-center">THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO</p>
+                <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-lg mx-auto text-center leading-relaxed">
+                    A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
+                </p>
             </footer>
         </div>
     );

@@ -9,7 +9,7 @@ interface InvestorPageProps {
 
 const InvestorPage: React.FC<InvestorPageProps> = ({ onBack }) => {
     return (
-        <div className="min-h-screen bg-black text-white selection:bg-thedeal-gold selection:text-black">
+        <div className="min-h-screen bg-black text-white selection:bg-thedeal-gold selection:text-black text-left">
             <nav className="fixed top-0 left-0 right-0 z-[100] bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20 transition-all">
                 <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
                     <div className="flex flex-col items-start gap-1 cursor-pointer group" onClick={onBack}>
@@ -36,20 +36,20 @@ const InvestorPage: React.FC<InvestorPageProps> = ({ onBack }) => {
                     <h1 className="text-5xl md:text-8xl font-black font-display tracking-tighter mb-8 leading-[0.9] uppercase">
                         O PRÓXIMO <br/> <span className="text-thedeal-gold">GRANDE DEAL.</span>
                     </h1>
-                    <p className="text-lg md:text-xl text-thedeal-gray400 max-w-2xl mx-auto font-light leading-relaxed">
+                    <p className="text-lg md:text-xl text-thedeal-gray400 max-w-2xl mx-auto font-light leading-relaxed text-center">
                         Investindo na infraestrutura que formaliza a Creator Economy. Onde a atenção vira ativo financeiro real.
                     </p>
                 </header>
 
-                <div className="grid md:grid-cols-2 gap-12 mb-32">
-                    <div className="p-10 bg-thedeal-card border border-white/5 rounded-[3rem] space-y-6">
+                <div className="grid md:grid-cols-2 gap-12 mb-32 text-left">
+                    <div className="p-10 bg-thedeal-card border border-white/5 rounded-[3rem] space-y-6 text-left">
                         <Globe className="text-thedeal-gold" size={40} />
                         <h3 className="text-2xl font-black uppercase tracking-tight">Tese: LTV Economy</h3>
                         <p className="text-thedeal-gray400 leading-relaxed font-medium">
                             Não somos mais um marketplace. Somos uma rede de governança que resolve o problema de retenção (LTV) e escala comercial para marcas através de criadores auditados.
                         </p>
                     </div>
-                    <div className="p-10 bg-thedeal-card border border-white/5 rounded-[3rem] space-y-6">
+                    <div className="p-10 bg-thedeal-card border border-white/5 rounded-[3rem] space-y-6 text-left">
                         <Shield className="text-thedeal-gold" size={40} />
                         <h3 className="text-2xl font-black uppercase tracking-tight">Infraestrutura Alpha</h3>
                         <p className="text-thedeal-gray400 leading-relaxed font-medium">
@@ -58,17 +58,19 @@ const InvestorPage: React.FC<InvestorPageProps> = ({ onBack }) => {
                     </div>
                 </div>
 
-                <section className="bg-gradient-to-br from-thedeal-card to-black border-2 border-thedeal-gold/20 p-12 md:p-24 rounded-[4rem] text-center">
+                <section className="bg-gradient-to-br from-thedeal-card to-black border-2 border-thedeal-gold/20 p-12 md:p-24 rounded-[4rem] text-center pb-20 mx-auto">
                     <Handshake size={60} className="text-thedeal-gold mx-auto mb-10" />
                     <h2 className="text-3xl md:text-5xl font-black uppercase mb-8">Conversas Estratégicas</h2>
-                    <p className="text-thedeal-gray400 mb-12 max-w-xl mx-auto">Interessado em participar da nossa rodada de expansão privada? Solicite acesso ao Data Room Alpha.</p>
-                    <button className="bg-thedeal-goldBright text-black font-black px-12 py-5 rounded-2xl uppercase text-[10px] tracking-widest hover:scale-105 transition-all shadow-xl shadow-thedeal-gold/20">Solicitar Reunião</button>
+                    <p className="text-thedeal-gray400 mb-12 max-w-xl mx-auto text-center">Interessado em participar da nossa rodada de expansão privada? Solicite acesso ao Data Room Alpha.</p>
+                    <button className="bg-thedeal-goldBright text-black font-black px-12 py-5 rounded-2xl uppercase text-[10px] tracking-widest hover:scale-105 transition-all shadow-xl shadow-thedeal-gold/20 mx-auto">Solicitar Reunião</button>
+                    <div className="space-y-4 opacity-30 mt-20 text-center">
+                        <p className="text-[8px] font-black uppercase tracking-[0.5em] text-thedeal-gray600">THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO</p>
+                        <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-lg mx-auto leading-relaxed">
+                            A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
+                        </p>
+                    </div>
                 </section>
             </main>
-
-            <footer className="py-20 border-t border-white/5 text-center opacity-30">
-                <p className="text-[8px] font-black uppercase tracking-[0.5em]">THE DEAL VENTURES • PRIVATE NETWORK</p>
-            </footer>
         </div>
     );
 };

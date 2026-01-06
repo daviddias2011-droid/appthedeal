@@ -35,7 +35,7 @@ const WelcomePage: React.FC<WelcomePageProps> = ({ userName, onContinue }) => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center p-6 font-sans">
+    <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col items-center justify-center p-6 font-sans">
       <div className="max-w-3xl w-full bg-thedeal-card border border-white/5 rounded-[3rem] p-8 md:p-16 shadow-2xl relative overflow-hidden animate-float-in">
         {/* Background Effects */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-thedeal-gold to-transparent"></div>
@@ -112,6 +112,13 @@ const WelcomePage: React.FC<WelcomePageProps> = ({ userName, onContinue }) => {
           </div>
         </div>
       </div>
+      
+      <footer className="mt-12 text-center space-y-4 opacity-30">
+          <p className="text-[8px] font-black uppercase tracking-[0.5em] text-thedeal-gray600">THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO</p>
+          <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-lg mx-auto leading-relaxed">
+              A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
+          </p>
+      </footer>
     </div>
   );
 };

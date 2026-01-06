@@ -44,7 +44,7 @@ const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onBack, onGoToSignup })
   ];
 
   return (
-    <div className="min-h-screen bg-thedeal-bg text-thedeal-gray100 animate-fade-in font-sans selection:bg-thedeal-goldBright selection:text-black pb-20">
+    <div className="min-h-screen bg-thedeal-bg text-thedeal-gray100 animate-fade-in font-sans selection:bg-thedeal-goldBright selection:text-black pb-20 text-left">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-[100] bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20 transition-all">
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
@@ -77,13 +77,13 @@ const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onBack, onGoToSignup })
           O Futuro dos <br/>
           <span className="text-thedeal-gold">Negócios de Influência</span>.
         </h1>
-        <p className="text-lg md:text-xl text-thedeal-gray400 leading-relaxed font-medium max-w-3xl mx-auto">
+        <p className="text-lg md:text-xl text-thedeal-gray400 leading-relaxed font-medium max-w-3xl mx-auto text-center">
           Não somos um marketplace de jobs. Somos uma rede de inteligência que formaliza parcerias de alto valor e longo prazo.
         </p>
       </header>
 
       {/* Steps Grid */}
-      <section className="px-6 max-w-6xl mx-auto space-y-12">
+      <section className="px-6 max-w-6xl mx-auto space-y-12 text-left">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {steps.map((step, idx) => (
             <div key={idx} className="bg-thedeal-card border border-thedeal-gray700 rounded-[2rem] p-10 space-y-8 group hover:border-thedeal-gold transition-all relative overflow-hidden">
@@ -113,11 +113,11 @@ const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onBack, onGoToSignup })
       </section>
 
       {/* Values Section */}
-      <section className="py-24 px-6 mt-20 bg-thedeal-card border-y border-thedeal-gray700/50">
+      <section className="py-24 px-6 mt-20 bg-thedeal-card border-y border-thedeal-gray700/50 text-left">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
           <div className="space-y-8">
             <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter">Nosso Compromisso com a <span className="text-thedeal-gold">Verdade.</span></h2>
-            <p className="text-thedeal-gray400 text-lg leading-relaxed">No The Deal, cada parceria é auditada por dados. Não toleramos automação, métricas falsas ou falta de compromisso contratual.</p>
+            <p className="text-thedeal-gray400 text-lg leading-relaxed text-left">No The Deal, cada parceria é auditada por dados. Não toleramos automação, métricas falsas ou falta de compromisso contratual.</p>
             
             <div className="space-y-6">
               {[
@@ -127,7 +127,7 @@ const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onBack, onGoToSignup })
               ].map((v, i) => (
                 <div key={i} className="flex gap-4">
                   <div className="bg-thedeal-gold/10 p-2 rounded-lg h-fit"><v.icon size={20} className="text-thedeal-gold" /></div>
-                  <div>
+                  <div className="text-left">
                     <h4 className="text-white font-bold uppercase text-xs tracking-widest">{v.t}</h4>
                     <p className="text-thedeal-gray400 text-xs mt-1">{v.d}</p>
                   </div>
@@ -135,8 +135,8 @@ const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onBack, onGoToSignup })
               ))}
             </div>
           </div>
-          <div className="relative">
-             <div className="bg-gradient-to-br from-thedeal-gold/20 to-transparent border border-thedeal-gold/30 rounded-[3rem] p-10 md:p-20 text-center">
+          <div className="relative text-center">
+             <div className="bg-gradient-to-br from-thedeal-gold/20 to-transparent border border-thedeal-gold/30 rounded-[3rem] p-10 md:p-20 text-center mx-auto">
                 <TrendingUp size={120} className="text-thedeal-gold mx-auto mb-8 opacity-40" />
                 <p className="text-xl md:text-2xl font-serif italic text-white leading-relaxed">"Onde a atenção vira negócio estruturado, o lucro é inevitável."</p>
              </div>
@@ -144,10 +144,16 @@ const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onBack, onGoToSignup })
         </div>
       </section>
 
-      <div className="text-center mt-20 px-6">
+      <div className="text-center mt-20 px-6 space-y-8">
         <button onClick={onBack} className="text-[10px] font-black uppercase text-thedeal-gray700 hover:text-white tracking-[0.5em] transition-all">
           Retornar à página inicial
         </button>
+        <div className="space-y-4 opacity-30 text-center">
+            <p className="text-[8px] font-black uppercase tracking-[0.5em] text-thedeal-gray600">THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO</p>
+            <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-lg mx-auto leading-relaxed">
+                A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
+            </p>
+        </div>
       </div>
     </div>
   );

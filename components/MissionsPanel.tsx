@@ -177,6 +177,15 @@ export default function MissionsPanel() {
            </div>
         </div>
       </div>
+      
+      <footer className="text-center opacity-30 pt-10 flex flex-col items-center gap-2">
+         <p className="text-[8px] font-black text-thedeal-gray600 uppercase tracking-[0.5em]">
+            THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO
+        </p>
+        <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-md leading-relaxed">
+            A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
+        </p>
+      </footer>
     </div>
   );
 }

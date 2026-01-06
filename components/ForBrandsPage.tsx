@@ -15,7 +15,7 @@ const ForBrandsPage: React.FC<ForBrandsPageProps> = ({ onBack, onGoToSignup }) =
   const handleRequestDemo = () => window.open(WHATSAPP_LINK, '_blank');
 
   return (
-    <div className="min-h-screen bg-thedeal-bg text-thedeal-gray100 animate-fade-in font-sans selection:bg-thedeal-goldBright selection:text-black">
+    <div className="min-h-screen bg-thedeal-bg text-thedeal-gray100 animate-fade-in font-sans selection:bg-thedeal-goldBright selection:text-black text-left">
       {/* Standardized Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-[100] bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20 transition-all">
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
@@ -52,7 +52,7 @@ const ForBrandsPage: React.FC<ForBrandsPageProps> = ({ onBack, onGoToSignup }) =
       </header>
 
       {/* Seção "O Problema" */}
-      <section className="py-24 px-6 max-w-6xl mx-auto">
+      <section className="py-24 px-6 max-w-6xl mx-auto text-left">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-4 uppercase tracking-tight">O Fim da Era da Vaidade</h2>
           <p className="text-xl text-thedeal-gray400 max-w-3xl mx-auto font-medium leading-relaxed">
@@ -88,7 +88,7 @@ const ForBrandsPage: React.FC<ForBrandsPageProps> = ({ onBack, onGoToSignup }) =
       </section>
 
       {/* Seção Benefícios */}
-      <section className="py-24 px-6 bg-thedeal-card border-y border-thedeal-gray700/50">
+      <section className="py-24 px-6 bg-thedeal-card border-y border-thedeal-gray700/50 text-left">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -150,7 +150,7 @@ const ForBrandsPage: React.FC<ForBrandsPageProps> = ({ onBack, onGoToSignup }) =
       </section>
 
       {/* CTA Final */}
-      <section className="py-32 px-6 text-center bg-gradient-to-t from-thedeal-card to-thedeal-bg">
+      <section className="py-32 px-6 text-center bg-gradient-to-t from-thedeal-card to-thedeal-bg pb-20">
         <h2 className="text-4xl md:text-6xl font-display font-bold text-white mb-8 uppercase tracking-tighter leading-none">
           Sua Marca merece <br/> contratos de elite.
         </h2>
@@ -162,11 +162,13 @@ const ForBrandsPage: React.FC<ForBrandsPageProps> = ({ onBack, onGoToSignup }) =
             Agendar Demo
           </button>
         </div>
+        <div className="space-y-4 opacity-30 mt-20">
+            <p className="text-[8px] font-black uppercase tracking-[0.5em] text-thedeal-gray600 text-center">THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO</p>
+            <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] text-center max-w-lg mx-auto leading-relaxed">
+                A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
+            </p>
+        </div>
       </section>
-
-      <footer className="py-12 border-t border-thedeal-gray700/50 text-center">
-        <p className="text-[10px] font-black uppercase text-thedeal-gray700 tracking-[0.4em]">© 2025 THE DEAL NETWORK • PARA MARCAS</p>
-      </footer>
     </div>
   );
 };

@@ -315,9 +315,13 @@ export default function BlacklistPage({ onBack }: BlacklistPageProps) {
         )}
       </main>
 
-      <footer className="py-20 border-t border-white/5 text-center opacity-30">
+      <footer className="py-20 border-t border-white/5 text-center opacity-30 flex flex-col items-center gap-2">
         <p className="text-[8px] font-black uppercase tracking-[0.5em] text-thedeal-gray600">
             THE DEAL BLACKLIST PROTOCOL • © 2025 • GOVERNANÇA ALPHA • V3.0
+        </p>
+        <p className="text-[8px] font-black uppercase tracking-[0.5em] text-thedeal-gray600 text-center">THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO</p>
+        <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-lg mx-auto leading-relaxed">
+            A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
         </p>
       </footer>
     </div>

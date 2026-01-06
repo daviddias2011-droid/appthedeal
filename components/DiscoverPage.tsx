@@ -25,7 +25,7 @@ const DATABASE = {
   ]
 };
 
-export default function DiscoverPage({ onBack }: DiscoverPageProps) {
+export default function DiscoverPage({ onBack, onSignup }: DiscoverPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
@@ -42,7 +42,7 @@ export default function DiscoverPage({ onBack }: DiscoverPageProps) {
   }, [searchQuery, activeTab]);
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans">
+    <div className="min-h-screen bg-black text-white font-sans text-left">
       <nav className="fixed top-0 left-0 right-0 z-[100] bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20">
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
           <div className="flex flex-col items-start gap-1 cursor-pointer group" onClick={onBack}>
@@ -93,7 +93,7 @@ export default function DiscoverPage({ onBack }: DiscoverPageProps) {
             <div key={item.id} className="bg-zinc-950 border border-white/5 rounded-[2rem] p-8 hover:border-thedeal-gold/30 transition-all group">
               <div className="flex items-start justify-between mb-6">
                 <div className="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center font-black text-xl text-thedeal-gold">{item.name.charAt(0)}</div>
-                {item.verified && <CheckCircle2 size={18} className="text-thedeal-gold" />}
+                <div className="text-[8px] font-black uppercase tracking-widest text-thedeal-gold border border-thedeal-gold/20 px-2 py-1 rounded-full">atualizado em jan/2026</div>
               </div>
               <h3 className="text-lg font-black text-white uppercase group-hover:text-thedeal-gold transition-colors">{item.name}</h3>
               <p className="text-[10px] text-thedeal-gray600 uppercase font-black tracking-widest mt-1">{item.niche || item.category}</p>
@@ -105,7 +105,7 @@ export default function DiscoverPage({ onBack }: DiscoverPageProps) {
                 </div>
                 <div>
                   <p className="text-[8px] font-black text-thedeal-gray600 uppercase mb-1">Status</p>
-                  <p className="text-sm font-bold text-thedeal-gold">Verificado</p>
+                  <p className="text-sm font-bold text-thedeal-gold uppercase tracking-tighter">Verified</p>
                 </div>
               </div>
             </div>
@@ -113,7 +113,7 @@ export default function DiscoverPage({ onBack }: DiscoverPageProps) {
         </div>
 
         {/* DISCLAIMER E LINKS DE REMOÇÃO */}
-        <footer className="mt-32 pt-12 border-t border-white/10 space-y-12">
+        <footer className="mt-32 pt-12 border-t border-white/10 space-y-12 pb-20">
             <div className="flex flex-col md:flex-row gap-8 items-start opacity-40">
                 <Info size={24} className="text-thedeal-gold shrink-0" />
                 <p className="text-[10px] text-thedeal-gray400 leading-relaxed font-medium uppercase text-justify">
@@ -122,10 +122,13 @@ export default function DiscoverPage({ onBack }: DiscoverPageProps) {
             </div>
 
             <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                <p className="text-[9px] font-black text-thedeal-gray600 uppercase tracking-[0.4em]">THE DEAL HUB • © 2025</p>
+                <div className="flex flex-col gap-2 text-center md:text-left">
+                    <p className="text-[8px] font-black text-thedeal-gray600 uppercase tracking-[0.5em]">THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO</p>
+                    <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em]">A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR</p>
+                </div>
                 <div className="flex gap-8">
-                    <button className="text-[9px] font-black text-thedeal-gold uppercase tracking-widest hover:underline decoration-thedeal-gold underline-offset-4">Remover meu Perfil</button>
-                    <button className="text-[9px] font-black text-thedeal-gold uppercase tracking-widest hover:underline decoration-thedeal-gold underline-offset-4">Atualizar Dados</button>
+                    <a href="mailto:suporte@thedeal.com.br" className="text-[9px] font-black text-thedeal-gold uppercase tracking-widest hover:underline decoration-thedeal-gold underline-offset-4">Apagar Dados</a>
+                    <button onClick={onSignup} className="text-[9px] font-black text-thedeal-gold uppercase tracking-widest hover:underline decoration-thedeal-gold underline-offset-4">Atualizar Dados</button>
                 </div>
             </div>
         </footer>

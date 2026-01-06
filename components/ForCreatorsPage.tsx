@@ -16,7 +16,7 @@ export default function ForCreatorsPage({ onBack, onGoToSignup, onGoToDiscover }
   const currencyFormatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
 
   return (
-    <div className="min-h-screen bg-thedeal-bg text-thedeal-gray100 font-sans selection:bg-thedeal-goldBright selection:text-black overflow-x-hidden animate-fade-in">
+    <div className="min-h-screen bg-thedeal-bg text-thedeal-gray100 font-sans selection:bg-thedeal-goldBright selection:text-black overflow-x-hidden animate-fade-in text-left">
       
       {/* Standardized Header */}
       <nav className="fixed top-0 left-0 right-0 z-[100] bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20 transition-all">
@@ -58,7 +58,7 @@ export default function ForCreatorsPage({ onBack, onGoToSignup, onGoToDiscover }
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-thedeal-gray100 max-w-3xl mx-auto mb-10 leading-relaxed font-medium">
+          <p className="text-xl md:text-2xl text-thedeal-gray100 max-w-3xl mx-auto mb-10 leading-relaxed font-medium text-center">
             Esqueça permuta e "recebidos". Aqui você negocia Contratos de 12 meses,
             estabilidade financeira com marcas e licenciamento do seu formato original.
           </p>
@@ -91,13 +91,13 @@ export default function ForCreatorsPage({ onBack, onGoToSignup, onGoToDiscover }
           </div>
         </div>
 
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-          <ChevronDown className="w-6 h-6 text-thedeal-gray400" />
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-center">
+          <ChevronDown className="w-6 h-6 text-thedeal-gray400 mx-auto" />
         </div>
       </section>
 
       {/* SEÇÃO: O PROBLEMA */}
-      <section className="py-24 px-6 bg-thedeal-card border-y border-thedeal-gray700/50">
+      <section className="py-24 px-6 bg-thedeal-card border-y border-thedeal-gray700/50 text-left">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-4 uppercase tracking-tight">A Permuta Não Paga Suas Contas</h2>
@@ -148,7 +148,7 @@ export default function ForCreatorsPage({ onBack, onGoToSignup, onGoToDiscover }
       </section>
 
       {/* SEÇÃO: A SOLUÇÃO */}
-      <section className="py-24 px-6 bg-gradient-to-b from-thedeal-card to-thedeal-bg">
+      <section className="py-24 px-6 bg-gradient-to-b from-thedeal-card to-thedeal-bg text-left">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6 uppercase tracking-tight">Como Você Ganha no The Deal</h2>
@@ -234,7 +234,7 @@ export default function ForCreatorsPage({ onBack, onGoToSignup, onGoToDiscover }
                 </div>
               </div>
 
-              <div className="p-10 md:p-14 bg-gradient-to-br from-thedeal-card to-thedeal-bg">
+              <div className="p-10 md:p-14 bg-gradient-to-br from-thedeal-card to-black">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="w-10 h-10 bg-thedeal-success/10 rounded-xl flex items-center justify-center">
                     <Check className="w-5 h-5 text-thedeal-success" />
@@ -267,7 +267,7 @@ export default function ForCreatorsPage({ onBack, onGoToSignup, onGoToDiscover }
       </section>
 
       {/* SEÇÃO: REQUISITOS PARA ENTRAR */}
-      <section className="py-24 px-6 bg-thedeal-card border-y border-thedeal-gray700/50">
+      <section className="py-24 px-6 bg-thedeal-card border-y border-thedeal-gray700/50 text-left">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4 uppercase tracking-tight">Prove seu Valor</h2>
@@ -291,7 +291,7 @@ export default function ForCreatorsPage({ onBack, onGoToSignup, onGoToDiscover }
                 { title: 'Engajamento de Valor', desc: 'Sua audiência deve confiar na sua recomendação.' },
                 { title: 'Formatos Originais', desc: 'Criação de IPs únicos para licenciamento estratégico.' },
               ].map((req, i) => (
-                <div key={req.title} className="bg-thedeal-bg/50 border border-thedeal-gray700 rounded-xl p-6">
+                <div key={req.title} className="bg-thedeal-bg/50 border border-thedeal-gray700 rounded-xl p-6 text-left">
                   <div className="flex items-start gap-3 mb-3">
                     <Check className="w-5 h-5 text-thedeal-success flex-shrink-0 mt-0.5" />
                     <div>
@@ -307,7 +307,7 @@ export default function ForCreatorsPage({ onBack, onGoToSignup, onGoToDiscover }
       </section>
 
       {/* CTA FINAL */}
-      <section className="py-32 px-6 text-center bg-gradient-to-t from-thedeal-card to-thedeal-bg">
+      <section className="py-32 px-6 text-center bg-gradient-to-t from-thedeal-card to-thedeal-bg pb-20">
         <h2 className="text-4xl md:text-7xl font-display font-bold text-white mb-8 uppercase tracking-tighter leading-none">
           Comece sua Jornada<br/>
           de Alta Performance.
@@ -316,12 +316,13 @@ export default function ForCreatorsPage({ onBack, onGoToSignup, onGoToDiscover }
           <span>Começar Agora</span>
           <ArrowRight size={24} />
         </button>
-        <p className="text-thedeal-gray600 text-xs mt-10 font-black uppercase tracking-[0.5em] opacity-40">Entrada livre para Aspirantes · Crescimento por mérito</p>
+        <div className="space-y-4 opacity-30 mt-20 text-center">
+            <p className="text-[8px] font-black uppercase tracking-[0.5em] text-thedeal-gray600">THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO</p>
+            <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-lg mx-auto leading-relaxed">
+                A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
+            </p>
+        </div>
       </section>
-
-      <footer className="py-12 border-t border-thedeal-gray700/50 text-center">
-        <p className="text-[10px] font-black uppercase text-thedeal-gray700 tracking-[0.4em]">© 2025 THE DEAL NETWORK • REDE PRIVADA</p>
-      </footer>
     </div>
   );
 }

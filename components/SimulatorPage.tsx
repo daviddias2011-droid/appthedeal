@@ -548,9 +548,13 @@ const SimulatorPage: React.FC<SimulatorPageProps> = ({ userIsLoggedIn, onRestric
         </aside>
       </div>
 
-      <footer className="text-center opacity-30 pt-20 border-t border-white/5 px-6">
+      <footer className="text-center opacity-30 pt-20 border-t border-white/5 px-6 space-y-4">
         <p className="text-[9px] font-black uppercase tracking-[0.5em] text-thedeal-gray600">
             DADOS BASEADOS EM PESQUISA DE MERCADO BRASILEIRO 2024-2025 • TERMINAL ALPHA v3.0.42
+        </p>
+        <p className="text-[8px] font-black uppercase tracking-[0.5em] text-thedeal-gray600">THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO</p>
+        <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-lg mx-auto leading-relaxed">
+            A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
         </p>
       </footer>
     </div>

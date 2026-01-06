@@ -76,9 +76,12 @@ const AguardandoAprovacao: React.FC<AguardandoAprovacaoProps> = ({ onBackToLandi
           </button>
         </div>
         
-        <p className="mt-12 text-[#404040] text-[9px] font-black uppercase tracking-[0.5em]">
-          Suporte ao Score: compliance@thedeal.com.br
-        </p>
+        <div className="space-y-4 opacity-30 mt-12 text-center">
+            <p className="text-[8px] font-black uppercase tracking-[0.5em] text-thedeal-gray600">THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO</p>
+            <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-lg mx-auto leading-relaxed">
+                A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
+            </p>
+        </div>
       </div>
     </div>
   );
