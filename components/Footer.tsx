@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { DashboardTab, UserType } from '../types';
-import { UserIcon, LayoutGridIcon, ZapIcon, Calculator, Compass, GraduationCap } from 'lucide-react';
+import { UserIcon, LayoutGridIcon, ZapIcon, Calculator, Compass } from 'lucide-react';
 
 interface FooterProps {
     activeTab: DashboardTab;
@@ -15,12 +15,12 @@ const Footer: React.FC<FooterProps> = ({ activeTab, setActiveTab }) => {
         { tab: 'missoes', label: 'Missões', icon: ZapIcon },
         { tab: 'discover', label: 'Descubra', icon: Compass, isCenter: true },
         { tab: 'simulador', label: 'Meu Valor', icon: Calculator },
-        { tab: 'cursos', label: 'Aprenda', icon: GraduationCap },
+        { tab: 'perfil', label: 'Perfil', icon: UserIcon },
     ];
 
     return (
         <div className="fixed bottom-0 left-0 right-0 z-[100] flex justify-center px-4 pb-6 pointer-events-none">
-            <nav className="w-full max-w-lg h-18 bg-[#0D0D0D]/95 backdrop-blur-2xl border border-white/10 rounded-3xl flex justify-around items-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto px-2 relative">
+            <nav className="w-full max-w-md h-18 bg-[#0D0D0D]/95 backdrop-blur-2xl border border-white/10 rounded-3xl flex justify-around items-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto px-2 relative">
                 {navItems.map(item => (
                     item.isCenter ? (
                         <button
