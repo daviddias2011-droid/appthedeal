@@ -75,6 +75,8 @@ export interface Post {
   ctaText?: string;
 }
 
+export type AppView = 'landing' | 'login' | 'invitation' | 'dashboard' | 'validation' | 'welcome' | 'admin-approval' | 'verify-email' | 'how-it-works' | 'missions' | 'academy' | 'simulator' | 'blog' | 'discover' | 'investor' | 'privacy' | 'terms' | 'blacklist' | 'thank-you' | 'pricing';
+
 export interface PortfolioItem {
   id: number;
   creatorId: number;
@@ -108,129 +110,79 @@ export interface Deal {
   };
 }
 
-export interface TrendReport {
-  id: string;
-  title: string;
-  summary: string;
-  fullText: string;
-  date: string;
-}
-
 export interface Transaction {
-  id: number;
-  description: string;
+  id: string;
   date: string;
+  description: string;
   amount: number;
   type: 'credit' | 'debit';
 }
 
 export interface Message {
-  id: number;
+  id: string;
   senderId: number;
   receiverId: number;
   text: string;
   timestamp: string;
 }
 
-export interface Application {
-  id: number;
-  dealId: string;
-  creatorId: number;
-  status: 'pending' | 'approved' | 'rejected';
-  pitch?: string;
-  proposedValue?: number;
-  createdAt: string;
-}
-
-export interface AlphaPost {
-  id: string;
-  authorId: number;
-  text: string;
-  timestamp: string;
-  interestingCount: number;
-  topics?: string[];
-  linkUrl?: string;
-  linkTitle?: string;
-  linkImage?: string;
-}
-
-export interface AlphaComment {
-  id: string;
-  postId: string;
-  authorId: number;
-  text: string;
-  timestamp: string;
-}
-
-export interface GroundingChunk {
-  maps?: {
-    uri: string;
-    title: string;
-  };
-  web?: {
-    uri: string;
-    title: string;
-  };
-}
-
-export interface BlogPost {
-  id: number;
-  title: string;
-  summary: string;
-  content: string;
-  imageUrl: string;
-  author: string;
-  date: string;
-  tags: string[];
-  slug: string;
-}
+export type DashboardTab = 'painel' | 'feed' | 'explorar' | 'missoes' | 'cursos' | 'perfil' | 'roi' | 'carteira' | 'mensagens' | 'empresas' | 'criadores' | 'simulador' | 'pagamentos' | 'contratos' | 'presenca_vip' | 'blacklist' | 'discover' | 'planos' | 'clubalpha';
 
 export type TrackingMethod = 'pixel' | 'landingpage' | 'cupom';
 
-export type AppView = 
-  | 'landing' 
-  | 'login' 
-  | 'invitation' 
-  | 'dashboard' 
-  | 'validation' 
-  | 'welcome' 
-  | 'admin-approval' 
-  | 'participe' 
-  | 'simulator' 
-  | 'blog' 
-  | 'academy' 
-  | 'for-brands' 
-  | 'for-creators' 
-  | 'how-it-works'
-  | 'privacy'
-  | 'terms'
-  | 'investor'
-  | 'discover'
-  | 'blacklist'
-  | 'missions'
-  | 'thank-you'
-  | 'verify-email'; 
+export interface GroundingChunk {
+    maps?: {
+        uri: string;
+        title: string;
+    };
+}
 
-export type DashboardTab = 
-  | 'feed' 
-  | 'explorar' 
-  | 'contratos' 
-  | 'cursos' 
-  | 'mensagens' 
-  | 'simulador' 
-  | 'empresas' 
-  | 'perfil' 
-  | 'painel' 
-  | 'missoes'
-  | 'clubalpha' 
-  | 'deals' 
-  | 'insights' 
-  | 'presenca_vip' 
-  | 'pagamentos' 
-  | 'roi' 
-  | 'carteira' 
-  | 'criadores' 
-  | 'for-brands'
-  | 'discover'
-  | 'blacklist'
-  | 'planos';
+export interface BlogPost {
+    slug: string;
+    title: string;
+    author: string;
+    date: string;
+    summary: string;
+    content: string;
+    imageUrl: string;
+    tags: string[];
+}
+
+export interface TrendReport {
+    id: string;
+    title: string;
+    summary: string;
+    fullText: string;
+    date: string;
+}
+
+export interface AlphaPost {
+    id: string;
+    authorId: number;
+    text: string;
+    timestamp: string;
+    interestingCount: number;
+    topics?: string[];
+    link?: {
+        url: string;
+        title?: string;
+        image?: string;
+    };
+}
+
+export interface AlphaComment {
+    id: string;
+    postId: string;
+    authorId: number;
+    text: string;
+    timestamp: string;
+}
+
+export interface Application {
+    id: number;
+    dealId: string;
+    userId: number;
+    status: 'pending' | 'accepted' | 'rejected';
+    message?: string;
+    proposedValue?: number;
+}

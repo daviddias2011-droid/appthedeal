@@ -23,6 +23,7 @@ import DiscoverPage from './components/DiscoverPage';
 import InvestorPage from './components/InvestorPage';
 import LegalPage from './components/LegalPage';
 import BlacklistPage from './components/Blacklist';
+import PricingPage from './components/PricingPage';
 import { translations } from './translations';
 import { ReferralSystem } from './lib/referral';
 import { BriefcaseIcon, ArrowLeftIcon, ShieldCheck } from './components/Icons';
@@ -89,8 +90,12 @@ const AppContent = () => {
           onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')}
           onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')}
           onGoToBlacklist={() => setView('blacklist')}
+          onGoToPricing={() => setView('pricing')}
           language={language} t={t}
         />;
+      
+      case 'pricing':
+        return <PricingPage onBack={() => setView('landing')} />;
       
       case 'how-it-works':
         return <HowItWorksPage onBack={() => setView('landing')} onGoToSignup={() => setView('invitation')} />;

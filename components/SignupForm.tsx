@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { 
-  AlertCircle, Loader, ArrowRight, ShieldCheck, Zap, Building2, Check, Lock, Eye, EyeOff, Instagram, ChevronLeft, CreditCard, Star, Clock
+  AlertCircle, Loader, ArrowRight, ShieldCheck, Zap, Building2, Check, Lock, Eye, EyeOff, Instagram, ChevronLeft, CreditCard, Star, Clock, User, MessageCircle
 } from 'lucide-react';
 import { UserType } from '../types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
@@ -72,18 +72,27 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
     }
   };
 
+  const handleStep2Submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.socialHandle || !formData.niche || !formData.motivation) {
+      setError('Complete todos os campos do seu perfil profissional.');
+      return;
+    }
+    setStep(3);
+  };
+
   const handlePlanSelection = (plan: 'free' | 'pro') => {
     setFormData({ ...formData, plan });
     if (plan === 'free') {
       finalizeRegistration();
     } else {
-      setStep(3);
+      setStep(4);
     }
   };
 
   const handlePeriodSelection = (period: 'monthly' | 'annual') => {
     setFormData({ ...formData, period });
-    setStep(4);
+    setStep(5);
   };
 
   const finalizeRegistration = async () => {
@@ -98,7 +107,10 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
               full_name: formData.fullName,
               user_type: userType,
               plan: formData.plan,
-              period: formData.plan === 'pro' ? formData.period : 'none'
+              period: formData.plan === 'pro' ? formData.period : 'none',
+              social_handle: formData.socialHandle,
+              niche: formData.niche,
+              motivation: formData.motivation
             }
           }
         });
@@ -145,7 +157,10 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
 
         {step === 1 && (
           <form onSubmit={handleStep1Submit} className="space-y-8">
-            <h3 className="text-xl font-black text-white uppercase tracking-tight">Identidade Alpha</h3>
+            <div className="flex items-center gap-3">
+              <User className="text-thedeal-gold" size={24} />
+              <h3 className="text-xl font-black text-white uppercase tracking-tight">Identidade Alpha</h3>
+            </div>
             <div className="space-y-6">
               <input name="fullName" placeholder="Nome Completo" required value={formData.fullName} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all" />
               <input name="email" type="email" placeholder="Terminal ID (E-mail)" required value={formData.email} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all" />
@@ -165,6 +180,24 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
         )}
 
         {step === 2 && (
+          <form onSubmit={handleStep2Submit} className="space-y-8">
+            <div className="flex items-center gap-3">
+              <Star className="text-thedeal-gold" size={24} />
+              <h3 className="text-xl font-black text-white uppercase tracking-tight">Perfil Profissional</h3>
+            </div>
+            <div className="space-y-6">
+              <input name="socialHandle" placeholder={userType === UserType.Creator ? "@Instagram / TikTok" : "Site / Perfil da Empresa"} required value={formData.socialHandle} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all" />
+              <input name="niche" placeholder="Nicho de Atuação (Ex: Finanças, Saúde)" required value={formData.niche} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all" />
+              <textarea name="motivation" placeholder="O que você busca na rede?" rows={4} required value={formData.motivation} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all resize-none" />
+            </div>
+            <div className="flex gap-4">
+              <button type="button" onClick={() => setStep(1)} className="w-1/3 bg-white/5 border border-white/10 text-white font-black py-5 rounded-2xl text-[10px] uppercase tracking-widest hover:bg-white/10 transition-all">Voltar</button>
+              <button type="submit" className="flex-1 bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-5 rounded-2xl shadow-xl shadow-thedeal-gold/20 flex items-center justify-center gap-3 uppercase text-[10px] tracking-widest transition-all">Continuar</button>
+            </div>
+          </form>
+        )}
+
+        {step === 3 && (
           <div className="animate-fade-in space-y-8">
             <div className="text-center">
               <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-2">Nível de <span className="text-thedeal-gold">Acesso</span></h3>
@@ -196,10 +229,11 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
                 <p className="text-white font-black text-xl">R$ 0,00</p>
               </button>
             </div>
+            <button onClick={() => setStep(2)} className="w-full text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest hover:text-white transition-colors">Voltar</button>
           </div>
         )}
 
-        {step === 3 && (
+        {step === 4 && (
           <div className="animate-fade-in space-y-8">
             <div className="text-center">
               <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-2">Frequência de <span className="text-thedeal-gold">Expansão</span></h3>
@@ -230,11 +264,11 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
                 <ArrowRight className="text-thedeal-gray700 group-hover:text-thedeal-gold transition-colors" />
               </button>
             </div>
-            <button onClick={() => setStep(2)} className="w-full text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest hover:text-white transition-colors">Voltar aos planos</button>
+            <button onClick={() => setStep(3)} className="w-full text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest hover:text-white transition-colors">Voltar aos planos</button>
           </div>
         )}
 
-        {step === 4 && (
+        {step === 5 && (
           <div className="animate-fade-in space-y-10 text-center">
             <div className="space-y-4">
               <div className="w-20 h-20 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto ring-4 ring-thedeal-gold/20">
@@ -267,7 +301,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
               </div>
             </div>
 
-            <button onClick={() => setStep(3)} className="text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest hover:text-white transition-colors">Trocar periodicidade</button>
+            <button onClick={() => setStep(4)} className="text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest hover:text-white transition-colors">Trocar periodicidade</button>
           </div>
         )}
       </div>

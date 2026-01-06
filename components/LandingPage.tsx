@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   LogIn, ArrowRight, Zap, Home, Briefcase, 
-  Menu, X as CloseIcon, Trophy, GraduationCap, LayoutGrid, Building2, HelpCircle, Users, Handshake, Calculator, Compass, AlertOctagon, Sparkles, Star, TrendingUp, ShieldCheck
+  Menu, X as CloseIcon, Trophy, GraduationCap, LayoutGrid, Building2, HelpCircle, Users, Handshake, Calculator, Compass, AlertOctagon, Sparkles, Star, TrendingUp, ShieldCheck, Crown
 } from 'lucide-react';
 import FeedItem from './FeedItem';
 import AccessModal from './AccessModal';
@@ -24,6 +24,7 @@ interface LandingPageProps {
   onGoToSimulator: () => void;
   onGoToDiscover: () => void;
   onGoToBlacklist: () => void;
+  onGoToPricing?: () => void;
   language: Language;
   t: any;
 }
@@ -71,13 +72,14 @@ const TypewriterText = () => {
 export default function LandingPage({ 
   onGoToDemo, onGoToSignup, onGoToForBrands, onGoToForCreators, 
   onGoToHowItWorks, onGoToBlog, onGoToAcademy, onGoToMissions, 
-  onGoToInvestor, onGoToSimulator, onGoToDiscover, onGoToBlacklist, t 
+  onGoToInvestor, onGoToSimulator, onGoToDiscover, onGoToBlacklist, onGoToPricing, t 
  }: LandingPageProps) {
   const [isAccessModalOpen, setIsAccessModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleRequestInvite = () => onGoToSignup('creator');
   const handleRestrictedAction = () => setIsAccessModalOpen(true);
+  const handleRequestDemo = () => window.open("https://wa.me/5519994497796?text=Olá! Gostaria de solicitar uma demonstração do The Deal.", "_blank");
 
   const marcasCarrossel = [
     { nome: 'Shopee', segmento: 'E-commerce', logo: 'https://www.pngmart.com/files/12/Shopee-Logo-Transparent-Background.png' },
@@ -94,9 +96,9 @@ export default function LandingPage({
       id: 1,
       author: "SIGAPAY",
       avatar: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a4/4c/ee/a44cee2c-07bd-af1c-3b5a-74aeeb451e50/Placeholder.mill/400x400bb-75.webp",
-      tag: "FINANÇAS & TECH",
+      tag: "MOBILIDADE URBANA",
       time: "Ativa agora",
-      content: "Embaixadores 2026. Campanha de educação financeira. Buscamos criadores que sabem traduzir o financês.",
+      content: "Embaixadores 2026. Campanha de mobilidade urbana. Buscamos criadores locais em Leme, Encantando, Porto Alegre, Sapucaia do Sul, Ribeirão Preto e Itaquaquecetuba.",
       imageUrl: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop",
       stats: "Exclusivo para membros",
       isDeal: true
@@ -134,6 +136,7 @@ export default function LandingPage({
           <nav className="flex flex-col gap-6 flex-1 max-w-sm mx-auto w-full">
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToMissions(); }} className="text-lg md:text-xl font-bold text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><Trophy size={20} /> MISSÕES</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToAcademy(); }} className="text-lg md:text-xl font-bold text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><GraduationCap size={20} /> ACADEMIA</button>
+            <button onClick={() => { setIsMobileMenuOpen(false); onGoToPricing?.(); }} className="text-lg md:text-xl font-bold text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><Zap size={20} /> PREÇOS</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToSimulator(); }} className="text-lg md:text-xl font-bold text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><Calculator size={20} /> CALCULADORA</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToBlacklist(); }} className="text-lg md:text-xl font-bold text-left hover:text-red-500 flex items-center gap-3 transition-colors text-thedeal-gray400"><AlertOctagon size={20} /> LISTA NEGRA</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToInvestor(); }} className="text-lg md:text-xl font-bold text-left text-thedeal-gold flex items-center gap-3 transition-colors"><Handshake size={20} /> SEJA UM INVESTIDOR</button>
@@ -226,53 +229,80 @@ export default function LandingPage({
             </div>
           </section>
 
-          {/* SEÇÃO DE NÍVEIS E PRECIFICAÇÃO - MOVIDA PARA O FINAL */}
+          {/* SEÇÃO DE NÍVEIS E PRECIFICAÇÃO */}
           <section className="py-20 px-6 bg-black border-t border-thedeal-gray700/30">
             <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl font-display font-black text-white uppercase tracking-tighter">Planos de <span className="text-thedeal-gold">Acesso.</span></h2>
+              <h2 className="text-2xl md:text-3xl font-display font-black text-white uppercase tracking-tighter">Protocolos de <span className="text-thedeal-gold">Expansão.</span></h2>
               <p className="text-thedeal-gray600 text-[10px] font-bold uppercase tracking-[0.3em] mt-2">Escolha seu modo de ingresso na rede</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-8 bg-thedeal-card border border-white/5 rounded-[2rem] space-y-6 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-white font-black text-xl uppercase tracking-tight">Iniciante</h3>
-                  <p className="text-thedeal-gray400 text-xs mt-2 font-medium">Acesso limitado para Aspirantes. Fila de espera manual e sem badge verificado.</p>
+              {/* 1. TRIAGEM */}
+              <div className="p-8 bg-thedeal-card border border-white/5 rounded-[2rem] space-y-6 flex flex-col justify-between hover:border-white/10 transition-all group">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-start">
+                    <h3 className="text-white font-black text-xl uppercase tracking-tight">1. TRIAGEM</h3>
+                    <div className="bg-white/10 text-white/40 px-3 py-1 rounded-full text-[8px] font-black uppercase">Análise</div>
+                  </div>
+                  <p className="text-thedeal-gold font-black text-[10px] uppercase tracking-widest">Acesso sob análise.</p>
+                  <p className="text-thedeal-gray400 text-xs font-medium leading-relaxed">
+                    Sua entrada no ecossistema. Permite criar o perfil para avaliação e usar nossa Calculadora de Valor de Mercado. Você descobre quanto sua marca pessoal vale, mas aguarda na fila de espera.
+                  </p>
                 </div>
                 <div className="pt-6">
-                  <p className="text-3xl font-black text-white">Grátis</p>
+                  <p className="text-3xl font-black text-white">Gratuito</p>
                   <p className="text-[10px] font-black uppercase text-thedeal-gray600 tracking-widest mt-1">Sempre gratuito</p>
                 </div>
               </div>
 
-              <div className="p-8 bg-thedeal-card border-2 border-thedeal-goldBright/40 rounded-[2rem] space-y-6 flex flex-col justify-between shadow-[0_0_30px_rgba(212,175,55,0.1)]">
-                <div>
+              {/* 2. PROFISSIONAL */}
+              <div className="p-8 bg-thedeal-card border-2 border-thedeal-goldBright/40 rounded-[2rem] space-y-6 flex flex-col justify-between shadow-[0_0_30px_rgba(212,175,55,0.1)] hover:scale-[1.02] transition-all group">
+                <div className="space-y-4">
                   <div className="flex justify-between items-start">
-                    <h3 className="text-white font-black text-xl uppercase tracking-tight">Crescimento</h3>
-                    <div className="bg-thedeal-gold text-black px-3 py-1 rounded-full text-[8px] font-black uppercase">Alpha</div>
+                    <h3 className="text-white font-black text-xl uppercase tracking-tight">2. PROFISSIONAL</h3>
+                    <div className="bg-thedeal-gold text-black px-3 py-1 rounded-full text-[8px] font-black uppercase">Express</div>
                   </div>
-                  <p className="text-thedeal-gray400 text-xs mt-2 font-medium">Liberação instantânea, bônus de Deal Score e acesso a contratos fixos.</p>
+                  <p className="text-thedeal-goldBright font-black text-[10px] uppercase tracking-widest">Para quem fecha contratos.</p>
+                  <p className="text-thedeal-gray400 text-xs font-medium leading-relaxed">
+                    Liberação expressa em 48h. Desbloqueia o Licenciamento de Conteúdo e acesso a negócios operacionais de até R$ 20k. Ideal para criadores que buscam fluxo de caixa e validação.
+                  </p>
                 </div>
                 <div className="pt-6">
                   <p className="text-3xl font-black text-thedeal-goldBright">R$ 9,90 <span className="text-sm font-bold text-thedeal-gray600">/mês</span></p>
-                  <p className="text-[10px] font-black uppercase text-thedeal-gold tracking-widest mt-1">Plano Pro Mensal</p>
+                  <p className="text-[10px] font-black uppercase text-thedeal-gray600 tracking-widest mt-1">Cobrado anualmente como Taxa de Credenciamento</p>
                 </div>
               </div>
             </div>
 
-            <div className="mt-12 p-8 bg-gradient-to-br from-thedeal-card to-black border border-thedeal-gold/20 rounded-[2rem] text-center">
-              <div className="w-12 h-12 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Crown size={24} className="text-thedeal-gold" />
+            {/* 3. SÓCIO / ELITE */}
+            <div className="mt-12 p-8 bg-gradient-to-br from-thedeal-card to-black border-2 border-thedeal-gold/20 rounded-[2.5rem] text-center relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+                <Crown size={180} className="text-thedeal-gold" />
               </div>
-              <h3 className="text-xl font-black text-white uppercase tracking-tight">Estrela</h3>
-              <p className="text-thedeal-gray400 text-xs mt-2 mb-6 max-w-xs mx-auto font-medium">Nível Elite reservado para criadores celebridades e grandes marcas enterprise. Acesso via ClubAlpha.</p>
-              <button onClick={handleRestrictedAction} className="text-[10px] font-black text-thedeal-gold uppercase tracking-[0.4em] hover:text-white transition-colors underline decoration-2 underline-offset-8">Solicitar Upgrade de Elite</button>
+              
+              <div className="relative z-10">
+                <div className="w-12 h-12 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Crown size={24} className="text-thedeal-gold" />
+                </div>
+                <h3 className="text-2xl font-black text-white uppercase tracking-tight">3. SÓCIO / ELITE</h3>
+                <p className="text-thedeal-goldBright font-black text-[10px] uppercase tracking-[0.3em] mt-2 mb-4">O topo da cadeia.</p>
+                <p className="text-thedeal-gray400 text-sm mt-2 mb-10 max-w-lg mx-auto font-medium leading-relaxed">
+                  Reservado estritamente para grandes nomes e marcas com capital de investimento. Acesso a negociações de Participação Societária (Equity) e contratos de alto escalão. Atendimento via Concierge.
+                </p>
+                <button 
+                  onClick={handleRequestDemo} 
+                  className="bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black px-12 py-5 rounded-2xl text-xs uppercase tracking-[0.3em] transition-all shadow-xl shadow-thedeal-gold/20 active:scale-95 flex items-center justify-center gap-3 mx-auto"
+                >
+                  SOLICITE UMA DEMONSTRAÇÃO
+                  <ArrowRight size={16} />
+                </button>
+              </div>
             </div>
           </section>
 
           <section className="py-24 px-6 text-center space-y-10">
-            <button onClick={handleRestrictedAction} className="w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black px-8 py-6 rounded-2xl shadow-xl transition-all uppercase text-lg tracking-[0.2em] active:scale-95">
-              Criar Minha Conta
+            <button onClick={handleRestrictedAction} className="w-full bg-white text-black font-black px-8 py-6 rounded-2xl shadow-xl transition-all uppercase text-lg tracking-[0.2em] active:scale-95">
+              Quero Fazer Parte
             </button>
           </section>
         </main>
@@ -302,7 +332,3 @@ export default function LandingPage({
     </div>
   );
 }
-
-const Crown = ({ size, className }: { size: number, className?: string }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>
-);
