@@ -32,6 +32,6 @@ export default defineConfig({
     'process.env.API_KEY': JSON.stringify(process.env.API_KEY || ''),
     'process.env.NEXT_PUBLIC_SUPABASE_URL': JSON.stringify(process.env.NEXT_PUBLIC_SUPABASE_URL || ''),
     'process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY': JSON.stringify(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''),
-    'process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY': JSON.stringify(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ''),
+    'process.env.RESEND_API_KEY': JSON.stringify(process.env.RESEND_API_KEY || ''),
   }
 })

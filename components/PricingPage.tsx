@@ -1,52 +1,17 @@
 
 import React, { useState } from 'react';
-import { Check, Zap, Crown, Loader, AlertCircle, ArrowLeft, Briefcase } from 'lucide-react';
-import { getStripe } from '../lib/stripe';
+import { Check, Zap, Crown, ArrowLeft, Briefcase, ExternalLink } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { supabase } from '../lib/supabase';
+
+const LINK_MENSAL = "https://mpago.la/13NLfeG";
+const LINK_ANUAL = "https://mpago.li/1iwECoa";
 
 export default function PricingPage({ onBack }: { onBack?: () => void }) {
   const { profile } = useAuth();
-  const [loading, setLoading] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
-  const handleCheckout = async (plan: 'pro-mensal' | 'elite-mensal') => {
-    setError(null);
-    if (!profile?.email) {
-      setError("Usuário não identificado.");
-      return;
-    }
-
-    setLoading(plan);
-    try {
-      console.log(`[Alpha Checkout] Iniciando: ${plan}`);
-      
-      const stripe = await getStripe();
-      if (!stripe) throw new Error("Stripe Gateway falhou ao carregar.");
-
-      // Invocação direta da Edge Function no Supabase
-      const { data, error: funcError } = await supabase!.functions.invoke('create-checkout', {
-        body: { 
-          plan: plan, 
-          userEmail: profile.email,
-        }
-      });
-
-      if (funcError) throw funcError;
-      if (!data?.sessionId) throw new Error("Falha ao gerar sessão de pagamento.");
-
-      const { error: stripeError } = await stripe.redirectToCheckout({ 
-        sessionId: data.sessionId 
-      });
-
-      if (stripeError) throw stripeError;
-
-    } catch (err: any) {
-      console.error("[Stripe Failure]:", err);
-      setError(err.message || "Erro no processamento do pagamento.");
-    } finally {
-      setLoading(null);
-    }
+  const handleCheckout = (period: 'monthly' | 'annual') => {
+    const url = period === 'monthly' ? LINK_MENSAL : LINK_ANUAL;
+    window.open(url, '_blank');
   };
 
   const handleRequestDemo = () => window.open("https://wa.me/5519994497796?text=Olá! Gostaria de solicitar uma demonstração do nível Sócio/Elite do The Deal.", "_blank");
@@ -80,13 +45,6 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
           </h1>
           <p className="text-thedeal-gray400 font-medium">Protocolos de Expansão Profissional na Creator Economy.</p>
         </header>
-
-        {error && (
-          <div className="max-w-md mx-auto p-4 bg-red-500/10 border border-red-500/20 rounded-2xl flex items-center gap-3 animate-shake">
-            <AlertCircle className="text-red-500" size={20} />
-            <p className="text-red-500 text-[10px] font-black uppercase tracking-widest">{error}</p>
-          </div>
-        )}
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {/* TRIAGEM */}
@@ -165,11 +123,10 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
             </div>
 
             <button 
-              onClick={() => handleCheckout('pro-mensal')}
-              disabled={!!loading}
-              className="w-full bg-thedeal-gold text-black font-black py-5 rounded-2xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-3 uppercase text-[10px] tracking-widest shadow-xl shadow-thedeal-gold/20"
+              onClick={() => handleCheckout('annual')}
+              className="w-full bg-thedeal-gold text-black font-black py-5 rounded-2xl hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 uppercase text-[10px] tracking-widest shadow-xl shadow-thedeal-gold/20"
             >
-              {loading === 'pro-mensal' ? <Loader className="animate-spin" size={18} /> : "Quero Faturar Agora"}
+              Quero Faturar Agora <ExternalLink size={14} />
             </button>
           </div>
         </div>

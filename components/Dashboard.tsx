@@ -8,13 +8,13 @@ import NewPostInput from './NewPostInput';
 import AdminDashboard from './AdminDashboard';
 import MissionsPanel from './MissionsPanel';
 import SimulatorPage from './SimulatorPage';
-import KnowledgeHub from './KnowledgeHub';
+import AcademyPage from './AcademyPage';
 import PricingPage from './PricingPage';
 import DiscoverPage from './DiscoverPage';
 import BlacklistPage from './Blacklist';
 import { MOCK_POSTS, USERS } from '../constants';
 import { useAuth } from '../contexts/AuthContext';
-import { Briefcase, X, ShieldCheck, AlertTriangle, RefreshCw, CheckCircle, Menu } from 'lucide-react';
+import { Briefcase, CheckCircle, Menu } from 'lucide-react';
 
 interface DashboardProps {
   user: User;
@@ -22,7 +22,7 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
-  const { profile, refreshProfile } = useAuth();
+  const { profile } = useAuth();
   const isAdmin = user.type === UserType.Admin;
   const [activeTab, setActiveTab] = useState<DashboardTab>(isAdmin ? 'painel' : 'feed');
   const [posts, setPosts] = useState<Post[]>(MOCK_POSTS);
@@ -55,20 +55,19 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
             {posts.map(post => <PostCard key={post.id} post={post} isLocked={!currentUser.isVetted && post.type === 'deal'} onAction={() => setActiveTab('planos')} />)}
           </div>
         );
-      case 'discover': return <DiscoverPage onBack={() => setActiveTab('feed')} onSignup={() => setActiveTab('planos')} />;
-      case 'blacklist': return <BlacklistPage onBack={() => setActiveTab('feed')} />;
-      case 'missoes': return <MissionsPanel />;
-      case 'planos': return <PricingPage onBack={() => setActiveTab('feed')} />;
-      case 'cursos': return <KnowledgeHub onNavigateBack={() => setActiveTab('feed')} />;
-      case 'simulador': return <SimulatorPage userIsLoggedIn={true} onRestrictedAction={() => {}} />;
+      case 'discover': return <div className="pb-32"><DiscoverPage onBack={() => setActiveTab('feed')} onSignup={() => setActiveTab('planos')} /></div>;
+      case 'blacklist': return <div className="pb-32"><BlacklistPage onBack={() => setActiveTab('feed')} /></div>;
+      case 'missoes': return <div className="px-4 pb-32"><MissionsPanel /></div>;
+      case 'simulador': return <div className="pb-32"><SimulatorPage userIsLoggedIn={true} onRestrictedAction={() => {}} /></div>;
+      case 'cursos': return <div className="pb-32"><AcademyPage onBack={() => setActiveTab('feed')} t={{}} /></div>;
       case 'perfil':
         return (
-          <div className="animate-fade-in py-6 space-y-8 px-4 pb-32">
-            <h1 className="text-2xl font-black text-white uppercase tracking-tighter">Meu <span className="text-thedeal-gold">Espaço</span></h1>
-            <div className="bg-thedeal-card border border-thedeal-gray700 rounded-3xl p-8 flex flex-col items-center shadow-2xl space-y-6">
-              <img src={currentUser.logoUrl || `https://ui-avatars.com/api/?name=${currentUser.name}&background=C9A961&color=000`} className="w-32 h-32 rounded-3xl border-4 border-thedeal-gold/30 object-cover shadow-2xl" />
-              <div className="text-center space-y-2">
-                <h2 className="text-2xl font-black text-white uppercase tracking-tighter">{currentUser.name}</h2>
+          <div className="animate-fade-in py-6 space-y-8 px-4 pb-32 text-left text-white">
+            <h1 className="text-2xl font-black uppercase tracking-tighter">Meu <span className="text-thedeal-gold">Espaço</span></h1>
+            <div className="bg-thedeal-card border border-thedeal-gray700 rounded-3xl p-8 flex flex-col items-center shadow-2xl space-y-6 text-center">
+              <img src={currentUser.logoUrl || `https://ui-avatars.com/api/?name=${currentUser.name}&background=C9A961&color=000`} className="w-32 h-32 rounded-3xl border-4 border-thedeal-gold/30 object-cover shadow-2xl" alt="Perfil" />
+              <div className="space-y-2">
+                <h2 className="text-2xl font-black uppercase tracking-tighter">{currentUser.name}</h2>
                 <p className="text-thedeal-gold font-black uppercase text-xs tracking-widest opacity-80">@{currentUser.username}</p>
                 <div className="flex gap-3 pt-6 justify-center">
                   <button className="bg-white/5 border border-white/10 text-white px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-white/10">Editar</button>
@@ -78,6 +77,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
             </div>
           </div>
         );
+      case 'planos': return <PricingPage onBack={() => setActiveTab('feed')} />;
       default: return <div className="p-20 text-center text-thedeal-gray600 uppercase font-black tracking-widest">Em Integração.</div>;
     }
   };
@@ -105,7 +105,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
         </div>
       )}
 
-      <main className="w-full max-w-2xl pt-24 min-h-screen">
+      <main className="w-full max-w-2xl pt-24 min-h-screen relative">
         {renderTabContent()}
       </main>
 
