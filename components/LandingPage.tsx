@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   LogIn, ArrowRight, Zap, Home, Briefcase, 
-  Menu, X as CloseIcon, Trophy, GraduationCap, LayoutGrid, Building2, HelpCircle, Users, Handshake, Calculator, Compass, AlertOctagon, Sparkles, Star, TrendingUp, ShieldCheck, Crown
+  Menu, X as CloseIcon, Trophy, GraduationCap, LayoutGrid, Building2, HelpCircle, Users, Handshake, Calculator, Compass, AlertOctagon, Sparkles, Star, TrendingUp, ShieldCheck, Crown, Check
 } from 'lucide-react';
 import FeedItem from './FeedItem';
 import AccessModal from './AccessModal';
@@ -232,8 +232,8 @@ export default function LandingPage({
           {/* SEÇÃO DE NÍVEIS E PRECIFICAÇÃO */}
           <section className="py-20 px-6 bg-black border-t border-thedeal-gray700/30">
             <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl font-display font-black text-white uppercase tracking-tighter">Protocolos de <span className="text-thedeal-gold">Expansão.</span></h2>
-              <p className="text-thedeal-gray600 text-[10px] font-bold uppercase tracking-[0.3em] mt-2">Escolha seu modo de ingresso na rede</p>
+              <h2 className="text-2xl md:text-3xl font-display font-black text-white uppercase tracking-tighter">Escolha como <span className="text-thedeal-gold">você entra.</span></h2>
+              <p className="text-thedeal-gray600 text-[10px] font-bold uppercase tracking-[0.3em] mt-2">Protocolos de Expansão Profissional</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -246,12 +246,24 @@ export default function LandingPage({
                   </div>
                   <p className="text-thedeal-gold font-black text-[10px] uppercase tracking-widest">Acesso sob análise.</p>
                   <p className="text-thedeal-gray400 text-xs font-medium leading-relaxed">
-                    Sua entrada no ecossistema. Permite criar o perfil para avaliação e usar nossa Calculadora de Valor de Mercado. Você descobre quanto sua marca pessoal vale, mas aguarda na fila de espera.
+                    Para quem está chegando agora. Você entra na fila de espera e descobre quanto vale, mas ainda não fecha negócios.
                   </p>
+                  <ul className="space-y-2 mt-4">
+                    <li className="flex items-center gap-2 text-[10px] text-thedeal-gray400 font-bold uppercase"><Check size={12} className="text-thedeal-gray600" /> Cadastro na fila de espera</li>
+                    <li className="flex items-center gap-2 text-[10px] text-thedeal-gray400 font-bold uppercase"><Check size={12} className="text-thedeal-gray600" /> Calculadora de Valor (Descubra seu preço)</li>
+                    <li className="flex items-center gap-2 text-[10px] text-thedeal-gray400 font-bold uppercase"><Check size={12} className="text-thedeal-gray600" /> Perfil em modo visualização</li>
+                  </ul>
                 </div>
-                <div className="pt-6">
-                  <p className="text-3xl font-black text-white">Gratuito</p>
-                  <p className="text-[10px] font-black uppercase text-thedeal-gray600 tracking-widest mt-1">Sempre gratuito</p>
+                <div className="pt-6 space-y-4">
+                  <div>
+                    <p className="text-3xl font-black text-white">GRÁTIS</p>
+                  </div>
+                  <button 
+                    onClick={onGoToSignup ? () => onGoToSignup('creator') : undefined}
+                    className="w-full bg-white/5 border border-white/10 text-white font-black py-4 rounded-xl hover:bg-white/10 transition-all text-[10px] uppercase tracking-widest"
+                  >
+                    Entrar na Fila
+                  </button>
                 </div>
               </div>
 
@@ -262,14 +274,27 @@ export default function LandingPage({
                     <h3 className="text-white font-black text-xl uppercase tracking-tight">2. PROFISSIONAL</h3>
                     <div className="bg-thedeal-gold text-black px-3 py-1 rounded-full text-[8px] font-black uppercase">Express</div>
                   </div>
-                  <p className="text-thedeal-goldBright font-black text-[10px] uppercase tracking-widest">Para quem fecha contratos.</p>
+                  <p className="text-thedeal-goldBright font-black text-[10px] uppercase tracking-widest">Para quem quer faturar.</p>
                   <p className="text-thedeal-gray400 text-xs font-medium leading-relaxed">
-                    Liberação expressa em 48h. Desbloqueia o Licenciamento de Conteúdo e acesso a negócios operacionais de até R$ 20k. Ideal para criadores que buscam fluxo de caixa e validação.
+                    Pule a fila de espera. Tenha seu perfil liberado em até 72h e comece a negociar.
                   </p>
+                  <ul className="space-y-2 mt-4">
+                    <li className="flex items-center gap-2 text-[10px] text-white font-bold uppercase"><Check size={12} className="text-thedeal-gold" /> Aprovação Rápida: Seu perfil ativo em 3 dias</li>
+                    <li className="flex items-center gap-2 text-[10px] text-white font-bold uppercase"><Check size={12} className="text-thedeal-gold" /> Mercado Aberto: Venda fotos, vídeos e feche contratos</li>
+                    <li className="flex items-center gap-2 text-[10px] text-white font-bold uppercase"><Check size={12} className="text-thedeal-gold" /> Capacitação: Acesso liberado aos cursos</li>
+                  </ul>
                 </div>
-                <div className="pt-6">
-                  <p className="text-3xl font-black text-thedeal-goldBright">R$ 9,90 <span className="text-sm font-bold text-thedeal-gray600">/mês</span></p>
-                  <p className="text-[10px] font-black uppercase text-thedeal-gray600 tracking-widest mt-1">Cobrado anualmente como Taxa de Credenciamento</p>
+                <div className="pt-6 space-y-4">
+                  <div>
+                    <p className="text-3xl font-black text-thedeal-goldBright">R$ 9,90 <span className="text-sm font-bold text-thedeal-gray600">/mês</span></p>
+                    <p className="text-[9px] text-thedeal-gray600 font-bold uppercase tracking-widest mt-1">(Cobrado R$ 99,90 uma vez ao ano)</p>
+                  </div>
+                  <button 
+                    onClick={onGoToSignup ? () => onGoToSignup('creator') : undefined}
+                    className="w-full bg-thedeal-gold text-black font-black py-4 rounded-xl hover:brightness-110 transition-all text-[10px] uppercase tracking-widest shadow-xl shadow-thedeal-gold/20"
+                  >
+                    Quero Faturar Agora
+                  </button>
                 </div>
               </div>
             </div>
@@ -285,15 +310,24 @@ export default function LandingPage({
                   <Crown size={24} className="text-thedeal-gold" />
                 </div>
                 <h3 className="text-2xl font-black text-white uppercase tracking-tight">3. SÓCIO / ELITE</h3>
-                <p className="text-thedeal-goldBright font-black text-[10px] uppercase tracking-[0.3em] mt-2 mb-4">O topo da cadeia.</p>
-                <p className="text-thedeal-gray400 text-sm mt-2 mb-10 max-w-lg mx-auto font-medium leading-relaxed">
-                  Reservado estritamente para grandes nomes e marcas com capital de investimento. Acesso a negociações de Participação Societária (Equity) e contratos de alto escalão. Atendimento via Concierge.
+                <p className="text-thedeal-goldBright font-black text-[10px] uppercase tracking-[0.3em] mt-2 mb-4">Para quem joga alto.</p>
+                <p className="text-thedeal-gray400 text-sm mt-2 mb-8 max-w-lg mx-auto font-medium leading-relaxed">
+                  O nível máximo. Acesso a contratos grandes e sociedade em marcas.
                 </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-10">
+                   <div className="flex items-center gap-2 text-[10px] text-white/80 font-bold uppercase justify-center"><Check size={12} className="text-thedeal-gold" /> Tudo do plano Profissional</div>
+                   <div className="flex items-center gap-2 text-[10px] text-white/80 font-bold uppercase justify-center"><Check size={12} className="text-thedeal-gold" /> Grandes Negócios: Contratos acima de R$ 20 mil</div>
+                   <div className="flex items-center gap-2 text-[10px] text-white/80 font-bold uppercase justify-center"><Check size={12} className="text-thedeal-gold" /> Sociedade: Participação nos lucros</div>
+                   <div className="flex items-center gap-2 text-[10px] text-white/80 font-bold uppercase justify-center"><Check size={12} className="text-thedeal-gold" /> Atendimento VIP: Suporte direto</div>
+                </div>
+                <div className="mb-8">
+                   <p className="text-2xl font-black text-white uppercase tracking-widest">SOB APROVAÇÃO</p>
+                </div>
                 <button 
                   onClick={handleRequestDemo} 
                   className="bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black px-12 py-5 rounded-2xl text-xs uppercase tracking-[0.3em] transition-all shadow-xl shadow-thedeal-gold/20 active:scale-95 flex items-center justify-center gap-3 mx-auto"
                 >
-                  SOLICITE UMA DEMONSTRAÇÃO
+                  SOLICITAR ACESSO ELITE
                   <ArrowRight size={16} />
                 </button>
               </div>

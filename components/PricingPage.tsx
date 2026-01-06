@@ -76,9 +76,9 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
       <div className={`p-4 md:p-8 space-y-12 animate-fade-in pb-32 ${onBack ? 'pt-32' : 'pt-12'}`}>
         <header className="text-center space-y-4">
           <h1 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter">
-            Protocolos de <span className="text-thedeal-gold">Expansão.</span>
+            Escolha como <span className="text-thedeal-gold">você entra.</span>
           </h1>
-          <p className="text-thedeal-gray400 font-medium">Escolha seu modo de ingresso na rede.</p>
+          <p className="text-thedeal-gray400 font-medium">Protocolos de Expansão Profissional na Creator Economy.</p>
         </header>
 
         {error && (
@@ -99,19 +99,34 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
               <p className="text-thedeal-gold font-black text-[10px] uppercase tracking-widest mt-2">Acesso sob análise.</p>
             </div>
 
-            <p className="text-thedeal-gray400 text-sm font-medium leading-relaxed mb-10 flex-1">
-              Sua entrada no ecossistema. Permite criar o perfil para avaliação e usar nossa Calculadora de Valor de Mercado. Você descobre quanto sua marca pessoal vale, mas aguarda na fila de espera.
+            <p className="text-thedeal-gray400 text-sm font-medium leading-relaxed mb-8">
+              Para quem está chegando agora. Você entra na fila de espera e descobre quanto vale, mas ainda não fecha negócios.
             </p>
 
+            <ul className="space-y-4 mb-10 flex-1">
+                <li className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-thedeal-gray400">
+                  <Check size={16} className="text-thedeal-gray600 shrink-0" />
+                  <span>Cadastro na fila de espera</span>
+                </li>
+                <li className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-thedeal-gray400">
+                  <Check size={16} className="text-thedeal-gray600 shrink-0" />
+                  <span>Calculadora de Valor (Descubra seu preço)</span>
+                </li>
+                <li className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-thedeal-gray400">
+                  <Check size={16} className="text-thedeal-gray600 shrink-0" />
+                  <span>Perfil em modo visualização</span>
+                </li>
+            </ul>
+
             <div className="mb-10">
-              <p className="text-5xl font-black text-white tracking-tighter">Grátis</p>
+              <p className="text-5xl font-black text-white tracking-tighter">GRÁTIS</p>
             </div>
 
             <button 
-              className="w-full bg-white/5 border border-white/10 text-white font-black py-5 rounded-2xl uppercase text-[10px] tracking-widest disabled:opacity-50"
-              disabled
+              className="w-full bg-white/5 border border-white/10 text-white font-black py-5 rounded-2xl uppercase text-[10px] tracking-widest hover:bg-white/10 transition-all"
+              onClick={() => alert("Você já iniciou seu processo de triagem.")}
             >
-              Acesso Inicial Ativo
+              Entrar na Fila
             </button>
           </div>
 
@@ -122,16 +137,31 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
                 <Zap className="text-thedeal-gold" size={24} />
               </div>
               <h2 className="text-2xl font-black text-white uppercase tracking-tight">2. Profissional</h2>
-              <p className="text-thedeal-goldBright font-black text-[10px] uppercase tracking-widest mt-2">Para quem fecha contratos.</p>
+              <p className="text-thedeal-goldBright font-black text-[10px] uppercase tracking-widest mt-2">Para quem quer faturar.</p>
             </div>
 
-            <p className="text-thedeal-gray400 text-sm font-medium leading-relaxed mb-10 flex-1">
-              Liberação expressa em 48h. Desbloqueia o Licenciamento de Conteúdo e acesso a negócios operacionais de até R$ 20k. Ideal para criadores que buscam fluxo de caixa e validação.
+            <p className="text-thedeal-gray400 text-sm font-medium leading-relaxed mb-8">
+              Pule a fila de espera. Tenha seu perfil liberado em até 72h e comece a negociar.
             </p>
+
+            <ul className="space-y-4 mb-10 flex-1">
+                <li className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-white">
+                  <Check size={16} className="text-thedeal-gold shrink-0" />
+                  <span>Aprovação Rápida: Seu perfil ativo em 3 dias</span>
+                </li>
+                <li className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-white">
+                  <Check size={16} className="text-thedeal-gold shrink-0" />
+                  <span>Mercado Aberto: Venda fotos, vídeos e feche contratos</span>
+                </li>
+                <li className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-white">
+                  <Check size={16} className="text-thedeal-gold shrink-0" />
+                  <span>Capacitação: Acesso liberado aos cursos</span>
+                </li>
+            </ul>
 
             <div className="mb-10">
               <p className="text-5xl font-black text-white tracking-tighter">R$ 9,90<span className="text-sm font-bold text-thedeal-gray600">/mês</span></p>
-              <p className="text-[10px] text-thedeal-gray600 font-black uppercase mt-2">Cobrado anualmente como Taxa de Credenciamento</p>
+              <p className="text-[10px] text-thedeal-gray600 font-black uppercase mt-2">(Cobrado R$ 99,90 uma vez ao ano)</p>
             </div>
 
             <button 
@@ -139,7 +169,7 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
               disabled={!!loading}
               className="w-full bg-thedeal-gold text-black font-black py-5 rounded-2xl hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-3 uppercase text-[10px] tracking-widest shadow-xl shadow-thedeal-gold/20"
             >
-              {loading === 'pro-mensal' ? <Loader className="animate-spin" size={18} /> : "Ativar Credenciamento Profissional"}
+              {loading === 'pro-mensal' ? <Loader className="animate-spin" size={18} /> : "Quero Faturar Agora"}
             </button>
           </div>
         </div>
@@ -155,15 +185,39 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
               <Crown className="text-thedeal-gold" size={32} />
             </div>
             <h2 className="text-3xl font-black text-white uppercase tracking-tight">3. Sócio / Elite</h2>
-            <p className="text-thedeal-goldBright font-black text-[10px] uppercase tracking-[0.3em] mt-2 mb-6">O topo da cadeia.</p>
+            <p className="text-thedeal-goldBright font-black text-[10px] uppercase tracking-[0.3em] mt-2 mb-6">Para quem joga alto.</p>
             <p className="text-thedeal-gray400 text-base max-w-2xl mx-auto font-medium leading-relaxed mb-10">
-              Reservado estritamente para grandes nomes e marcas com capital de investimento. Acesso a negociações de Participação Societária (Equity) e contratos de alto escalão. Atendimento via Concierge.
+              O nível máximo. Acesso a contratos grandes e sociedade em marcas.
             </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-10 text-left">
+                <div className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-white/80">
+                  <Check size={16} className="text-thedeal-gold shrink-0" />
+                  <span>Tudo do plano Profissional</span>
+                </div>
+                <div className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-white/80">
+                  <Check size={16} className="text-thedeal-gold shrink-0" />
+                  <span>Grandes Negócios: Contratos acima de R$ 20 mil</span>
+                </div>
+                <div className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-white/80">
+                  <Check size={16} className="text-thedeal-gold shrink-0" />
+                  <span>Sociedade: Participação nos lucros</span>
+                </div>
+                <div className="flex items-start gap-3 text-xs font-bold uppercase tracking-widest text-white/80">
+                  <Check size={16} className="text-thedeal-gold shrink-0" />
+                  <span>Atendimento VIP: Suporte direto</span>
+                </div>
+            </div>
+
+            <div className="mb-10">
+                <p className="text-2xl font-black text-white uppercase tracking-widest">SOB APROVAÇÃO</p>
+            </div>
+
             <button 
               onClick={handleRequestDemo}
               className="bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black px-12 py-5 rounded-2xl text-xs uppercase tracking-[0.3em] transition-all shadow-xl shadow-thedeal-gold/20 active:scale-95 inline-flex items-center gap-3"
             >
-              SOLICITE UMA DEMONSTRAÇÃO
+              SOLICITAR ACESSO ELITE
               <ArrowLeft className="rotate-180" size={16} />
             </button>
           </div>
