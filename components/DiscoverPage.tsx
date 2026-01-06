@@ -10,25 +10,91 @@ interface DiscoverPageProps {
 
 const DATABASE = {
   influencers: [
-    { id: 1, name: "Whindersson Nunes", niche: "Comédia", location: "São Paulo, SP", followers: "59M", engagement: "4.2%", verified: true },
-    { id: 2, name: "Viih Tube", niche: "Lifestyle", location: "São Paulo, SP", followers: "32M", engagement: "5.8%", verified: true },
-    { id: 5, name: "Virginia Fonseca", niche: "Lifestyle", location: "Goiânia, GO", followers: "48M", engagement: "7.1%", verified: true },
-    { id: 11, name: "Anitta", niche: "Música", location: "Rio de Janeiro, RJ", followers: "65M", engagement: "8.2%", verified: true },
-    { id: 20, name: "Casimiro", niche: "Games", location: "Rio de Janeiro, RJ", followers: "8.9M", engagement: "8.8%", verified: true },
-    // Mock base for testing UI
+    // 1. Beleza & Maquiagem
+    { id: 1, name: "Mari Maria", niche: "Beleza", location: "Brasília/SP", followers: "22M", verified: true },
+    { id: 2, name: "Boca Rosa (Bianca)", niche: "Beleza", location: "São Paulo", followers: "19M", verified: true },
+    { id: 3, name: "Niina Secrets", niche: "Beleza", location: "São Paulo", followers: "4M", verified: true },
+    { id: 4, name: "Franciny Ehlke", niche: "Beleza", location: "Curitiba/SP", followers: "16M", verified: true },
+    { id: 5, name: "Bruna Tavares", niche: "Beleza", location: "Campinas (SP)", followers: "3.5M", verified: true },
+    { id: 6, name: "Camila Loures", niche: "Beleza", location: "Belo Horizonte", followers: "19M", verified: true },
+    { id: 7, name: "Mari Saad", niche: "Beleza", location: "São Paulo", followers: "3.9M", verified: true },
+    { id: 8, name: "Evelyn Regly", niche: "Beleza", location: "Rio de Janeiro", followers: "7M", verified: true },
+    
+    // 2. Fitness & Saúde
+    { id: 21, name: "Renato Cariani", niche: "Fitness", location: "São Paulo", followers: "8M", verified: true },
+    { id: 22, name: "Paulo Muzy", niche: "Fitness", location: "São Paulo", followers: "8.5M", verified: true },
+    { id: 23, name: "Gracyanne Barbosa", niche: "Fitness", location: "Rio de Janeiro", followers: "11M", verified: true },
+    { id: 24, name: "Leo Stronda", niche: "Fitness", location: "Rio de Janeiro", followers: "4M", verified: true },
+    { id: 25, name: "Juju Salimeni", niche: "Fitness", location: "São Paulo", followers: "20M", verified: true },
+    { id: 26, name: "Dr. Barakat", niche: "Saúde", location: "São Paulo", followers: "3M", verified: true },
+    
+    // 3. Finanças & Negócios
+    { id: 41, name: "Thiago Nigro", niche: "Finanças", location: "São Paulo", followers: "9M", verified: true },
+    { id: 42, name: "Nathalia Arcuri", niche: "Finanças", location: "São Paulo", followers: "4M", verified: true },
+    { id: 43, name: "Bruno Perini", niche: "Finanças", location: "São Paulo", followers: "3.5M", verified: true },
+    { id: 44, name: "Carol Dias", niche: "Finanças", location: "São Paulo", followers: "7M", verified: true },
+    { id: 45, name: "Breno Perrucho", niche: "Finanças", location: "Rio de Janeiro", followers: "700K", verified: true },
+    
+    // 4. Humor & Comédia
+    { id: 61, name: "Whindersson Nunes", niche: "Humor", location: "São Paulo/Piauí", followers: "59M", verified: true },
+    { id: 62, name: "Tatá Werneck", niche: "Humor", location: "Rio de Janeiro", followers: "57M", verified: true },
+    { id: 63, name: "Tirullipa", niche: "Humor", location: "Fortaleza/SP", followers: "30M", verified: true },
+    { id: 64, name: "Lucas Rangel", niche: "Humor", location: "Belo Horizonte/SP", followers: "20M", verified: true },
+    { id: 65, name: "GKAY", niche: "Humor", location: "São Paulo", followers: "19M", verified: true },
+    
+    // 5. Games & E-Sports
+    { id: 81, name: "Nobru", niche: "Games", location: "São Paulo", followers: "14M", verified: true },
+    { id: 82, name: "Cerol", niche: "Games", location: "Rio de Janeiro", followers: "9M", verified: true },
+    { id: 83, name: "Loud Coringa", niche: "Games", location: "São Paulo", followers: "12M", verified: true },
+    { id: 84, name: "PlayHard", niche: "Games", location: "São Paulo", followers: "13M", verified: true },
+    { id: 85, name: "Alanzoka", niche: "Games", location: "São Paulo", followers: "3M", verified: true },
+    
+    // 6. Gastronomia & Culinária
+    { id: 101, name: "Paola Carosella", niche: "Gastronomia", location: "São Paulo", followers: "6M", verified: true },
+    { id: 102, name: "Erick Jacquin", niche: "Gastronomia", location: "São Paulo", followers: "3M", verified: true },
+    { id: 103, name: "Rodrigo Hilbert", niche: "Lifestyle", location: "Rio de Janeiro", followers: "5M", verified: true },
+    { id: 104, name: "Ana Maria Braga", niche: "Gastronomia", location: "São Paulo", followers: "13M", verified: true },
+    { id: 105, name: "Rita Lobo", niche: "Gastronomia", location: "São Paulo", followers: "2.5M", verified: true },
+    
+    // 7. Moda & Lifestyle
+    { id: 121, name: "Jade Picon", niche: "Moda", location: "Rio de Janeiro", followers: "22M", verified: true },
+    { id: 122, name: "Flavia Pavanelli", niche: "Moda", location: "São Paulo", followers: "19M", verified: true },
+    { id: 123, name: "Camila Coelho", niche: "Moda", location: "Miami/MG", followers: "10M", verified: true },
+    { id: 124, name: "Nah Cardoso", niche: "Moda", location: "São Paulo", followers: "10M", verified: true },
+    { id: 125, name: "Silvia Braz", niche: "Moda", location: "Rio de Janeiro/SP", followers: "1.5M", verified: true },
+    
+    // 8. Tecnologia & Ciência
+    { id: 141, name: "Iberê (Manual do Mundo)", niche: "Tecnologia", location: "São Paulo", followers: "6M", verified: true },
+    { id: 142, name: "Coisa de Nerd (Leon)", niche: "Tecnologia", location: "Vancouver", followers: "3M", verified: true },
+    { id: 143, name: "Sérgio Sacani", niche: "Ciência", location: "São Paulo", followers: "2M", verified: true },
+    { id: 144, name: "TecMundo", niche: "Tecnologia", location: "São Paulo", followers: "2.5M", verified: true },
+    { id: 145, name: "Átila Iamarino", niche: "Ciência", location: "São Paulo", followers: "1.5M", verified: true },
+    
+    // 9. Viagem & Turismo
+    { id: 161, name: "Estevam Pelo Mundo", niche: "Viagem", location: "Campinas", followers: "2.5M", verified: true },
+    { id: 162, name: "Panda (Passagens Imp.)", niche: "Viagem", location: "Campo Grande", followers: "5M", verified: true },
+    { id: 163, name: "Eliezer", niche: "Lifestyle", location: "São Paulo", followers: "3.5M", verified: true },
+    { id: 164, name: "Emilim Schmitz", niche: "Viagem", location: "SC/Mundo", followers: "2M", verified: true },
+    
+    // 10. Maternidade & Família
+    { id: 181, name: "Viih Tube", niche: "Maternidade", location: "São Paulo", followers: "33M", verified: true },
+    { id: 182, name: "Giovanna Ewbank", niche: "Maternidade", location: "Rio de Janeiro", followers: "30M", verified: true },
+    { id: 183, name: "Lore Improta", niche: "Maternidade", location: "Salvador", followers: "16M", verified: true },
+    { id: 184, name: "Andressa Suita", niche: "Maternidade", location: "Goiânia", followers: "15M", verified: true },
+    { id: 185, name: "Tata Fersoza", niche: "Maternidade", location: "Rio de Janeiro", followers: "15M", verified: true },
   ],
   brands: [
-    { id: 101, name: "Natura", category: "Beleza", location: "São Paulo, SP", campaigns: 12, budget: "Alto", verified: true },
-    { id: 104, name: "Nubank", category: "Fintech", location: "São Paulo, SP", campaigns: 15, budget: "Alto", verified: true },
-    { id: 116, name: "Shopee Brasil", category: "E-commerce", location: "São Paulo, SP", campaigns: 35, budget: "Alto", verified: true },
-    // Mock base for testing UI
+    { id: 1001, name: "Natura", category: "Beleza", location: "São Paulo, SP", verified: true },
+    { id: 1002, name: "Nubank", category: "Fintech", location: "São Paulo, SP", verified: true },
+    { id: 1003, name: "Shopee Brasil", category: "E-commerce", location: "São Paulo, SP", verified: true },
+    { id: 1004, name: "Magalu", category: "Varejo", location: "São Paulo, SP", verified: true },
+    { id: 1005, name: "SIGAPAY", category: "Fintech", location: "São Paulo, SP", verified: true },
   ]
 };
 
 export default function DiscoverPage({ onBack, onSignup }: DiscoverPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('all');
-  const [showFilters, setShowFilters] = useState(false);
 
   const filteredResults = useMemo(() => {
     let results: any[] = [];
@@ -101,7 +167,7 @@ export default function DiscoverPage({ onBack, onSignup }: DiscoverPageProps) {
               <div className="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-white/5">
                 <div>
                   <p className="text-[8px] font-black text-thedeal-gray600 uppercase mb-1">Alcance</p>
-                  <p className="text-sm font-bold text-white">{item.followers || item.campaigns}</p>
+                  <p className="text-sm font-bold text-white">{item.followers || 'Confidencial'}</p>
                 </div>
                 <div>
                   <p className="text-[8px] font-black text-thedeal-gray600 uppercase mb-1">Status</p>
@@ -112,7 +178,6 @@ export default function DiscoverPage({ onBack, onSignup }: DiscoverPageProps) {
           ))}
         </div>
 
-        {/* DISCLAIMER E LINKS DE REMOÇÃO */}
         <footer className="mt-32 pt-12 border-t border-white/10 space-y-12 pb-20">
             <div className="flex flex-col md:flex-row gap-8 items-start opacity-40">
                 <Info size={24} className="text-thedeal-gold shrink-0" />

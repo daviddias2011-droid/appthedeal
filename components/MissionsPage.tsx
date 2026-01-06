@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
-import { ArrowLeft, User, Mail, Phone, FileText, Check, Copy, Trophy, Target, ShieldCheck, Loader, ArrowRight, Briefcase, Zap, Star } from 'lucide-react';
+// FIX: Added missing Users and Clock icons to the lucide-react imports.
+import { ArrowLeft, User, Mail, Phone, FileText, Check, Copy, Trophy, Target, ShieldCheck, Loader, ArrowRight, Briefcase, Zap, Star, Users, Clock } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { ReferralSystem } from '../lib/referral';
 
@@ -147,24 +148,24 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
         {/* EXPLICATIVO DAS MISSÕES */}
         <section className="grid md:grid-cols-3 gap-6">
             <div className="bg-thedeal-card border border-white/5 p-8 rounded-[2rem] flex flex-col gap-4 group hover:border-thedeal-gold/30 transition-all">
-                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-thedeal-gold"><Zap size={20} /></div>
+                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-thedeal-gold"><Users size={20} /></div>
                 <div>
                     <h4 className="text-white font-black uppercase text-xs tracking-widest mb-1">Passo 01</h4>
-                    <p className="text-thedeal-gray400 text-[11px] font-medium leading-relaxed">Convide 2 novos membros que sejam qualificados pela curadoria.</p>
+                    <p className="text-thedeal-gray400 text-[11px] font-medium leading-relaxed">Convide 2 novos membros que sejam aprovados pela nossa curadoria.</p>
                 </div>
             </div>
             <div className="bg-thedeal-card border border-white/5 p-8 rounded-[2rem] flex flex-col gap-4 group hover:border-thedeal-gold/30 transition-all">
                 <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-thedeal-gold"><Briefcase size={20} /></div>
                 <div>
                     <h4 className="text-white font-black uppercase text-xs tracking-widest mb-1">Passo 02</h4>
-                    <p className="text-thedeal-gray400 text-[11px] font-medium leading-relaxed">Conclua pelo menos 1 deal (contrato) através do terminal da rede.</p>
+                    <p className="text-thedeal-gray400 text-[11px] font-medium leading-relaxed">Conclua pelo menos 1 deal (contrato) oficial através do terminal The Deal.</p>
                 </div>
             </div>
             <div className="bg-thedeal-card border border-white/5 p-8 rounded-[2rem] flex flex-col gap-4 group hover:border-thedeal-gold/30 transition-all">
-                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-thedeal-gold"><Star size={20} /></div>
+                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-thedeal-gold"><Clock size={20} /></div>
                 <div>
                     <h4 className="text-white font-black uppercase text-xs tracking-widest mb-1">Passo 03</h4>
-                    <p className="text-thedeal-gray400 text-[11px] font-medium leading-relaxed">Mantenha atividade regular por um período de 6 meses.</p>
+                    <p className="text-thedeal-gray400 text-[11px] font-medium leading-relaxed">Mantenha seu perfil ativo e em conformidade por um período de 6 meses.</p>
                 </div>
             </div>
         </section>
