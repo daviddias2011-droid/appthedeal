@@ -28,6 +28,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout }) => {
         <nav className="hidden xl:flex items-center gap-6">
           <button onClick={() => onNavigate('feed')} className="text-[10px] font-black uppercase tracking-widest text-white hover:text-brand-primary transition-colors">Dashboard</button>
           <button onClick={() => onNavigate('discover')} className="text-[10px] font-black uppercase tracking-widest text-brand-text-secondary hover:text-white transition-colors">Descubra</button>
+          <button onClick={() => onNavigate('blacklist')} className="text-[10px] font-black uppercase tracking-widest text-brand-text-secondary hover:text-white transition-colors">Lista Negra</button>
           <button onClick={() => onNavigate('deals')} className="text-[10px] font-black uppercase tracking-widest text-brand-text-secondary hover:text-white transition-colors">Deals</button>
           <button onClick={() => onNavigate('clubalpha')} className="text-[10px] font-black uppercase tracking-widest text-brand-text-secondary hover:text-white transition-colors">ClubAlpha</button>
           
@@ -57,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout }) => {
         <div className="w-px h-6 bg-brand-border mx-1"></div>
 
         <button 
-          onClick={onNavigate.bind(null, 'perfil')}
+          onClick={() => onNavigate('perfil')}
           className="flex items-center gap-3 pl-2 group"
         >
           <div className="text-right hidden sm:block">

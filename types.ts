@@ -45,7 +45,7 @@ export interface User {
   };
   referral_code?: string;
   total_points?: number;
-  plan?: 'free' | 'pro' | 'alpha';
+  plan?: 'free' | 'pro';
   isEmailVerified?: boolean;
 }
 
@@ -75,7 +75,7 @@ export interface Post {
   ctaText?: string;
 }
 
-export type AppView = 'landing' | 'login' | 'invitation' | 'dashboard' | 'validation' | 'welcome' | 'admin-approval' | 'verify-email' | 'how-it-works' | 'missions' | 'academy' | 'simulator' | 'blog' | 'discover' | 'investor' | 'privacy' | 'terms' | 'thank-you' | 'pricing';
+export type AppView = 'landing' | 'login' | 'invitation' | 'dashboard' | 'validation' | 'welcome' | 'admin-approval' | 'verify-email' | 'how-it-works' | 'missions' | 'academy' | 'simulator' | 'blog' | 'discover' | 'investor' | 'privacy' | 'terms' | 'blacklist' | 'thank-you' | 'pricing';
 
 export interface PortfolioItem {
   id: number;
@@ -100,8 +100,7 @@ export interface Deal {
     name: string;
     logoUrl: string;
   };
-  // Fluxo MVP: pending (criado) -> approved (curadoria ok) -> payment_requested (link enviado) -> paid (confirmado) -> completed (finalizado)
-  status: 'pending' | 'active' | 'approved' | 'payment_requested' | 'paid' | 'completed' | 'in progress' | 'awaiting_signature';
+  status: 'active' | 'in progress' | 'completed' | 'awaiting_signature';
   creatorId?: number;
   deadlineDays?: number;
   briefing?: {
@@ -127,7 +126,7 @@ export interface Message {
   timestamp: string;
 }
 
-export type DashboardTab = 'painel' | 'feed' | 'explorar' | 'missoes' | 'cursos' | 'perfil' | 'roi' | 'carteira' | 'mensagens' | 'empresas' | 'criadores' | 'simulador' | 'pagamentos' | 'contratos' | 'presenca_vip' | 'discover' | 'planos' | 'clubalpha' | 'ai-assist';
+export type DashboardTab = 'painel' | 'feed' | 'explorar' | 'missoes' | 'cursos' | 'perfil' | 'roi' | 'carteira' | 'mensagens' | 'empresas' | 'criadores' | 'simulador' | 'pagamentos' | 'contratos' | 'presenca_vip' | 'blacklist' | 'discover' | 'planos' | 'clubalpha';
 
 export type TrackingMethod = 'pixel' | 'landingpage' | 'cupom';
 

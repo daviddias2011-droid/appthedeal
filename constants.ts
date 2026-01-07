@@ -94,6 +94,20 @@ export const MOCK_POSTS: Post[] = [
     content: '🚗 CAMPANHA ESTACIONAMENTO DIGITAL\nBuscamos criadores para promover o app oficial de estacionamento rotativo. Campanha focada em utilidade e conversão direta.\n📍 Disponível para: SP, PR, RS e SC.',
     stats: { interests: 156, proposals: 42 },
     ctaText: 'Candidatar-se'
+  },
+  {
+    id: 4,
+    type: 'deal',
+    author: {
+      name: 'Shopee',
+      avatar: 'https://www.pngmart.com/files/12/Shopee-Logo-Transparent-Background.png',
+      verified: true,
+      badge: 'MARCA'
+    },
+    timestamp: 'Destaque',
+    content: '🛍️ PROGRAMA DE AFILIADOS SHOPEE 2026\nBuscamos criadores para o novo ciclo de performance. Comissões agressivas, cupons exclusivos e tracking de conversão em tempo real.',
+    stats: { interests: 1205, proposals: 342 },
+    ctaText: 'Ver Programa'
   }
 ];
 
