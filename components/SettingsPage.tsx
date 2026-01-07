@@ -2,15 +2,12 @@
 import React, { useState } from 'react';
 import { User } from '../types';
 import { 
-  ShieldIcon, 
-  LockIcon, 
-  DeviceIcon, 
-  TrashIcon, 
-  CheckCircleIcon,
   Instagram,
   ExternalLink,
   Unlink
 } from 'lucide-react';
+// FIX: Corrected imports - custom icons are in local './Icons' file, not 'lucide-react'.
+import { ShieldIcon, LockIcon, DeviceIcon, TrashIcon, CheckCircleIcon } from './Icons';
 
 interface SettingsPageProps {
     user: User;
@@ -165,7 +162,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ user, onLogout }) => {
             <div className="bg-thedeal-card border border-thedeal-gray700 rounded-3xl overflow-hidden shadow-2xl">
                 <div className="p-5 border-b border-white/5 bg-white/[0.02]">
                     <h2 className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2">
-                        <DeviceIcon className="w-4 h-4 text-thedeal-gold" />
+                        <DeviceIcon className="w-5 h-5 text-thedeal-gold" />
                         Sessões do Terminal
                     </h2>
                 </div>
@@ -206,7 +203,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ user, onLogout }) => {
                  <p className="text-[8px] font-black text-thedeal-gray600 uppercase tracking-[0.5em]">
                     THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO
                 </p>
-                <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-md">
+                <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-md">
                     A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
                 </p>
             </footer>

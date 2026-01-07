@@ -11,7 +11,7 @@ interface InvitationPageProps {
     toggleLanguage: () => void;
     theme: 'light' | 'dark';
     toggleTheme: () => void;
-    onSignupSuccess?: () => void;
+    onSignupSuccess: () => void;
 }
 
 const InvitationPage: React.FC<InvitationPageProps> = ({ onBack, onSignupSuccess }) => {
@@ -19,7 +19,7 @@ const InvitationPage: React.FC<InvitationPageProps> = ({ onBack, onSignupSuccess
         <div className="flex flex-col min-h-screen w-full bg-black text-white selection:bg-brand-primary selection:text-black font-sans max-w-full overflow-x-hidden">
             <nav className="fixed top-0 left-0 right-0 z-[100] bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20 transition-all">
                 <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
-                    <div className="flex flex-col items-start gap-1 cursor-pointer" onClick={onBack}>
+                    <div className="flex flex-col items-start gap-1 cursor-pointer group" onClick={onBack}>
                         <div className="flex items-center gap-3">
                             <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center">
                                 <BriefcaseIcon size={18} className="text-black" />
@@ -42,15 +42,12 @@ const InvitationPage: React.FC<InvitationPageProps> = ({ onBack, onSignupSuccess
                 </div>
                 
                 <div className="max-w-full">
-                  <SignupForm onBack={onBack} onSuccess={() => onSignupSuccess?.()} />
+                  <SignupForm onBack={onBack} onSuccess={() => {}} onRedirectToValidation={onSignupSuccess} />
                 </div>
             </main>
 
             <footer className="py-8 md:py-12 border-t border-white/5 flex flex-col items-center justify-center px-4 md:px-6 opacity-30 gap-3">
                 <p className="text-[7px] md:text-[8px] font-black text-thedeal-gray700 uppercase tracking-[0.4em] md:tracking-[0.5em] text-center">THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO</p>
-                <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-lg mx-auto text-center leading-relaxed">
-                    A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
-                </p>
             </footer>
         </div>
     );

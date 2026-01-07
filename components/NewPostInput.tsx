@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Image, FileText, Send } from 'lucide-react';
+import { Image as ImageIconLucide, FileText, Send } from 'lucide-react';
 
 interface NewPostInputProps {
   userAvatar?: string;
@@ -34,7 +34,7 @@ const NewPostInput: React.FC<NewPostInputProps> = ({ userAvatar, onPublish }) =>
       <div className="flex justify-between items-center mt-5 pt-4 border-t border-thedeal-gray700/30">
         <div className="flex gap-2">
           <button className="p-2.5 hover:bg-white/5 rounded-xl transition-all group">
-            <Image className="w-5 h-5 text-thedeal-gray400 group-hover:text-thedeal-gold" />
+            <ImageIconLucide className="w-5 h-5 text-thedeal-gray400 group-hover:text-thedeal-gold" />
           </button>
           <button className="p-2.5 hover:bg-white/5 rounded-xl transition-all group">
             <FileText className="w-5 h-5 text-thedeal-gray400 group-hover:text-thedeal-gold" />

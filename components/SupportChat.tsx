@@ -1,5 +1,6 @@
+
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Sparkles, Shield, ArrowRight } from 'lucide-react';
+import { MessageCircle, X, Send as SendIconLucide, Sparkles, Shield, ArrowRight } from 'lucide-react';
 import { GoogleGenAI } from '@google/genai';
 
 const SupportChat: React.FC = () => {
@@ -120,7 +121,7 @@ const SupportChat: React.FC = () => {
               disabled={isLoading || !input.trim()}
               className="bg-thedeal-goldBright text-black p-4 rounded-2xl hover:scale-105 active:scale-95 disabled:opacity-30 transition-all shadow-xl shadow-thedeal-gold/20"
             >
-              <Send size={18} />
+              <SendIconLucide size={18} />
             </button>
           </form>
         </div>
