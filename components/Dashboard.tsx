@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { User, DashboardTab, Post, UserType } from '../types';
+import { User, DashboardTab, Post, UserType, Deal } from '../types';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
 import PostCard from './PostCard';
@@ -8,13 +8,14 @@ import NewPostInput from './NewPostInput';
 import AdminDashboard from './AdminDashboard';
 import MissionsPanel from './MissionsPanel';
 import SimulatorPage from './SimulatorPage';
+import AIInsightsPage from './AIInsightsPage';
 import KnowledgeHub from './KnowledgeHub';
 import PricingPage from './PricingPage';
 import DiscoverPage from './DiscoverPage';
-import BlacklistPage from './Blacklist';
 import { MOCK_POSTS, USERS } from '../constants';
 import { useAuth } from '../contexts/AuthContext';
-import { Briefcase, X, ShieldCheck, AlertTriangle, RefreshCw, CheckCircle, Menu } from 'lucide-react';
+import { Briefcase, X, ShieldCheck, CheckCircle, Menu, Zap, LayoutGrid, Calculator, Sparkles, Lock } from 'lucide-react';
+import DealsPage from './DealsPage';
 
 interface DashboardProps {
   user: User;
@@ -24,60 +25,86 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
   const { profile, refreshProfile } = useAuth();
   const isAdmin = user.type === UserType.Admin;
-  const [activeTab, setActiveTab] = useState<DashboardTab>(isAdmin ? 'painel' : 'feed');
+  const [activeTab, setActiveTab] = useState<DashboardTab>(isAdmin ? 'painel' : 'missoes');
   const [posts, setPosts] = useState<Post[]>(MOCK_POSTS);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const currentUser = profile || user;
 
+  const ComingSoonOverlay = ({ title }: { title: string }) => (
+    <div className="flex flex-col items-center justify-center h-[60vh] text-center p-8">
+      <div className="w-20 h-20 bg-thedeal-gold/10 rounded-full flex items-center justify-center mb-6 animate-subtle-pulse">
+        <Lock className="text-thedeal-gold" size={32} />
+      </div>
+      <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-4">{title}</h3>
+      <p className="text-thedeal-gray400 text-sm max-w-sm leading-relaxed uppercase font-bold tracking-widest">
+        Funcionalidade disponível apenas para membros convidados do nível Alpha.
+      </p>
+    </div>
+  );
+
   const renderTabContent = () => {
     switch (activeTab) {
       case 'painel':
-        return <AdminDashboard adminUser={currentUser} allUsers={USERS} allDeals={[]} allApplications={[]} allTransactions={[]} onLogout={onLogout} onUpdateUser={() => {}} onDeleteUser={() => {}} onDeleteDeal={() => {}} onApproveApplication={() => {}} onRejectApplication={() => {}} onMarkAsWonka={() => {}} onAddTransaction={() => {}} onEnterUserView={() => {}} onGoHome={() => setActiveTab('feed')} language="pt" toggleLanguage={() => {}} theme="dark" toggleTheme={() => {}} t={{}} />;
+        return <AdminDashboard adminUser={currentUser} allUsers={USERS} allDeals={[]} allApplications={[]} allTransactions={[]} onLogout={onLogout} onUpdateUser={() => {}} onDeleteUser={() => {}} onDeleteDeal={() => {}} onApproveApplication={() => {}} onRejectApplication={() => {}} onMarkAsWonka={() => {}} onAddTransaction={() => {}} onEnterUserView={() => {}} onGoHome={() => setActiveTab('missoes')} language="pt" toggleLanguage={() => {}} theme="dark" toggleTheme={() => {}} t={{}} />;
+      
       case 'feed':
         return (
           <div className="space-y-6 animate-fade-in px-4 pb-32">
-            <div className="bg-thedeal-card border border-thedeal-gray700 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
-              <div className="flex justify-between items-end mb-4">
-                <div>
-                  <h3 className="text-thedeal-gray400 font-black text-[10px] uppercase tracking-[0.3em] mb-1">Status Alpha</h3>
-                  <div className="text-2xl font-black text-white flex items-center gap-2 uppercase tracking-tighter">
-                    {currentUser.isVetted ? 'Membro PRO' : 'Aspirante'}
-                    {currentUser.isVetted && <CheckCircle className="w-5 h-5 text-thedeal-success" />}
-                  </div>
+             <div className="bg-thedeal-card border border-thedeal-gray700 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+                <h3 className="text-thedeal-gold font-black text-[10px] uppercase tracking-[0.3em] mb-4">Vitrine Alpha</h3>
+                <div className="space-y-4 opacity-50 blur-[2px] pointer-events-none select-none">
+                  <PostCard post={posts[0]} isLocked={true} />
                 </div>
-              </div>
-              <div className="w-full bg-black/40 h-2 rounded-full overflow-hidden border border-white/5">
-                <div className="bg-gradient-to-r from-thedeal-gold to-thedeal-goldBright h-full transition-all duration-1000" style={{ width: `${Math.min((currentUser.total_points || 0) / 10 + 10, 100)}%` }}></div>
-              </div>
-            </div>
-            <NewPostInput onPublish={(c) => setPosts([{ id: Date.now(), type: 'social', timestamp: 'Agora', content: c, stats: { likes: 0 }, author: { name: currentUser.name, avatar: currentUser.logoUrl || '', verified: currentUser.isVetted, badge: currentUser.type.toUpperCase() } }, ...posts])} />
-            {posts.map(post => <PostCard key={post.id} post={post} isLocked={!currentUser.isVetted && post.type === 'deal'} onAction={() => setActiveTab('planos')} />)}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                   <p className="text-white font-black uppercase text-[10px] tracking-[0.4em] bg-black/60 px-6 py-3 rounded-full border border-white/10">Feed em modo demonstração</p>
+                </div>
+             </div>
           </div>
         );
-      case 'discover': return <DiscoverPage onBack={() => setActiveTab('feed')} onSignup={() => setActiveTab('planos')} />;
-      case 'blacklist': return <BlacklistPage onBack={() => setActiveTab('feed')} />;
-      case 'missoes': return <MissionsPanel />;
-      case 'planos': return <PricingPage onBack={() => setActiveTab('feed')} />;
-      case 'cursos': return <KnowledgeHub onNavigateBack={() => setActiveTab('feed')} />;
-      case 'simulador': return <SimulatorPage userIsLoggedIn={true} onRestrictedAction={() => {}} />;
+
+      case 'missoes':
+        return (
+          <div className="space-y-8 animate-fade-in px-4 pb-32">
+            <div className="flex flex-col gap-2 mb-4">
+              <h2 className="text-2xl font-black text-white uppercase tracking-tighter">Oportunidades <span className="text-thedeal-gold">PRO</span></h2>
+              <p className="text-thedeal-gray600 text-[10px] font-bold uppercase tracking-[0.3em]">Onde os deals acontecem</p>
+            </div>
+            <DealsPage deals={[]} onViewDetails={() => {}} currentUserLocation={null} allUsers={[]} onAddDeal={() => {}} userType={currentUser.type} />
+            {/* Mock do MVP */}
+            <div className="space-y-4">
+               {posts.filter(p => p.type === 'deal').map(dealPost => (
+                 <PostCard key={dealPost.id} post={dealPost} onAction={() => setActiveTab('ai-assist')} />
+               ))}
+            </div>
+          </div>
+        );
+
+      case 'ai-assist':
+        return <div className="px-4 pb-32"><AIInsightsPage /></div>;
+
+      case 'simulador':
+        return <div className="px-4 pb-32"><SimulatorPage userIsLoggedIn={true} onRestrictedAction={() => {}} /></div>;
+
       case 'perfil':
         return (
           <div className="animate-fade-in py-6 space-y-8 px-4 pb-32">
-            <h1 className="text-2xl font-black text-white uppercase tracking-tighter">Meu <span className="text-thedeal-gold">Espaço</span></h1>
+            <h1 className="text-2xl font-black text-white uppercase tracking-tighter">Identidade <span className="text-thedeal-gold">Alpha</span></h1>
             <div className="bg-thedeal-card border border-thedeal-gray700 rounded-3xl p-8 flex flex-col items-center shadow-2xl space-y-6">
               <img src={currentUser.logoUrl || `https://ui-avatars.com/api/?name=${currentUser.name}&background=C9A961&color=000`} className="w-32 h-32 rounded-3xl border-4 border-thedeal-gold/30 object-cover shadow-2xl" />
               <div className="text-center space-y-2">
                 <h2 className="text-2xl font-black text-white uppercase tracking-tighter">{currentUser.name}</h2>
-                <p className="text-thedeal-gold font-black uppercase text-xs tracking-widest opacity-80">@{currentUser.username}</p>
-                <div className="flex gap-3 pt-6 justify-center">
-                  <button className="bg-white/5 border border-white/10 text-white px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-white/10">Editar</button>
-                  <button onClick={onLogout} className="bg-red-500/10 border border-red-500/20 text-red-500 px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-red-500/20">Sair</button>
-                </div>
+                <p className="text-thedeal-gold font-black uppercase text-xs tracking-widest opacity-80">Nível {currentUser.plan?.toUpperCase() || 'ASPIRANTE'}</p>
               </div>
             </div>
           </div>
         );
+
+      // DESATIVADOS NO MVP
+      case 'roi': return <ComingSoonOverlay title="Analytics de ROI" />;
+      case 'presenca_vip': return <ComingSoonOverlay title="Mapa de Presença" />;
+      case 'clubalpha': return <ComingSoonOverlay title="Rede Privada ClubAlpha" />;
+      
       default: return <div className="p-20 text-center text-thedeal-gray600 uppercase font-black tracking-widest">Em Integração.</div>;
     }
   };
@@ -86,14 +113,22 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
     <div className="min-h-screen bg-thedeal-bg text-thedeal-gray100 font-sans flex flex-col items-center w-full overflow-x-hidden relative">
       <header className="fixed top-0 left-0 right-0 z-40 bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 p-4 h-16 flex items-center justify-between">
          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center shadow-lg">
               <Briefcase size={18} className="text-black" />
             </div>
             <h1 className="text-lg font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
          </div>
-         <button onClick={() => setIsSidebarOpen(true)} className="p-2 text-thedeal-gray400 hover:text-white bg-white/5 rounded-xl border border-white/10">
-            <Menu size={24} />
-         </button>
+         <div className="flex items-center gap-3">
+            {currentUser.plan === 'pro' && (
+              <div className="hidden sm:flex items-center gap-2 bg-thedeal-gold/10 px-3 py-1 rounded-full border border-thedeal-gold/20">
+                <Zap size={12} className="text-thedeal-gold" />
+                <span className="text-[8px] font-black text-thedeal-gold uppercase tracking-widest">PRO ACTIVE</span>
+              </div>
+            )}
+            <button onClick={() => setIsSidebarOpen(true)} className="p-2 text-thedeal-gray400 hover:text-white bg-white/5 rounded-xl border border-white/10">
+                <Menu size={24} />
+            </button>
+         </div>
       </header>
 
       {isSidebarOpen && (
@@ -109,7 +144,32 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
         {renderTabContent()}
       </main>
 
-      <Footer activeTab={activeTab} setActiveTab={setActiveTab} userType={currentUser.type} />
+      {/* Footer Nav MVP */}
+      <div className="fixed bottom-0 left-0 right-0 z-[100] flex justify-center px-4 pb-6 pointer-events-none">
+            <nav className="w-full max-w-md h-18 bg-[#0D0D0D]/95 backdrop-blur-2xl border border-white/10 rounded-3xl flex justify-around items-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto">
+                {[
+                  { tab: 'missoes', label: 'Deals', icon: Briefcase },
+                  { tab: 'ai-assist', label: 'AI Assist', icon: Sparkles },
+                  { tab: 'simulador', label: 'Cachê', icon: Calculator },
+                  { tab: 'perfil', label: 'Perfil', icon: ShieldCheck },
+                ].map(item => (
+                    <button
+                        key={item.tab}
+                        onClick={() => setActiveTab(item.tab as DashboardTab)}
+                        className={`flex flex-col items-center justify-center gap-1 transition-all flex-1 py-3 h-full group ${
+                            activeTab === item.tab 
+                            ? 'text-thedeal-gold scale-110' 
+                            : 'text-thedeal-gray600 hover:text-white'
+                        }`}
+                    >
+                        <item.icon size={22} strokeWidth={activeTab === item.tab ? 2.5 : 2} className="transition-transform group-active:scale-90" />
+                        <span className={`text-[8px] font-black uppercase tracking-[0.2em] transition-opacity ${activeTab === item.tab ? 'opacity-100' : 'opacity-0'}`}>
+                            {item.label}
+                        </span>
+                    </button>
+                ))}
+            </nav>
+        </div>
     </div>
   );
 };

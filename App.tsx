@@ -22,7 +22,6 @@ import ForCreatorsPage from './components/ForCreatorsPage';
 import DiscoverPage from './components/DiscoverPage';
 import InvestorPage from './components/InvestorPage';
 import LegalPage from './components/LegalPage';
-import BlacklistPage from './components/Blacklist';
 import PricingPage from './components/PricingPage';
 import { translations } from './translations';
 import { ReferralSystem } from './lib/referral';
@@ -42,11 +41,8 @@ const AppContent = () => {
     ReferralSystem.captureFromUrl();
     if (loading) return;
     
-    // Roteamento condicional se logado
     if (profile) {
-      if (!profile.isVetted && (view === 'landing' || view === 'login' || view === 'invitation')) {
-        // Fluxo de redirecionamento para membros não validados
-      } else if (profile.isVetted && (view === 'landing' || view === 'login' || view === 'invitation')) {
+      if (profile.isVetted && (view === 'landing' || view === 'login' || view === 'invitation')) {
         setView('dashboard');
       }
     } else {
@@ -89,7 +85,6 @@ const AppContent = () => {
           onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')}
           onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')}
           onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')}
-          onGoToBlacklist={() => setView('blacklist')}
           onGoToPricing={() => setView('pricing')}
           language={language} t={t}
         />;
@@ -105,9 +100,6 @@ const AppContent = () => {
       
       case 'academy':
         return <AcademyPage onBack={() => setView('landing')} t={t} />;
-
-      case 'blacklist':
-        return <BlacklistPage onBack={() => setView('landing')} />;
 
       case 'thank-you':
         return (
@@ -206,7 +198,7 @@ const AppContent = () => {
         return <InvitationPage onBack={() => setView('landing')} t={t} language={language} toggleLanguage={() => {}} theme="dark" toggleTheme={() => {}} onSignupSuccess={() => setView('thank-you')} />;
       
       default:
-        return <LandingPage onGoToDemo={() => setView('login')} onGoToSignup={() => setView('invitation')} onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')} onGoToForBrands={() => setView('for-brands')} onGoToForCreators={() => setView('for-creators')} onGoToHowItWorks={() => setView('how-it-works')} onGoToHub={() => setView('landing')} onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')} onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')} onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')} onGoToBlacklist={() => setView('blacklist')} language={language} t={t} />;
+        return <LandingPage onGoToDemo={() => setView('login')} onGoToSignup={() => setView('invitation')} onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')} onGoToForBrands={() => setView('for-brands')} onGoToForCreators={() => setView('for-creators')} onGoToHowItWorks={() => setView('how-it-works')} onGoToHub={() => setView('landing')} onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')} onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')} onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')} language={language} t={t} />;
     }
   };
 

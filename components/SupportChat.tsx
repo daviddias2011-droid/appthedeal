@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Sparkles, Shield, ArrowRight } from 'lucide-react';
 import { GoogleGenAI } from '@google/genai';
@@ -43,7 +44,7 @@ const SupportChat: React.FC = () => {
             - Missões The Deal: Plano para conquistar privilégios vitalícios na rede.
             - Requisitos Missão Principal: 2 convites, 6 meses na rede e 1 acordo fechado. Início 01/01/2026.
             - Diga que seu foco é apenas orientar membros ou candidatos sobre a rede The Deal.
-            - Se o usuário perguntar sobre a Iguatemi, Sigapay, Zona Azul ou Shopee, confirme que são parceiros com oportunidades ativas no ecossistema.
+            - Se o usuário perguntar sobre a Iguatemi, Sigapay ou Zona Azul, confirme que são parceiros com oportunidades ativas no ecossistema.
             - NUNCA use as palavras 'Alpha' ou 'Protocolo'. Utilize 'Elite', 'Processo', 'Modelo' ou 'Sistema'.
           `,
         },
