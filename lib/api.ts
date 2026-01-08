@@ -1,47 +1,56 @@
 /**
  * THE DEAL - Alpha API Client
+ * Comunicação resiliente com terminais PHP/MySQL
  */
 
 export const api = {
   async get(endpoint: string) {
     const token = localStorage.getItem('auth_token');
-    const response = await fetch(endpoint, {
-      headers: { 
-        'Authorization': token ? `Bearer ${token}` : '',
-        'Accept': 'application/json'
-      }
-    });
-    return this.handleResponse(response);
+    try {
+      const response = await fetch(endpoint, {
+        headers: { 
+          'Authorization': token ? `Bearer ${token}` : '',
+          'Accept': 'application/json'
+        }
+      });
+      return await this.handleResponse(response);
+    } catch (error: any) {
+      throw error;
+    }
   },
 
   async post(endpoint: string, data: any) {
     const token = localStorage.getItem('auth_token');
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token ? `Bearer ${token}` : '',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-    return this.handleResponse(response);
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token ? `Bearer ${token}` : '',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+      return await this.handleResponse(response);
+    } catch (error: any) {
+      throw error;
+    }
   },
 
   async handleResponse(response: Response) {
     const text = await response.text();
-    let data;
+    const cleanText = text.trim(); // Remove espaços que o PHP pode ter inserido
     
+    let data;
     try {
-      data = text ? JSON.parse(text) : {};
+      data = cleanText ? JSON.parse(cleanText) : {};
     } catch (e) {
-      console.error("Resposta não-JSON detectada:", text);
-      throw new Error('O servidor Alpha retornou um erro inesperado. Verifique os logs do sistema.');
+      console.error("ERRO DE PROTOCOLO ALPHA:", text);
+      throw new Error('Resposta inválida do servidor. Verifique os logs de sistema.');
     }
 
     if (!response.ok) {
-      // Prioriza a mensagem vinda do PHP se existir
-      throw new Error(data.message || `Erro do terminal (Status: ${response.status})`);
+      throw new Error(data.message || `Erro do Terminal (Código: ${response.status})`);
     }
     
     return data;
