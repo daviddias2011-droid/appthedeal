@@ -3,7 +3,7 @@ export type Language = 'pt' | 'en';
 
 export const translations = {
   pt: {
-    headerSlogan: "A rede onde criadores e grandes marcas se conectam para fechar contratos.",
+    headerSlogan: "Rede Social Privada",
     heroTitle: "Onde Criadores e Marcas",
     heroSubtitle: "A infraestrutura de elite para contratos de performance e LTV comercial. Entre como Aspirante, evolua por mérito.",
     heroComplement: "Acesso por qualificação técnica. Inicie sua validação agora.",
@@ -76,7 +76,7 @@ export const translations = {
     loginSubtitle: "Acesso Alpha"
   },
   en: {
-    headerSlogan: "The network where creators and major brands connect to close contracts.",
+    headerSlogan: "Private Social Network",
     heroTitle: "Where Creators and Brands",
     heroSubtitle: "Elite infrastructure for performance and commercial LTV. Join as Aspirant, grow by merit.",
     curationTitle: "Curation System",

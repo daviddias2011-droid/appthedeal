@@ -75,23 +75,11 @@ export interface Post {
   ctaText?: string;
 }
 
-export type AppView = 'landing' | 'login' | 'invitation' | 'dashboard' | 'validation' | 'welcome' | 'admin-approval' | 'verify-email' | 'how-it-works' | 'missions' | 'academy' | 'simulator' | 'blog' | 'discover' | 'investor' | 'privacy' | 'terms' | 'thank-you' | 'pricing' | 'for-brands' | 'for-creators';
-
-// FIX: Added 'blacklist' to the DashboardTab union type.
-export type DashboardTab = 'painel' | 'feed' | 'explorar' | 'missoes' | 'cursos' | 'perfil' | 'roi' | 'carteira' | 'mensagens' | 'empresas' | 'criadores' | 'simulador' | 'pagamentos' | 'contratos' | 'presenca_vip' | 'discover' | 'planos' | 'clubalpha' | 'deals' | 'blacklist';
-
-export interface GroundingChunk {
-    maps?: {
-        uri: string;
-        title: string;
-    };
-}
-
-// FIX: Added missing exported members used across the application.
+export type AppView = 'landing' | 'login' | 'invitation' | 'dashboard' | 'validation' | 'welcome' | 'admin-approval' | 'verify-email' | 'how-it-works' | 'missions' | 'academy' | 'simulator' | 'blog' | 'discover' | 'investor' | 'privacy' | 'terms' | 'blacklist' | 'thank-you' | 'pricing';
 
 export interface PortfolioItem {
   id: number;
-  creatorId: any;
+  creatorId: number;
   title: string;
   brandName: string;
   metric: string;
@@ -107,71 +95,94 @@ export interface Deal {
   value: number;
   isFlashDeal: boolean;
   expiresInHours?: number;
+  commissionRate?: number;
   brand: {
     name: string;
     logoUrl: string;
   };
   status: 'active' | 'in progress' | 'completed' | 'awaiting_signature';
-  commissionRate?: number;
+  creatorId?: number;
+  deadlineDays?: number;
   briefing?: {
     deliverables: string[];
     targetAudience: string;
     toneOfVoice: string;
   };
-  deadlineDays?: number;
-  creatorId?: any;
-}
-
-export interface TrendReport {
-  id: string;
-  title: string;
-  date: string;
-  summary: string;
-  fullText: string;
 }
 
 export interface Transaction {
-  id: number;
-  description: string;
+  id: string;
   date: string;
+  description: string;
   amount: number;
   type: 'credit' | 'debit';
 }
 
 export interface Message {
-  id: number;
-  senderId: any;
-  receiverId: any;
+  id: string;
+  senderId: number;
+  receiverId: number;
   text: string;
   timestamp: string;
 }
 
-export interface AlphaPost {
-  id: string;
-  authorId: any;
-  text: string;
-  timestamp: string;
-  interestingCount: number;
-  topics?: string[];
-}
+export type DashboardTab = 'painel' | 'feed' | 'explorar' | 'missoes' | 'cursos' | 'perfil' | 'roi' | 'carteira' | 'mensagens' | 'empresas' | 'criadores' | 'simulador' | 'pagamentos' | 'contratos' | 'presenca_vip' | 'blacklist' | 'discover' | 'planos' | 'clubalpha';
 
-export interface AlphaComment {
-  id: string;
-  postId: string;
-  authorId: any;
-  text: string;
-  timestamp: string;
+export type TrackingMethod = 'pixel' | 'landingpage' | 'cupom';
+
+export interface GroundingChunk {
+    maps?: {
+        uri: string;
+        title: string;
+    };
 }
 
 export interface BlogPost {
-  slug: string;
-  title: string;
-  author: string;
-  date: string;
-  imageUrl: string;
-  content: string;
-  tags: string[];
-  summary: string;
+    slug: string;
+    title: string;
+    author: string;
+    date: string;
+    summary: string;
+    content: string;
+    imageUrl: string;
+    tags: string[];
 }
 
-export type TrackingMethod = 'pixel' | 'landingpage' | 'cupom';
+export interface TrendReport {
+    id: string;
+    title: string;
+    summary: string;
+    fullText: string;
+    date: string;
+}
+
+export interface AlphaPost {
+    id: string;
+    authorId: number;
+    text: string;
+    timestamp: string;
+    interestingCount: number;
+    topics?: string[];
+    link?: {
+        url: string;
+        title?: string;
+        image?: string;
+    };
+}
+
+export interface AlphaComment {
+    id: string;
+    postId: string;
+    authorId: number;
+    text: string;
+    timestamp: string;
+}
+
+export interface Application {
+    id: number;
+    dealId: string;
+    userId: number;
+    status: 'pending' | 'accepted' | 'rejected';
+    message?: string;
+    proposedValue?: number;
+}
