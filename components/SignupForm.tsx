@@ -4,14 +4,13 @@ import {
   AlertCircle, Loader, ArrowRight, ShieldCheck, Zap, Building2, Check, Lock, Eye, EyeOff, Instagram, ChevronLeft, CreditCard, Star, Clock, User, MessageCircle
 } from 'lucide-react';
 import { UserType } from '../types';
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { api } from '../lib/api';
 
 interface SignupFormProps {
   onBack: () => void;
   onSuccess: () => void;
 }
 
-// LINKS DE PAGAMENTO MERCADO PAGO
 const LINK_PAGAMENTO_MENSAL = "https://mpago.la/13NLfeG";
 const LINK_PAGAMENTO_ANUAL = "https://mpago.li/1iwECoa";
 
@@ -24,8 +23,8 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
 
   const [formData, setFormData] = useState<any>({
     fullName: '', email: '', password: '', confirmPassword: '', phone: '', 
-    plan: 'free', // 'free' | 'pro'
-    period: 'monthly', // 'monthly' | 'annual'
+    plan: 'free', 
+    period: 'monthly', 
     socialHandle: '', niche: '',
     motivation: ''
   });
@@ -34,17 +33,6 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
     const { name, value } = e.target;
     setFormData((prev: any) => ({ ...prev, [name]: value }));
     if (error) setError(null);
-  };
-
-  const checkEmailExists = async (email: string) => {
-    if (!isSupabaseConfigured()) return false;
-    const { data, error } = await supabase!
-      .from('profiles')
-      .select('email')
-      .eq('email', email.toLowerCase())
-      .maybeSingle();
-    
-    return !!data;
   };
 
   const handleStep1Submit = async (e: React.FormEvent) => {
@@ -59,11 +47,9 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
       if (formData.password.length < 6) throw new Error('A chave de segurança deve ter 6+ caracteres.');
       if (formData.password !== formData.confirmPassword) throw new Error('As chaves de segurança não coincidem.');
 
-      const exists = await checkEmailExists(formData.email);
-      if (exists) {
-        throw new Error('Este email já está cadastrado.');
-      }
-
+      // Validar existência via MySQL
+      await api.post('/check_email.php', { email: formData.email });
+      
       setStep(2);
     } catch (err: any) {
       setError(err.message);
@@ -98,24 +84,10 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
   const finalizeRegistration = async () => {
     setLoading(true);
     try {
-      if (isSupabaseConfigured()) {
-        const { error: signupError } = await supabase!.auth.signUp({
-          email: formData.email,
-          password: formData.password,
-          options: {
-            data: {
-              full_name: formData.fullName,
-              user_type: userType,
-              plan: formData.plan,
-              period: formData.plan === 'pro' ? formData.period : 'none',
-              social_handle: formData.socialHandle,
-              niche: formData.niche,
-              motivation: formData.motivation
-            }
-          }
-        });
-        if (signupError) throw signupError;
-      }
+      await api.post('/register.php', {
+        ...formData,
+        userType
+      });
       onSuccess(); 
     } catch (err: any) {
       setError(err.message);
@@ -296,7 +268,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Lock size={14} />
-                  <span className="text-[8px] font-black uppercase tracking-widest">Anti-Fraud</span>
+                  <span className="text-[8px] font-black uppercase tracking-widest">Locaweb MySQL</span>
                 </div>
               </div>
             </div>
