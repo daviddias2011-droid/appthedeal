@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { BlogPost } from '../types';
-import { ArrowLeftIcon, ArrowRightIcon, ZapIcon, BriefcaseIcon } from './Icons';
+import { ArrowLeftIcon, ArrowRightIcon, ZapIcon, BriefcaseIcon, Instagram, Twitter, Video } from 'lucide-react';
+import { KwaiIcon } from './Icons';
 
 interface BlogPageProps {
     posts: BlogPost[];
@@ -16,10 +17,9 @@ const BlogPage: React.FC<BlogPageProps> = ({ posts, onViewArticle, onBack }) => 
         <div className="min-h-screen bg-brand-dark text-brand-text">
             <nav className="fixed top-0 left-0 right-0 z-[100] bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20 transition-all">
                 <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
-                    <div className="flex flex-col items-start gap-1 cursor-pointer" onClick={onBack}>
+                    <div className="flex flex-col items-start gap-1 cursor-pointer group" onClick={onBack}>
                         <div className="flex items-center gap-3">
                             <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center">
-                                {/* FIX: Corrected component name from 'Briefcase' to 'BriefcaseIcon' and applied size prop */}
                                 <BriefcaseIcon size={18} className="text-black" />
                             </div>
                             <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
@@ -28,7 +28,6 @@ const BlogPage: React.FC<BlogPageProps> = ({ posts, onViewArticle, onBack }) => 
                     </div>
                     
                     <button onClick={onBack} className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all">
-                        {/* FIX: ArrowLeftIcon now accepts the size prop after updating Icons.tsx */}
                         <ArrowLeftIcon size={14} className="text-thedeal-gold" />
                         <span className="text-[9px] font-black uppercase tracking-widest text-white">Voltar</span>
                     </button>
@@ -81,6 +80,21 @@ const BlogPage: React.FC<BlogPageProps> = ({ posts, onViewArticle, onBack }) => 
                         </div>
                     </section>
                 )}
+
+                <footer className="py-20 px-6 text-center space-y-10 opacity-60 border-t border-white/5 mt-20">
+                    <div className="flex justify-center gap-8">
+                      <a href="https://www.instagram.com/thedealbrasil?igsh=eDE0NWI3eTl1Y3pt" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Instagram size={22} /></a>
+                      <a href="https://x.com/TheDealBr" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Twitter size={22} /></a>
+                      <a href="https://www.tiktok.com/@thedealbr?_r=1&_t=ZS-92u7SKxtzGy" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Video size={22} /></a>
+                      <a href="https://k.kwai.com/u/@thedeal/Ctxw0sJD" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><KwaiIcon className="w-5 h-5" /></a>
+                    </div>
+                    <div className="space-y-4 opacity-30">
+                        <p className="text-[8px] font-black uppercase tracking-[0.5em]">THE DEAL • © 2026 • TODOS OS DIREITOS RESERVADOS</p>
+                        <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-lg mx-auto leading-relaxed">
+                            A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
+                        </p>
+                    </div>
+                </footer>
             </main>
         </div>
     );

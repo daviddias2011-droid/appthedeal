@@ -1,7 +1,7 @@
 
 import React, { useState, useMemo } from 'react';
-import { Search, Filter, MapPin, Users, Building2, ChevronDown, ArrowLeft, Globe, CheckCircle2, Award, Info } from 'lucide-react';
-import { BriefcaseIcon } from './Icons';
+import { Search, Filter, MapPin, Users, Building2, ChevronDown, ArrowLeft, Globe, CheckCircle2, Award, Info, Instagram, Twitter, Video } from 'lucide-react';
+import { BriefcaseIcon, KwaiIcon } from './Icons';
 
 interface DiscoverPageProps {
   onBack: () => void;
@@ -236,6 +236,13 @@ export default function DiscoverPage({ onBack, onSignup }: DiscoverPageProps) {
         </div>
 
         <footer className="mt-32 pt-12 border-t border-white/10 space-y-12 pb-20">
+            <div className="flex justify-center gap-8">
+              <a href="https://www.instagram.com/thedealbrasil?igsh=eDE0NWI3eTl1Y3pt" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Instagram size={22} /></a>
+              <a href="https://x.com/TheDealBr" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Twitter size={22} /></a>
+              <a href="https://www.tiktok.com/@thedealbr?_r=1&_t=ZS-92u7SKxtzGy" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Video size={22} /></a>
+              <a href="https://k.kwai.com/u/@thedeal/Ctxw0sJD" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><KwaiIcon className="w-5 h-5" /></a>
+            </div>
+
             <div className="flex flex-col md:flex-row gap-8 items-start opacity-40">
                 <Info size={24} className="text-thedeal-gold shrink-0" />
                 <p className="text-[10px] text-thedeal-gray400 leading-relaxed font-medium uppercase text-justify">

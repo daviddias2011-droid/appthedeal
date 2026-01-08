@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
-import { ArrowLeft, Sparkles, Briefcase, PlayCircle, Clock, ArrowRight, Lock, ShieldCheck, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Sparkles, Briefcase, PlayCircle, Clock, ArrowRight, Lock, ShieldCheck, ChevronRight, Instagram, Twitter, Video } from 'lucide-react';
+import { KwaiIcon } from './Icons';
 
 interface Lesson {
   id: string;
@@ -336,13 +337,21 @@ const AcademyPage: React.FC<AcademyPageProps> = ({ onBack, userIsLoggedIn, onRes
                 )}
             </main>
 
-            <footer className="py-20 border-t border-white/5 text-center space-y-4 px-6 opacity-30">
-                <p className="text-[8px] font-black text-white/40 uppercase tracking-[0.6em]">
-                    THE DEAL ACADEMY • © 2025 • REDE PRIVADA
-                </p>
-                <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-lg mx-auto leading-relaxed">
-                    A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
-                </p>
+            <footer className="py-20 border-t border-white/5 text-center space-y-10 px-6 opacity-60">
+                <div className="flex justify-center gap-8">
+                  <a href="https://www.instagram.com/thedealbrasil?igsh=eDE0NWI3eTl1Y3pt" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Instagram size={22} /></a>
+                  <a href="https://x.com/TheDealBr" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Twitter size={22} /></a>
+                  <a href="https://www.tiktok.com/@thedealbr?_r=1&_t=ZS-92u7SKxtzGy" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Video size={22} /></a>
+                  <a href="https://k.kwai.com/u/@thedeal/Ctxw0sJD" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><KwaiIcon className="w-5 h-5" /></a>
+                </div>
+                <div className="space-y-4 opacity-30">
+                  <p className="text-[8px] font-black text-white/40 uppercase tracking-[0.6em]">
+                      THE DEAL ACADEMY • © 2025 • REDE PRIVADA
+                  </p>
+                  <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-lg mx-auto leading-relaxed">
+                      A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
+                  </p>
+                </div>
             </footer>
         </div>
     );

@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { ArrowLeft, Shield, TrendingUp, Globe, Briefcase, Award, Zap, Handshake } from 'lucide-react';
-import { BriefcaseIcon } from './Icons';
+import { ArrowLeft, Shield, TrendingUp, Globe, Briefcase, Award, Zap, Handshake, Instagram, Twitter, Video } from 'lucide-react';
+import { BriefcaseIcon, KwaiIcon } from './Icons';
 
 interface InvestorPageProps {
     onBack: () => void;
@@ -63,13 +63,22 @@ const InvestorPage: React.FC<InvestorPageProps> = ({ onBack }) => {
                     <h2 className="text-3xl md:text-5xl font-black uppercase mb-8">Conversas Estratégicas</h2>
                     <p className="text-thedeal-gray400 mb-12 max-w-xl mx-auto text-center">Interessado em participar da nossa rodada de expansão privada? Solicite acesso ao Data Room Alpha.</p>
                     <button className="bg-thedeal-goldBright text-black font-black px-12 py-5 rounded-2xl uppercase text-[10px] tracking-widest hover:scale-105 transition-all shadow-xl shadow-thedeal-gold/20 mx-auto">Solicitar Reunião</button>
-                    <div className="space-y-4 opacity-30 mt-20 text-center">
+                </section>
+
+                <footer className="py-20 px-6 text-center space-y-10 opacity-60 border-t border-white/5 mt-20">
+                    <div className="flex justify-center gap-8">
+                      <a href="https://www.instagram.com/thedealbrasil?igsh=eDE0NWI3eTl1Y3pt" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Instagram size={22} /></a>
+                      <a href="https://x.com/TheDealBr" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Twitter size={22} /></a>
+                      <a href="https://www.tiktok.com/@thedealbr?_r=1&_t=ZS-92u7SKxtzGy" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Video size={22} /></a>
+                      <a href="https://k.kwai.com/u/@thedeal/Ctxw0sJD" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><KwaiIcon className="w-5 h-5" /></a>
+                    </div>
+                    <div className="space-y-4 opacity-30">
                         <p className="text-[8px] font-black uppercase tracking-[0.5em] text-thedeal-gray600">THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO</p>
                         <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em] max-w-lg mx-auto leading-relaxed">
                             A REDE SOCIAL THE DEAL ESTÁ EM DESENVOLVIMENTO. PODEM OCORRER FALHAS, ENVIE PARA SUPORTE@THEDEAL.COM.BR
                         </p>
                     </div>
-                </section>
+                </footer>
             </main>
         </div>
     );

@@ -1,10 +1,10 @@
 
-import React, { useState } from 'react';
-import { Check, Zap, Crown, ArrowLeft, Briefcase, ExternalLink, HelpCircle, ShieldCheck, MessageCircle } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+import React from 'react';
+import { Check, Zap, Crown, ArrowLeft, Briefcase, ExternalLink, HelpCircle, Instagram, Twitter, Video } from 'lucide-react';
+import { KwaiIcon } from './Icons';
 
-const LINK_CRIADOR = "https://mpago.li/1iwECoa"; // Simulado
-const LINK_MARCA = "https://mpago.la/13NLfeG"; // Simulado
+const LINK_CRIADOR = "https://mpago.li/1EQHmNM";
+const LINK_MARCA = "https://mpago.li/27TLyFa";
 
 export default function PricingPage({ onBack }: { onBack?: () => void }) {
   const handleCheckout = (role: 'creator' | 'brand') => {
@@ -163,6 +163,19 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
                 ))}
             </div>
         </section>
+
+        <footer className="py-20 px-6 text-center space-y-10 opacity-60 border-t border-white/5">
+          <div className="flex justify-center gap-8">
+            <a href="https://www.instagram.com/thedealbrasil?igsh=eDE0NWI3eTl1Y3pt" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Instagram size={22} /></a>
+            <a href="https://x.com/TheDealBr" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Twitter size={22} /></a>
+            <a href="https://www.tiktok.com/@thedealbr?_r=1&_t=ZS-92u7SKxtzGy" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Video size={22} /></a>
+            <a href="https://k.kwai.com/u/@thedeal/Ctxw0sJD" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><KwaiIcon className="w-5 h-5" /></a>
+          </div>
+          <div className="space-y-4 opacity-50">
+            <p className="text-[8px] font-black uppercase tracking-[0.5em]">THE DEAL • CNPJ: 59.440.114/0001-03</p>
+            <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em]">EM DESENVOLVIMENTO • SUPORTE@THEDEAL.COM.BR</p>
+          </div>
+        </footer>
       </div>
     </div>
   );
