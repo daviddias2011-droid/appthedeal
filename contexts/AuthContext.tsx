@@ -6,6 +6,7 @@ interface AuthContextType {
   user: { token: string } | null;
   profile: User | null;
   loading: boolean;
+  connectionError: boolean;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
@@ -17,14 +18,17 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
   const [user, setUser] = useState<{ token: string } | null>(null);
   const [profile, setProfile] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [connectionError, setConnectionError] = useState(false);
 
   const fetchProfile = async (token: string) => {
     try {
       const response = await fetch('/api/perfil.php', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
+      
       if (response.ok) {
         const data = await response.json();
+        setConnectionError(false);
         setProfile({
           id: data.id,
           name: data.full_name || 'Membro Alpha',
@@ -42,9 +46,12 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
         });
       } else if (response.status === 401) {
         signOut();
+      } else {
+        setConnectionError(true);
       }
     } catch (e) {
       console.error("Erro ao carregar perfil Alpha:", e);
+      setConnectionError(true);
     }
   };
 
@@ -111,7 +118,7 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, profile, loading, signIn, signOut, refreshProfile }}>
+    <AuthContext.Provider value={{ user, profile, loading, connectionError, signIn, signOut, refreshProfile }}>
       {children}
     </AuthContext.Provider>
   );
