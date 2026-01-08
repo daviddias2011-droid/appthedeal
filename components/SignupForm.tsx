@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { 
-  AlertCircle, Loader, ArrowRight, ShieldCheck, Zap, Building2, Check, Lock, Star, User, CreditCard, ExternalLink, FileCheck, MessageCircle, Mail
+  Loader, ArrowRight, Zap, Building2, User, CreditCard, ExternalLink, FileCheck, MessageCircle, Mail, CheckCircle2, Star
 } from 'lucide-react';
 import { UserType } from '../types';
 
@@ -13,7 +13,10 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [fileSent, setFileSent] = useState(false);
+  
+  // Estados de validação para o passo 4
+  const [fileSelected, setFileSelected] = useState<File | null>(null);
+  const [actionTaken, setActionTaken] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: '', email: '', phone: '', socialHandle: '', niche: '', motivation: ''
@@ -35,9 +38,37 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
     setStep(prev => prev + 1);
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFileSelected(e.target.files[0]);
+    }
+  };
+
+  const generateMessage = () => {
+    return encodeURIComponent(
+      `Olá! Sou ${formData.fullName} e acabei de realizar o pagamento para acesso THE DEAL.\n\n` +
+      `*DADOS DO CADASTRO:*\n` +
+      `- Perfil: ${userType === UserType.Creator ? 'Criador' : 'Marca'}\n` +
+      `- E-mail: ${formData.email}\n` +
+      `- Handle: ${formData.socialHandle}\n\n` +
+      `*ESTOU ANEXANDO O COMPROVANTE NESTA MENSAGEM.*`
+    );
+  };
+
+  const handleChannelAction = (type: 'wa' | 'mail') => {
+    const message = generateMessage();
+    setActionTaken(true);
+
+    if (type === 'wa') {
+      window.open(`https://wa.me/5519994497796?text=${message}`, '_blank');
+    } else {
+      const subject = encodeURIComponent(`Comprovante THE DEAL - ${formData.fullName}`);
+      window.open(`mailto:suporte@thedeal.com.br?subject=${subject}&body=${message}`, '_self');
+    }
+  };
+
   const handleFinish = () => {
     setLoading(true);
-    // Simula envio de dados e libera para tela de boas vindas
     setTimeout(() => {
       setLoading(false);
       onSuccess();
@@ -50,12 +81,12 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
         <h2 className="text-3xl font-display font-black text-white uppercase tracking-tighter mb-4">Selecione seu <span className="text-thedeal-gold">Perfil</span></h2>
         <div className="grid md:grid-cols-2 gap-6 mt-10">
           <button onClick={() => setUserType(UserType.Creator)} className="group p-10 bg-thedeal-card border border-white/5 rounded-[2.5rem] hover:border-thedeal-gold transition-all text-center space-y-4 shadow-2xl">
-            <div className="w-16 h-16 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto"><Zap className="text-thedeal-gold" size={32} /></div>
+            <div className="w-16 h-16 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto group-hover:bg-thedeal-gold group-hover:text-black transition-colors"><Zap size={32} /></div>
             <h3 className="text-xl font-black text-white uppercase tracking-tight">Sou Criador</h3>
             <p className="text-[10px] font-bold text-thedeal-gray600 uppercase tracking-widest">Performance & LTV</p>
           </button>
           <button onClick={() => setUserType(UserType.Brand)} className="group p-10 bg-thedeal-card border border-white/5 rounded-[2.5rem] hover:border-thedeal-gold transition-all text-center space-y-4 shadow-2xl">
-            <div className="w-16 h-16 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto"><Building2 className="text-thedeal-gold" size={32} /></div>
+            <div className="w-16 h-16 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto group-hover:bg-thedeal-gold group-hover:text-black transition-colors"><Building2 size={32} /></div>
             <h3 className="text-xl font-black text-white uppercase tracking-tight">Sou Marca</h3>
             <p className="text-[10px] font-bold text-thedeal-gray600 uppercase tracking-widest">ROI & Estratégia</p>
           </button>
@@ -100,7 +131,7 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
             <div className="bg-black/40 border border-white/5 p-6 rounded-3xl text-left">
                 <p className="text-white font-black uppercase text-lg">Acesso Anual {userType === UserType.Creator ? 'Criador' : 'Marca'}</p>
                 <p className="text-thedeal-gold font-black text-3xl mt-1">R$ {userType === UserType.Creator ? '297' : '497'}</p>
-                <p className="text-[10px] text-thedeal-gray600 uppercase font-bold mt-4 tracking-widest">Liberação após envio do comprovante.</p>
+                <p className="text-[10px] text-thedeal-gray600 uppercase font-bold mt-4 tracking-widest">O link será aberto em uma nova aba.</p>
             </div>
             <button 
               onClick={() => { window.open(userType === UserType.Creator ? LINK_PAGAMENTO_CRIADOR : LINK_PAGAMENTO_MARCA, '_blank'); setStep(4); }}
@@ -113,33 +144,76 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
         )}
 
         {step === 4 && (
-          <div className="space-y-8">
-            <div className="flex items-center gap-3 mb-4"><FileCheck className="text-thedeal-gold" size={24} /><h3 className="text-xl font-black text-white uppercase tracking-tight">Validar Pagamento</h3></div>
-            <div className="bg-thedeal-gold/5 border border-thedeal-gold/20 p-6 rounded-2xl space-y-4">
-              <p className="text-xs text-white font-bold leading-relaxed">Para liberar seu acesso, envie o comprovante de pagamento para um de nossos canais oficiais:</p>
-              <div className="flex flex-col gap-3">
-                <a href={`https://wa.me/5519994497796?text=Olá! Segue comprovante de pagamento para acesso THE DEAL (${formData.email})`} target="_blank" rel="noreferrer" className="flex items-center gap-3 bg-[#25D366] text-white p-4 rounded-xl font-black text-[10px] uppercase tracking-widest hover:brightness-110">
-                  <MessageCircle size={18}/> Enviar via WhatsApp
-                </a>
-                <a href={`mailto:suporte@thedeal.com.br?subject=Comprovante de Pagamento THE DEAL - ${formData.fullName}&body=Segue em anexo o comprovante para o e-mail ${formData.email}`} className="flex items-center gap-3 bg-white/5 text-white p-4 rounded-xl border border-white/10 font-black text-[10px] uppercase tracking-widest hover:bg-white/10">
-                  <Mail size={18}/> Enviar via E-mail
-                </a>
-              </div>
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 mb-2">
+              <FileCheck className="text-thedeal-gold" size={24} />
+              <h3 className="text-xl font-black text-white uppercase tracking-tight">Etapa Final: Validar</h3>
             </div>
-            <div className="p-6 border-2 border-dashed border-thedeal-gray700 rounded-2xl text-center">
-              <input type="file" id="proof" className="hidden" onChange={() => setFileSent(true)} />
-              <label htmlFor="proof" className="cursor-pointer flex flex-col items-center gap-2">
-                <FileCheck className={fileSent ? "text-thedeal-success" : "text-thedeal-gray600"} size={32} />
-                <span className="text-[10px] font-black uppercase text-thedeal-gray400">{fileSent ? "Comprovante Selecionado" : "Anexar Comprovante (Opcional)"}</span>
+            
+            <p className="text-xs text-thedeal-gray400 font-medium leading-relaxed">Selecione o comprovante e escolha o canal de envio para liberar seu terminal.</p>
+
+            {/* Upload Area */}
+            <div className={`p-8 border-2 border-dashed rounded-3xl text-center transition-all ${fileSelected ? 'border-thedeal-success bg-thedeal-success/5' : 'border-thedeal-gray700 bg-black/20'}`}>
+              <input type="file" id="proof-upload" className="hidden" onChange={handleFileChange} accept="image/*,application/pdf" />
+              <label htmlFor="proof-upload" className="cursor-pointer flex flex-col items-center gap-3">
+                {fileSelected ? (
+                  <>
+                    <CheckCircle2 className="text-thedeal-success" size={40} />
+                    <div className="space-y-1">
+                      <p className="text-white font-black uppercase text-xs">{fileSelected.name}</p>
+                      <p className="text-thedeal-success font-bold text-[9px] uppercase tracking-widest">Arquivo Pronto</p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <FileCheck className="text-thedeal-gray600" size={40} />
+                    <span className="text-[10px] font-black uppercase text-thedeal-gray400 tracking-[0.2em]">Clique para Anexar Comprovante</span>
+                  </>
+                )}
               </label>
             </div>
-            <button 
-              onClick={handleFinish}
-              disabled={loading}
-              className="w-full bg-thedeal-gold text-black font-black py-5 rounded-2xl uppercase text-[10px] tracking-widest disabled:opacity-50"
-            >
-              {loading ? <Loader className="animate-spin mx-auto" size={20}/> : "Já enviei o comprovante"}
-            </button>
+
+            {/* Channels Area */}
+            <div className={`space-y-3 transition-opacity ${!fileSelected ? 'opacity-30 pointer-events-none' : 'opacity-100'}`}>
+              <p className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-widest text-center">Agora, envie o arquivo selecionado:</p>
+              <div className="grid grid-cols-2 gap-3">
+                <button 
+                  onClick={() => handleChannelAction('wa')}
+                  className={`flex items-center justify-center gap-2 p-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${actionTaken ? 'bg-white/5 text-white border border-white/10' : 'bg-[#25D366] text-white shadow-lg shadow-[#25D366]/20 hover:scale-105'}`}
+                >
+                  <MessageCircle size={18}/> WhatsApp
+                </button>
+                <button 
+                  onClick={() => handleChannelAction('mail')}
+                  className={`flex items-center justify-center gap-2 p-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${actionTaken ? 'bg-white/5 text-white border border-white/10' : 'bg-thedeal-gold text-black shadow-lg shadow-thedeal-gold/20 hover:scale-105'}`}
+                >
+                  <Mail size={18}/> E-mail
+                </button>
+              </div>
+            </div>
+
+            {/* Finish Button */}
+            <div className="pt-4">
+              <button 
+                onClick={handleFinish}
+                disabled={loading || !fileSelected || !actionTaken}
+                className="w-full bg-thedeal-goldBright text-black font-black py-6 rounded-2xl uppercase text-[11px] tracking-[0.3em] disabled:opacity-20 disabled:grayscale transition-all shadow-2xl relative overflow-hidden group"
+              >
+                {loading ? <Loader className="animate-spin mx-auto" size={20}/> : (
+                  <span className="flex items-center justify-center gap-3">
+                    Confirmar Envio <CheckCircle2 size={18} />
+                  </span>
+                )}
+                {!loading && fileSelected && actionTaken && (
+                  <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                )}
+              </button>
+              {(!fileSelected || !actionTaken) && (
+                <p className="text-center text-[9px] font-bold text-thedeal-gray600 uppercase mt-4 tracking-widest">
+                  {!fileSelected ? "Anexe o arquivo para prosseguir" : "Selecione o canal de envio acima"}
+                </p>
+              )}
+            </div>
           </div>
         )}
       </div>
