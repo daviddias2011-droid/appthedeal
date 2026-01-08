@@ -1,4 +1,3 @@
-
 import emailjs from '@emailjs/browser';
 
 /**
@@ -12,26 +11,24 @@ export const EmailService = {
 
   sendWelcomeEmail: async (userName: string, userEmail: string) => {
     try {
-      EmailService.init();
       return await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
         process.env.NEXT_PUBLIC_EMAILJS_WELCOME_TEMPLATE_ID || '',
         {
           to_name: userName,
           to_email: userEmail,
-          message: "Seu terminal Alpha foi ativado com sucesso. Bem-vindo à rede THE DEAL."
+          message: "Seu terminal Alpha foi ativado. Inicie sua jornada de performance agora."
         }
       );
     } catch (error) {
-      console.error("Erro EmailJS (Welcome):", error);
+      console.error("Erro ao enviar e-mail de boas-vindas:", error);
       return null;
     }
   },
 
   sendReferralInvitation: async (fromName: string, toEmail: string, referralCode: string) => {
     try {
-      EmailService.init();
-      const inviteLink = `${window.location.origin}/?ref=${referralCode}`;
+      const inviteLink = `${window.location.origin}/cadastro?ref=${referralCode}`;
       return await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
         process.env.NEXT_PUBLIC_EMAILJS_REFERRAL_TEMPLATE_ID || '',
@@ -43,7 +40,7 @@ export const EmailService = {
         }
       );
     } catch (error) {
-      console.error("Erro EmailJS (Referral):", error);
+      console.error("Erro ao enviar convite de indicação:", error);
       return null;
     }
   }

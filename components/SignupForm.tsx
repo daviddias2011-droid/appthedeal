@@ -5,18 +5,17 @@ import {
 } from 'lucide-react';
 import { UserType } from '../types';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
-import { EmailService } from '../lib/emailjs';
 
 interface SignupFormProps {
   onBack: () => void;
   onSuccess: () => void;
-  onRedirectToValidation: () => void;
 }
 
+// LINKS DE PAGAMENTO MERCADO PAGO
 const LINK_PAGAMENTO_MENSAL = "https://mpago.la/13NLfeG";
 const LINK_PAGAMENTO_ANUAL = "https://mpago.li/1iwECoa";
 
-const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectToValidation }) => {
+const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
   const [userType, setUserType] = useState<UserType | null>(null);
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -25,8 +24,8 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
 
   const [formData, setFormData] = useState<any>({
     fullName: '', email: '', password: '', confirmPassword: '', phone: '', 
-    plan: 'free',
-    period: 'monthly',
+    plan: 'free', // 'free' | 'pro'
+    period: 'monthly', // 'monthly' | 'annual'
     socialHandle: '', niche: '',
     motivation: ''
   });
@@ -37,6 +36,17 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
     if (error) setError(null);
   };
 
+  const checkEmailExists = async (email: string) => {
+    if (!isSupabaseConfigured()) return false;
+    const { data, error } = await supabase!
+      .from('profiles')
+      .select('email')
+      .eq('email', email.toLowerCase())
+      .maybeSingle();
+    
+    return !!data;
+  };
+
   const handleStep1Submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -44,19 +54,14 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
 
     try {
       if (!formData.email || !formData.password || !formData.fullName) {
-        throw new Error('Preencha os dados de identidade.');
+        throw new Error('Preencha os dados de identidade Alpha.');
       }
-      if (formData.password.length < 6) throw new Error('A senha deve ter 6+ caracteres.');
-      if (formData.password !== formData.confirmPassword) throw new Error('As senhas não coincidem.');
+      if (formData.password.length < 6) throw new Error('A chave de segurança deve ter 6+ caracteres.');
+      if (formData.password !== formData.confirmPassword) throw new Error('As chaves de segurança não coincidem.');
 
-      if (isSupabaseConfigured()) {
-        const { data: existingUser } = await supabase!
-          .from('profiles')
-          .select('email')
-          .eq('email', formData.email.toLowerCase())
-          .maybeSingle();
-        
-        if (existingUser) throw new Error('Este terminal ID (e-mail) já está registrado na rede.');
+      const exists = await checkEmailExists(formData.email);
+      if (exists) {
+        throw new Error('Este email já está cadastrado.');
       }
 
       setStep(2);
@@ -73,46 +78,45 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
       setError('Complete todos os campos do seu perfil profissional.');
       return;
     }
-    finalizeRegistration();
+    setStep(3);
+  };
+
+  const handlePlanSelection = (plan: 'free' | 'pro') => {
+    setFormData({ ...formData, plan });
+    if (plan === 'free') {
+      finalizeRegistration();
+    } else {
+      setStep(4);
+    }
+  };
+
+  const handlePeriodSelection = (period: 'monthly' | 'annual') => {
+    setFormData({ ...formData, period });
+    setStep(5);
   };
 
   const finalizeRegistration = async () => {
     setLoading(true);
     try {
       if (isSupabaseConfigured()) {
-        const { data: authData, error: signupError } = await supabase!.auth.signUp({
+        const { error: signupError } = await supabase!.auth.signUp({
           email: formData.email,
           password: formData.password,
           options: {
             data: {
               full_name: formData.fullName,
               user_type: userType,
-              phone: formData.phone,
+              plan: formData.plan,
+              period: formData.plan === 'pro' ? formData.period : 'none',
               social_handle: formData.socialHandle,
-              niche: formData.niche
+              niche: formData.niche,
+              motivation: formData.motivation
             }
           }
         });
-
         if (signupError) throw signupError;
-
-        // Salvar perfil detalhado
-        await supabase!.from('profiles').insert({
-          id: authData.user?.id,
-          full_name: formData.fullName,
-          email: formData.email,
-          user_type: userType,
-          niche: formData.niche,
-          motivation: formData.motivation,
-          is_vetted: false,
-          verification_status: 'pending'
-        });
-
-        // Enviar e-mail de boas-vindas via EmailJS
-        await EmailService.sendWelcomeEmail(formData.fullName, formData.email);
       }
-      
-      onRedirectToValidation();
+      onSuccess(); 
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -151,7 +155,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
           </div>
         )}
 
-        {step === 1 ? (
+        {step === 1 && (
           <form onSubmit={handleStep1Submit} className="space-y-8">
             <div className="flex items-center gap-3">
               <User className="text-thedeal-gold" size={24} />
@@ -173,7 +177,9 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
               <ArrowRight size={18} />
             </button>
           </form>
-        ) : (
+        )}
+
+        {step === 2 && (
           <form onSubmit={handleStep2Submit} className="space-y-8">
             <div className="flex items-center gap-3">
               <Star className="text-thedeal-gold" size={24} />
@@ -186,11 +192,117 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
             </div>
             <div className="flex gap-4">
               <button type="button" onClick={() => setStep(1)} className="w-1/3 bg-white/5 border border-white/10 text-white font-black py-5 rounded-2xl text-[10px] uppercase tracking-widest hover:bg-white/10 transition-all">Voltar</button>
-              <button type="submit" disabled={loading} className="flex-1 bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-5 rounded-2xl shadow-xl shadow-thedeal-gold/20 flex items-center justify-center gap-3 uppercase text-[10px] tracking-widest transition-all">
-                {loading ? <Loader className="animate-spin" size={18} /> : 'Finalizar Cadastro'}
-              </button>
+              <button type="submit" className="flex-1 bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-5 rounded-2xl shadow-xl shadow-thedeal-gold/20 flex items-center justify-center gap-3 uppercase text-[10px] tracking-widest transition-all">Continuar</button>
             </div>
           </form>
+        )}
+
+        {step === 3 && (
+          <div className="animate-fade-in space-y-8">
+            <div className="text-center">
+              <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-2">Nível de <span className="text-thedeal-gold">Acesso</span></h3>
+              <p className="text-thedeal-gray400 text-sm">Escolha seu protocolo de entrada na rede.</p>
+            </div>
+            <div className="grid gap-6">
+              <button 
+                onClick={() => handlePlanSelection('pro')}
+                className="p-8 rounded-[2rem] border-2 border-thedeal-goldBright bg-thedeal-gold/10 text-left transition-all hover:scale-[1.02] shadow-xl shadow-thedeal-gold/10 group"
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <Zap className="text-thedeal-goldBright" size={32} />
+                  <span className="bg-thedeal-gold text-black px-4 py-1 rounded-full text-[8px] font-black uppercase tracking-widest">Recomendado</span>
+                </div>
+                <h4 className="text-white font-black uppercase text-lg mb-2">Plano PRO</h4>
+                <p className="text-thedeal-gray400 text-xs leading-relaxed mb-6">Acesso total à rede, contratos de performance de alto ticket e analytics de ROI Alpha.</p>
+                <p className="text-thedeal-gold font-black text-xl">A partir de R$ 9,90 <span className="text-xs font-bold text-thedeal-gray600">/mês</span></p>
+              </button>
+
+              <button 
+                onClick={() => handlePlanSelection('free')}
+                className="p-8 rounded-[2rem] border-2 border-white/5 bg-black/40 text-left transition-all hover:border-white/20 group"
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <Clock className="text-thedeal-gray600" size={32} />
+                </div>
+                <h4 className="text-white font-black uppercase text-lg mb-2">Plano Grátis</h4>
+                <p className="text-thedeal-gray400 text-xs leading-relaxed mb-6">Acesso limitado ao simulador e rede pública. Sujeito a análise manual de longa espera.</p>
+                <p className="text-white font-black text-xl">R$ 0,00</p>
+              </button>
+            </div>
+            <button onClick={() => setStep(2)} className="w-full text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest hover:text-white transition-colors">Voltar</button>
+          </div>
+        )}
+
+        {step === 4 && (
+          <div className="animate-fade-in space-y-8">
+            <div className="text-center">
+              <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-2">Frequência de <span className="text-thedeal-gold">Expansão</span></h3>
+              <p className="text-thedeal-gray400 text-sm">Selecione o ciclo de faturamento para seu nível PRO.</p>
+            </div>
+            <div className="grid gap-4">
+              <button 
+                onClick={() => handlePeriodSelection('monthly')}
+                className="p-6 rounded-3xl border-2 border-white/5 bg-black/40 text-left hover:border-thedeal-gold transition-all flex items-center justify-between group"
+              >
+                <div>
+                  <h4 className="text-white font-black uppercase text-sm">Faturamento Mensal</h4>
+                  <p className="text-thedeal-gold font-black text-lg">R$ 9,90 <span className="text-[10px] text-thedeal-gray600">/mês</span></p>
+                </div>
+                <ArrowRight className="text-thedeal-gray700 group-hover:text-thedeal-gold transition-colors" />
+              </button>
+
+              <button 
+                onClick={() => handlePeriodSelection('annual')}
+                className="p-6 rounded-3xl border-2 border-thedeal-gold/30 bg-thedeal-gold/5 text-left hover:border-thedeal-gold transition-all flex items-center justify-between group relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 bg-thedeal-gold text-black px-3 py-1 text-[8px] font-black uppercase tracking-widest">Melhor Valor</div>
+                <div>
+                  <h4 className="text-white font-black uppercase text-sm">Faturamento Anual</h4>
+                  <p className="text-thedeal-gold font-black text-lg">R$ 99,90 <span className="text-[10px] text-thedeal-gray600">/ano</span></p>
+                  <p className="text-[9px] text-thedeal-success font-bold uppercase mt-1">Desconto Alpha Ativo</p>
+                </div>
+                <ArrowRight className="text-thedeal-gray700 group-hover:text-thedeal-gold transition-colors" />
+              </button>
+            </div>
+            <button onClick={() => setStep(3)} className="w-full text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest hover:text-white transition-colors">Voltar aos planos</button>
+          </div>
+        )}
+
+        {step === 5 && (
+          <div className="animate-fade-in space-y-10 text-center">
+            <div className="space-y-4">
+              <div className="w-20 h-20 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto ring-4 ring-thedeal-gold/20">
+                <CreditCard className="text-thedeal-gold" size={36} />
+              </div>
+              <h3 className="text-2xl font-black text-white uppercase tracking-tight">Finalizar <span className="text-thedeal-gold">Ativação</span></h3>
+              <p className="text-thedeal-gray400 text-sm leading-relaxed px-4">
+                Você será redirecionado para o ambiente seguro do Mercado Pago para processar seu pagamento {formData.period === 'monthly' ? 'mensal' : 'anual'}.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <button 
+                onClick={() => { window.open(formData.period === 'monthly' ? LINK_PAGAMENTO_MENSAL : LINK_PAGAMENTO_ANUAL, '_blank'); finalizeRegistration(); }}
+                className="w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-6 rounded-2xl shadow-xl shadow-thedeal-gold/20 flex items-center justify-center gap-4 uppercase text-xs tracking-[0.2em] transition-all hover:scale-[1.02]"
+              >
+                <span>Pagar {formData.period === 'monthly' ? 'Mensalmente' : 'Anualmente'}</span>
+                <ArrowRight size={20} />
+              </button>
+              
+              <div className="flex items-center justify-center gap-6 opacity-30">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck size={14} />
+                  <span className="text-[8px] font-black uppercase tracking-widest">SSL Secure</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Lock size={14} />
+                  <span className="text-[8px] font-black uppercase tracking-widest">Anti-Fraud</span>
+                </div>
+              </div>
+            </div>
+
+            <button onClick={() => setStep(4)} className="text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest hover:text-white transition-colors">Trocar periodicidade</button>
+          </div>
         )}
       </div>
     </div>
