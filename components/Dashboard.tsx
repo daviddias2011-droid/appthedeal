@@ -11,6 +11,10 @@ import SimulatorPage from './SimulatorPage';
 import KnowledgeHub from './KnowledgeHub';
 import PricingPage from './PricingPage';
 import DiscoverPage from './DiscoverPage';
+import BrandsPage from './BrandsPage';
+import CreatorsPage from './CreatorsPage';
+// FIX: Imported BlacklistPage to handle the 'blacklist' tab navigation in the Dashboard.
+import BlacklistPage from './Blacklist';
 import { MOCK_POSTS, USERS } from '../constants';
 import { useAuth } from '../contexts/AuthContext';
 import { Briefcase, Menu, CheckCircle } from 'lucide-react';
@@ -54,9 +58,18 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
             {posts.map(post => <PostCard key={post.id} post={post} isLocked={!currentUser.isVetted && post.type === 'deal'} onAction={() => setActiveTab('planos')} />)}
           </div>
         );
-      case 'discover': return <DiscoverPage onBack={() => setActiveTab('feed')} onSignup={() => setActiveTab('planos')} />;
+      case 'empresas':
+        return <BrandsPage brands={[]} onViewProfile={() => {}} />;
+      // FIX: Added case for 'blacklist' to render the BlacklistPage component when selected.
+      case 'blacklist':
+        return <BlacklistPage onBack={() => setActiveTab('feed')} />;
+      case 'discover':
+        return <DiscoverPage onBack={() => setActiveTab('feed')} onSignup={() => setActiveTab('planos')} />;
+      case 'criadores':
+        return <CreatorsPage creators={[]} onViewProfile={() => {}} currentUserLocation={null} />;
+      case 'planos':
+        return <PricingPage onBack={() => setActiveTab('feed')} />;
       case 'missoes': return <MissionsPanel />;
-      case 'planos': return <PricingPage onBack={() => setActiveTab('feed')} />;
       case 'cursos': return <KnowledgeHub onNavigateBack={() => setActiveTab('feed')} />;
       case 'simulador': return <SimulatorPage userIsLoggedIn={true} onRestrictedAction={() => {}} />;
       case 'perfil':
@@ -85,12 +98,12 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
       <header className="fixed top-0 left-0 right-0 z-40 bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 p-4 h-16 flex items-center justify-between">
          <div className="flex flex-col items-start gap-0.5">
             <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center">
-                  <Briefcase size={18} className="text-black" />
+                <div className="w-8 h-8 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center border border-white/10 shadow-lg">
+                  <Briefcase size={16} className="text-black" />
                 </div>
                 <h1 className="text-lg font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
             </div>
-            <p className="text-[7px] md:text-[8px] font-black text-thedeal-gold tracking-tight pl-0.5">A rede onde criadores e grandes marcas se conectam para fechar contratos.</p>
+            <p className="text-[7px] md:text-[8px] font-black text-thedeal-gold tracking-tight pl-0.5 uppercase">Performance Network</p>
          </div>
          <button onClick={() => setIsSidebarOpen(true)} className="p-2 text-thedeal-gray400 hover:text-white bg-white/5 rounded-xl border border-white/10">
             <Menu size={24} />

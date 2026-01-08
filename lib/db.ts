@@ -2,8 +2,8 @@
 import mysql from 'mysql2/promise';
 
 /**
- * Configuração de conexão com MySQL Locaweb.
- * Nota: O uso de createPool é recomendado para gerenciar múltiplas conexões de forma eficiente.
+ * Singleton de conexão com MySQL Locaweb.
+ * Utiliza Pool para gerenciar o limite de conexões simultâneas do plano.
  */
 const pool = mysql.createPool({
   host: process.env.MYSQL_HOST,
@@ -11,8 +11,10 @@ const pool = mysql.createPool({
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
   waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
+  connectionLimit: 5,
+  queueLimit: 0,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 10000,
 });
 
 export default pool;

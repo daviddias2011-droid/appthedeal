@@ -73,6 +73,7 @@ const AppContent = () => {
           onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')}
           onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')}
           onGoToPricing={() => setView('pricing')}
+          onGoToBlacklist={() => {}} // Desativado
           language={language} t={t}
         />;
       
@@ -113,7 +114,7 @@ const AppContent = () => {
         return <InvestorPage onBack={() => setView('landing')} />;
 
       default:
-        return <LandingPage onGoToDemo={() => setView('login')} onGoToSignup={() => setView('invitation')} onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')} onGoToForBrands={() => setView('for-brands')} onGoToForCreators={() => setView('for-creators')} onGoToHowItWorks={() => setView('how-it-works')} onGoToHub={() => setView('landing')} onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')} onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')} onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')} language={language} t={t} />;
+        return <LandingPage onGoToDemo={() => setView('login')} onGoToSignup={() => setView('invitation')} onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')} onGoToForBrands={() => setView('for-brands')} onGoToForCreators={() => setView('for-creators')} onGoToHowItWorks={() => setView('how-it-works')} onGoToHub={() => setView('landing')} onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')} onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')} onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')} onGoToBlacklist={() => {}} onGoToPricing={() => setView('pricing')} language={language} t={t} />;
     }
   };
 

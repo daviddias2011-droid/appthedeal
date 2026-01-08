@@ -1,10 +1,9 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { User, UserType } from '../types';
-import { USERS } from '../constants';
+import { User } from '../types';
 
 interface AuthContextType {
-  user: any | null;
+  user: User | null;
   profile: User | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
@@ -19,7 +18,6 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Carrega sessão local se existir
     const saved = localStorage.getItem('thedeal_session');
     if (saved) {
       try {
@@ -32,16 +30,25 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    // Simulação de login local baseada na lista de constantes
-    const foundUser = USERS.find(u => u.email === email.toLowerCase());
-    
-    if (foundUser && foundUser.password === password) {
-      setProfile(foundUser);
-      localStorage.setItem('thedeal_session', JSON.stringify(foundUser));
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Falha na autenticação.');
+      }
+
+      setProfile(data.user);
+      localStorage.setItem('thedeal_session', JSON.stringify(data.user));
       return { error: null };
+    } catch (err: any) {
+      return { error: { message: err.message } };
     }
-    
-    return { error: { message: 'Membro não localizado no terminal ou chave de segurança incorreta.' } };
   };
 
   const signOut = async () => {
@@ -50,7 +57,7 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
   };
 
   const refreshProfile = async () => {
-    // Modo local: Perfil é atualizado via estado
+    // Pode ser implementado um /api/me no futuro para atualizar dados
   };
 
   return (

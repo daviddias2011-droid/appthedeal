@@ -126,7 +126,8 @@ export interface Message {
   timestamp: string;
 }
 
-export type DashboardTab = 'painel' | 'feed' | 'explorar' | 'missoes' | 'cursos' | 'perfil' | 'roi' | 'carteira' | 'mensagens' | 'empresas' | 'criadores' | 'simulador' | 'pagamentos' | 'contratos' | 'presenca_vip' | 'discover' | 'planos' | 'clubalpha' | 'deals';
+// FIX: Added 'blacklist' to DashboardTab union type to resolve type errors in Header and Sidebar components where 'blacklist' was used but not defined in the type.
+export type DashboardTab = 'painel' | 'feed' | 'explorar' | 'missoes' | 'cursos' | 'perfil' | 'roi' | 'carteira' | 'mensagens' | 'empresas' | 'criadores' | 'simulador' | 'pagamentos' | 'contratos' | 'presenca_vip' | 'discover' | 'planos' | 'clubalpha' | 'deals' | 'blacklist';
 
 export type TrackingMethod = 'pixel' | 'landingpage' | 'cupom';
 
