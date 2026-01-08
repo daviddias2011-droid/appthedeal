@@ -44,7 +44,6 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
     setError(null);
 
     try {
-      // CORREÇÃO: Removido .php para usar o endpoint Node/TypeScript
       const response = await fetch('/api/register-member', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -59,9 +58,12 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
         })
       });
 
+      const data = await response.json().catch(() => {
+        throw new Error('O servidor retornou uma resposta inválida. Verifique sua conexão ou tente novamente mais tarde.');
+      });
+
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: 'Falha crítica no servidor.' }));
-        throw new Error(errorData.error || 'Erro ao registrar no terminal.');
+        throw new Error(data.error || 'Erro crítico ao registrar no terminal.');
       }
 
       onRedirectToValidation();
@@ -110,15 +112,15 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
               <h3 className="text-xl font-black text-white uppercase tracking-tight">Identidade Alpha</h3>
             </div>
             <div className="space-y-6">
-              <input name="fullName" placeholder="Nome Completo" required value={formData.fullName} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all" />
-              <input name="email" type="email" placeholder="Terminal ID (E-mail)" required value={formData.email} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all" />
+              <input name="fullName" placeholder="Nome Completo" required value={formData.fullName} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all font-bold" />
+              <input name="email" type="email" placeholder="Terminal ID (E-mail)" required value={formData.email} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all font-bold" />
               <div className="relative">
-                <input name="password" type={showPassword ? "text" : "password"} placeholder="Chave de Segurança" required value={formData.password} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white pr-14 outline-none focus:border-thedeal-gold transition-all" />
+                <input name="password" type={showPassword ? "text" : "password"} placeholder="Chave de Segurança" required value={formData.password} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white pr-14 outline-none focus:border-thedeal-gold transition-all font-bold" />
                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-5 top-1/2 -translate-y-1/2 text-thedeal-gray600 hover:text-white transition-colors">
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
-              <input name="confirmPassword" type="password" placeholder="Confirmar Chave" required value={formData.confirmPassword} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all" />
+              <input name="confirmPassword" type="password" placeholder="Confirmar Chave" required value={formData.confirmPassword} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all font-bold" />
             </div>
             <button type="submit" className="w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-5 rounded-2xl flex items-center justify-center gap-3 uppercase text-[10px] tracking-widest transition-all">
               Próximo <ArrowRight size={18} />
@@ -131,9 +133,9 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
               <h3 className="text-xl font-black text-white uppercase tracking-tight">Perfil Profissional</h3>
             </div>
             <div className="space-y-6">
-              <input name="socialHandle" placeholder={userType === UserType.Creator ? "@Instagram / TikTok" : "Site / Perfil da Empresa"} required value={formData.socialHandle} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all" />
-              <input name="niche" placeholder="Nicho de Atuação" required value={formData.niche} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all" />
-              <textarea name="motivation" placeholder="O que você busca na rede?" rows={4} required value={formData.motivation} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all resize-none" />
+              <input name="socialHandle" placeholder={userType === UserType.Creator ? "@Instagram / TikTok" : "Site / Perfil da Empresa"} required value={formData.socialHandle} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all font-bold" />
+              <input name="niche" placeholder="Nicho de Atuação" required value={formData.niche} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all font-bold" />
+              <textarea name="motivation" placeholder="O que você busca na rede?" rows={4} required value={formData.motivation} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all resize-none font-medium" />
             </div>
             <div className="flex gap-4">
               <button type="button" onClick={() => setStep(1)} className="w-1/3 bg-white/5 border border-white/10 text-white font-black py-5 rounded-2xl text-[10px] uppercase tracking-widest hover:bg-white/10 transition-all">Voltar</button>

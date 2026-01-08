@@ -80,7 +80,6 @@ export default function LandingPage({
 
   const handleRequestInvite = () => onGoToSignup('creator');
   const handleRestrictedAction = () => setIsAccessModalOpen(true);
-  const handleRequestDemo = () => window.open("https://wa.me/5519994497796?text=Olá! Gostaria de detalhes sobre os planos da rede The Deal.", "_blank");
 
   const marcasCarrossel = [
     { nome: 'SIGAPAY', segmento: 'Fintech', logo: 'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a4/4c/ee/a44cee2c-07bd-af1c-3b5a-74aeeb451e50/Placeholder.mill/400x400bb-75.webp' },
@@ -97,7 +96,7 @@ export default function LandingPage({
       avatar: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a4/4c/ee/a44cee2c-07bd-af1c-3b5a-74aeeb451e50/Placeholder.mill/400x400bb-75.webp",
       tag: "FINTECH",
       time: "Ativa agora",
-      content: "Embaixadores 2026. Buscamos criadores para promover soluções de pagamento digital. Foco em educação financeira e conversão.",
+      content: "Campanha Embaixadores 2026. Buscamos criadores para promover soluções de pagamento digital em cidades do interior de SP e RS.",
       imageUrl: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop",
       stats: "Contrato + Escrow Protegido",
       isDeal: true
@@ -108,7 +107,7 @@ export default function LandingPage({
       avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyRo_h_9fHHTStKN6kPal9_m-j0Guuqs_8NQ&s",
       tag: "PREMIUM",
       time: "Destaque",
-      content: "Luxury Living. Seleção de vozes para novos empreendimentos de alto padrão. Perfil sofisticado requerido.",
+      content: "Luxury Living. Seleção de vozes para cobertura de novos lançamentos imobiliários de alto padrão. Perfil sofisticado requerido.",
       imageUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
       stats: "Pagamento via Terminal",
       isDeal: true
@@ -118,19 +117,19 @@ export default function LandingPage({
   const faqs = [
     {
       q: "Por que pagar R$ 297?",
-      a: "Porque você elimina calote, ghosting e burocracia. São R$ 0,81/dia pra nunca mais perder tempo com contrato furado."
+      a: "Porque você elimina calote, ghosting e burocracia. São R$ 0,81/dia para nunca mais perder tempo com marcas que não pagam."
     },
     {
-      q: "A taxa de 10% não é alta?",
-      a: "Agências cobram 20-30%. Advogado + contrato custa R$ 1.500+. E nós só cobramos se o deal fechar."
+      q: "A taxa de 10% é fixa?",
+      a: "Sim. Apenas 10% do valor do deal fechado. Sem taxas escondidas. Você só paga se receber."
     },
     {
-      q: "E se a marca não confirmar a entrega?",
-      a: "Você tem 48h pra apresentar prova (print, link, etc). Nossa equipe analisa e libera o pagamento."
+      q: "Como o dinheiro é garantido?",
+      a: "A marca deposita o valor em nossa conta de Escrow antes de você começar. O dinheiro fica travado e é liberado assim que a entrega é validada."
     },
     {
-      q: "Posso cancelar?",
-      a: "Sim. Sem multa. Sem pegadinha. Você mantém acesso até o fim do período anual."
+      q: "Posso cancelar a anuidade?",
+      a: "Sim, a qualquer momento. Você mantém o acesso até o final do período vigente sem multas."
     }
   ];
 
@@ -173,7 +172,7 @@ export default function LandingPage({
                 SUA <TypewriterText /> <br/>
                 EM PRIMEIRO LUGAR.
               </h1>
-              <p className="text-base md:text-lg text-thedeal-gray400 max-w-md mx-auto font-medium leading-relaxed px-4">
+              <p className="text-base md:text-lg text-thedeal-gray400 max-w-md mx-auto font-medium leading-relaxed px-4 text-center">
                 A rede que conecta criadores de conteúdo a grandes marcas. Feche contratos reais, seguros e justos. Você cria a audiência. Nós trazemos as oportunidades.
               </p>
               <div className="flex flex-col gap-4 justify-center w-full px-10">
@@ -185,7 +184,7 @@ export default function LandingPage({
             </div>
           </section>
 
-          {/* MARCAS */}
+          {/* CARROSSEL DE MARCAS LIMPO */}
           <section className="py-12 bg-thedeal-card border-y border-thedeal-gray700/50 overflow-hidden relative">
             <h3 className="text-thedeal-gray400 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] mb-10 text-center">Quem já está no The Deal</h3>
             <div className="flex w-full overflow-hidden">
@@ -204,7 +203,7 @@ export default function LandingPage({
             </div>
           </section>
 
-          {/* FEED */}
+          {/* FEED DE DEALS */}
           <section className="px-4 sm:px-6 py-10 space-y-6 relative overflow-hidden">
             <h3 className="text-white text-[10px] font-black uppercase tracking-[0.4em] mb-4">Oportunidades no Terminal</h3>
             {mockPosts.map((post) => (
@@ -212,89 +211,103 @@ export default function LandingPage({
             ))}
           </section>
 
-          {/* PROBLEMA */}
+          {/* SEÇÃO PROBLEMA */}
           <section className="py-20 px-6 bg-black/40 border-t border-thedeal-gray700/30">
             <h2 className="text-2xl font-display font-black text-white uppercase tracking-tighter mb-10 text-center">O Mercado está <span className="text-red-500">Quebrado.</span></h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-8 bg-thedeal-card border border-red-500/10 rounded-[2rem] space-y-4">
                 <ShieldAlert className="text-red-500" size={32} />
                 <h4 className="text-lg font-black text-white uppercase tracking-tight">🚫 Ghosting</h4>
-                <p className="text-thedeal-gray400 text-sm leading-relaxed">Negociou, criou, postou. <br/> Marca sumiu.</p>
+                <p className="text-thedeal-gray400 text-sm leading-relaxed">Criou, postou e a marca sumiu. Sem resposta, sem pagamento.</p>
               </div>
               <div className="p-8 bg-thedeal-card border border-red-500/10 rounded-[2rem] space-y-4">
                 <DollarSign className="text-red-500" size={32} />
                 <h4 className="text-lg font-black text-white uppercase tracking-tight">💸 Calote</h4>
-                <p className="text-thedeal-gray400 text-sm leading-relaxed">"Pagamos semana que vem" <br/> (Spoiler: não pagam)</p>
+                <p className="text-thedeal-gray400 text-sm leading-relaxed">"Pagamos na semana que vem." (Spoiler: a semana nunca chega).</p>
               </div>
               <div className="p-8 bg-thedeal-card border border-red-500/10 rounded-[2rem] space-y-4">
                 <FileX className="text-red-500" size={32} />
                 <h4 className="text-lg font-black text-white uppercase tracking-tight">📄 Sem Contrato</h4>
-                <p className="text-thedeal-gray400 text-sm leading-relaxed">Marca muda o combinado. <br/> Você não prova nada.</p>
+                <p className="text-thedeal-gray400 text-sm leading-relaxed">Combinado via WhatsApp não tem força jurídica. Você fica vulnerável.</p>
               </div>
             </div>
-            <p className="mt-10 text-center text-thedeal-gold font-black uppercase text-xs tracking-[0.4em]">The Deal resolve isso.</p>
+            <p className="mt-10 text-center text-thedeal-gold font-black uppercase text-xs tracking-[0.4em]">O The Deal resolve isso.</p>
           </section>
 
-          {/* SOLUÇÃO */}
+          {/* SEÇÃO SOLUÇÃO */}
           <section className="py-24 px-6 border-y border-thedeal-gray700/30">
             <h2 className="text-3xl font-display font-black text-white uppercase tracking-tighter mb-16 text-center">Como Funciona</h2>
             <div className="space-y-12">
               <div className="flex gap-6 items-start">
-                <div className="w-12 h-12 rounded-full bg-thedeal-gold text-black flex items-center justify-center font-black text-xl shrink-0">1</div>
+                <div className="w-12 h-12 rounded-full bg-thedeal-gold text-black flex items-center justify-center font-black text-xl shrink-0 shadow-lg shadow-thedeal-gold/20">1</div>
                 <div>
                   <h4 className="text-lg font-black text-white uppercase tracking-tight mb-2">Marca Deposita</h4>
-                  <p className="text-thedeal-gray400 text-sm leading-relaxed">O dinheiro fica bloqueado no sistema. Ninguém toca até a entrega.</p>
+                  <p className="text-thedeal-gray400 text-sm leading-relaxed font-medium">O cachê fica bloqueado no nosso sistema de escrow. O dinheiro já é seu, só falta a entrega.</p>
                 </div>
               </div>
               <div className="flex gap-6 items-start">
-                <div className="w-12 h-12 rounded-full bg-thedeal-gold text-black flex items-center justify-center font-black text-xl shrink-0">2</div>
+                <div className="w-12 h-12 rounded-full bg-thedeal-gold text-black flex items-center justify-center font-black text-xl shrink-0 shadow-lg shadow-thedeal-gold/20">2</div>
                 <div>
                   <h4 className="text-lg font-black text-white uppercase tracking-tight mb-2">Você Entrega</h4>
-                  <p className="text-thedeal-gray400 text-sm leading-relaxed">Faz o post, vídeo, ou o que foi combinado. Confirma no sistema.</p>
+                  <p className="text-thedeal-gray400 text-sm leading-relaxed font-medium">Faz o post ou vídeo conforme o briefing. Confirma a conclusão no terminal.</p>
                 </div>
               </div>
               <div className="flex gap-6 items-start">
-                <div className="w-12 h-12 rounded-full bg-thedeal-gold text-black flex items-center justify-center font-black text-xl shrink-0">3</div>
+                <div className="w-12 h-12 rounded-full bg-thedeal-gold text-black flex items-center justify-center font-black text-xl shrink-0 shadow-lg shadow-thedeal-gold/20">3</div>
                 <div>
                   <h4 className="text-lg font-black text-white uppercase tracking-tight mb-2">Dinheiro Liberado</h4>
-                  <p className="text-thedeal-gray400 text-sm leading-relaxed">Marca confirma → você recebe. Não confirma? A gente resolve.</p>
+                  <p className="text-thedeal-gray400 text-sm leading-relaxed font-medium">Marca confirma → saldo disponível. Caso haja disputa, nossa equipe arbitra com base no contrato.</p>
                 </div>
               </div>
             </div>
             <div className="mt-16 p-8 bg-white/5 border border-white/10 rounded-3xl text-center space-y-6">
-                <p className="text-thedeal-gold font-black uppercase text-xs tracking-widest">Taxa: 10% do valor do deal.</p>
-                <button className="text-white font-black uppercase text-[10px] tracking-[0.2em] border-b border-thedeal-gold pb-1">VER EXEMPLO DE CONTRATO</button>
+                <p className="text-thedeal-gold font-black uppercase text-xs tracking-widest">Taxa: 10% do valor de cada deal.</p>
+                <button className="text-white font-black uppercase text-[10px] tracking-[0.2em] border-b border-thedeal-gold pb-1 hover:text-thedeal-gold transition-colors">VER EXEMPLO DE CONTRATO ALPHA</button>
             </div>
           </section>
 
-          {/* PRICING */}
+          {/* PRICING DIRETO */}
           <section className="py-24 px-6 bg-black border-t border-thedeal-gray700/30">
             <h2 className="text-3xl font-display font-black text-white uppercase tracking-tighter mb-12 text-center">Escolha Seu Acesso</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-10 bg-thedeal-card border-2 border-thedeal-goldBright/40 rounded-[2.5rem] flex flex-col justify-between shadow-2xl">
+              {/* CRIADOR */}
+              <div className="p-10 bg-thedeal-card border-2 border-thedeal-goldBright/40 rounded-[2.5rem] flex flex-col justify-between shadow-2xl hover:scale-[1.02] transition-all">
                 <div className="space-y-6">
-                  <h3 className="text-2xl font-black text-white uppercase">CRIADOR</h3>
-                  <p className="text-3xl font-black text-thedeal-goldBright">R$ 297<span className="text-xs font-bold text-thedeal-gray600">/ano</span></p>
+                  <div>
+                    <h3 className="text-2xl font-black text-white uppercase tracking-tight">CRIADOR</h3>
+                    <p className="text-3xl font-black text-thedeal-goldBright mt-2">R$ 297<span className="text-xs font-bold text-thedeal-gray600">/ano</span></p>
+                  </div>
                   <ul className="space-y-3">
                     <li className="flex items-center gap-2 text-[11px] text-white font-bold uppercase"><Check size={14} className="text-thedeal-gold" /> Seu perfil no marketplace</li>
                     <li className="flex items-center gap-2 text-[11px] text-white font-bold uppercase"><Check size={14} className="text-thedeal-gold" /> Receba propostas de marcas</li>
                     <li className="flex items-center gap-2 text-[11px] text-white font-bold uppercase"><Check size={14} className="text-thedeal-gold" /> Contrato + escrow automático</li>
+                    <li className="flex items-center gap-2 text-[11px] text-white font-bold uppercase"><Check size={14} className="text-thedeal-gold" /> Taxa: 10% por deal fechado</li>
                   </ul>
                 </div>
-                <button onClick={handleRequestInvite} className="mt-10 w-full bg-thedeal-gold text-black font-black py-5 rounded-2xl uppercase text-[10px] tracking-widest">ATIVAR PERFIL</button>
+                <div className="mt-10 space-y-4">
+                  <button onClick={handleRequestInvite} className="w-full bg-thedeal-gold text-black font-black py-5 rounded-2xl uppercase text-[10px] tracking-widest shadow-xl shadow-thedeal-gold/20 hover:brightness-110">ATIVAR PERFIL</button>
+                  <p className="text-[9px] text-thedeal-gray600 font-bold uppercase tracking-widest text-center">Aprovação em até 48h</p>
+                </div>
               </div>
 
+              {/* MARCA */}
               <div className="p-10 bg-thedeal-card border border-white/5 rounded-[2.5rem] flex flex-col justify-between hover:border-white/10 transition-all">
                 <div className="space-y-6">
-                  <h3 className="text-2xl font-black text-white uppercase">MARCA</h3>
-                  <p className="text-3xl font-black text-white">R$ 497<span className="text-xs font-bold text-thedeal-gray600">/ano</span></p>
+                  <div>
+                    <h3 className="text-2xl font-black text-white uppercase tracking-tight">MARCA</h3>
+                    <p className="text-3xl font-black text-white mt-2">R$ 497<span className="text-xs font-bold text-thedeal-gray600">/ano</span></p>
+                  </div>
                   <ul className="space-y-3">
                     <li className="flex items-center gap-2 text-[11px] text-thedeal-gray400 font-bold uppercase"><Check size={14} className="text-white" /> Acesso total aos criadores</li>
                     <li className="flex items-center gap-2 text-[11px] text-white font-bold uppercase"><Check size={14} className="text-white" /> Propostas ilimitadas</li>
                     <li className="flex items-center gap-2 text-[11px] text-white font-bold uppercase"><Check size={14} className="text-white" /> Contrato + escrow automático</li>
+                    <li className="flex items-center gap-2 text-[11px] text-white font-bold uppercase"><Check size={14} className="text-white" /> Taxa: 10% por deal fechado</li>
                   </ul>
                 </div>
-                <button onClick={() => onGoToSignup('brand')} className="mt-10 w-full bg-white text-black font-black py-5 rounded-2xl uppercase text-[10px] tracking-widest">COMEÇAR A CONTRATAR</button>
+                <div className="mt-10 space-y-4">
+                  <button onClick={() => onGoToSignup('brand')} className="w-full bg-white text-black font-black py-5 rounded-2xl uppercase text-[10px] tracking-widest hover:bg-gray-200">COMEÇAR A CONTRATAR</button>
+                  <p className="text-[9px] text-thedeal-gray600 font-bold uppercase tracking-widest text-center">Ativação imediata</p>
+                </div>
               </div>
             </div>
           </section>
@@ -307,14 +320,14 @@ export default function LandingPage({
                 <div key={i} className="bg-black/40 border border-white/5 rounded-2xl overflow-hidden">
                   <button 
                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="w-full p-6 text-left flex items-center justify-between group"
+                    className="w-full p-6 text-left flex items-center justify-between group transition-all"
                   >
-                    <span className="text-[11px] font-black text-white uppercase tracking-widest group-hover:text-thedeal-gold">{faq.q}</span>
+                    <span className="text-[11px] font-black text-white uppercase tracking-widest group-hover:text-thedeal-gold transition-colors">{faq.q}</span>
                     <ChevronDown className={`w-5 h-5 text-thedeal-gray600 transition-transform ${openFaq === i ? 'rotate-180 text-thedeal-gold' : ''}`} />
                   </button>
                   {openFaq === i && (
                     <div className="px-6 pb-6 animate-fade-in">
-                      <p className="text-sm text-thedeal-gray400 font-medium leading-relaxed">{faq.a}</p>
+                      <p className="text-sm text-thedeal-gray400 leading-relaxed font-medium">{faq.a}</p>
                     </div>
                   )}
                 </div>
@@ -322,6 +335,7 @@ export default function LandingPage({
             </div>
           </section>
 
+          {/* FOOTER CTA */}
           <section className="py-24 px-6 text-center space-y-10">
             <div className="inline-flex items-center gap-2 bg-thedeal-gold/10 px-5 py-2 rounded-full border border-thedeal-goldDim/20">
               <Award size={14} className="text-thedeal-gold" />
@@ -340,7 +354,7 @@ export default function LandingPage({
         </main>
       </div>
 
-      {/* FOOTER BAR RESTAURADA */}
+      {/* FOOTER NAV BAR RESTAURADA */}
       <nav className="fixed bottom-0 left-0 right-0 h-20 bg-thedeal-bg/95 backdrop-blur-xl border-t border-thedeal-gray700 flex justify-around items-center py-3 px-4 z-[100] shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
         <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="flex flex-col items-center gap-1 text-white">
           <Home size={22} strokeWidth={2.5} />
