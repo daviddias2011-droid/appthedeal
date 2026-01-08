@@ -23,7 +23,6 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
       try {
         const userData = JSON.parse(saved);
         setProfile(userData);
-        // Refresh automático ao carregar
         fetchProfile(userData.id);
       } catch (e) {
         localStorage.removeItem('thedeal_session');
@@ -34,7 +33,7 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
 
   const fetchProfile = async (id: number) => {
     try {
-      const response = await fetch(`/api/get-profile.php?id=${id}`);
+      const response = await fetch(`/api/get-profile?id=${id}`);
       if (response.ok) {
         const updatedUser = await response.json();
         setProfile(updatedUser);
@@ -47,13 +46,22 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const response = await fetch('/api/login.php', {
+      const response = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
-      const data = await response.json();
+      
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        throw new Error('Servidor indisponível ou resposta inválida.');
+      }
+
       if (!response.ok) throw new Error(data.error || 'Credenciais inválidas.');
+      
       setProfile(data.user);
       localStorage.setItem('thedeal_session', JSON.stringify(data.user));
       return { error: null };
