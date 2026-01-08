@@ -21,13 +21,29 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
     const saved = localStorage.getItem('thedeal_session');
     if (saved) {
       try {
-        setProfile(JSON.parse(saved));
+        const userData = JSON.parse(saved);
+        setProfile(userData);
+        // Refresh automático ao carregar
+        fetchProfile(userData.id);
       } catch (e) {
         localStorage.removeItem('thedeal_session');
       }
     }
     setLoading(false);
   }, []);
+
+  const fetchProfile = async (id: number) => {
+    try {
+      const response = await fetch(`/api/get-profile.php?id=${id}`);
+      if (response.ok) {
+        const updatedUser = await response.json();
+        setProfile(updatedUser);
+        localStorage.setItem('thedeal_session', JSON.stringify(updatedUser));
+      }
+    } catch (e) {
+      console.error("Erro ao sincronizar perfil");
+    }
+  };
 
   const signIn = async (email: string, password: string) => {
     try {
@@ -36,13 +52,8 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
-
       const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Credenciais inválidas.');
-      }
-
+      if (!response.ok) throw new Error(data.error || 'Credenciais inválidas.');
       setProfile(data.user);
       localStorage.setItem('thedeal_session', JSON.stringify(data.user));
       return { error: null };
@@ -58,7 +69,7 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
   };
 
   const refreshProfile = async () => {
-    // Futura integração me.php
+    if (profile?.id) await fetchProfile(profile.id);
   };
 
   return (
