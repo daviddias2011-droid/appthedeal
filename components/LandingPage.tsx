@@ -82,6 +82,8 @@ export default function LandingPage({
   const handleRequestDemo = () => window.open("https://wa.me/5519994497796?text=Olá! Gostaria de solicitar uma demonstração do The Deal.", "_blank");
 
   const marcasCarrossel = [
+    { nome: 'Shopee', segmento: 'E-commerce', logo: 'https://www.pngmart.com/files/12/Shopee-Logo-Transparent-Background.png' },
+    { nome: 'Magalu', segmento: 'Varejo', logo: 'https://logodownload.org/wp-content/uploads/2014/06/magalu-logo-0-1536x1536.png' },
     { nome: 'SIGAPAY', segmento: 'Fintech', logo: 'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a4/4c/ee/a44cee2c-07bd-af1c-3b5a-74aeeb451e50/Placeholder.mill/400x400bb-75.webp' },
     { nome: 'Park Brasil', segmento: 'Mobilidade', logo: 'https://parkbrazil.com.br/wp-content/uploads/2022/06/logo-park-brazil.png' },
     { nome: 'Rota Automóveis', segmento: 'Automotivo', logo: 'https://sites.integracarros.com.br/uploads/CF75-CF75D0A4-03F7-9ABE-9773-E5FEE598/images/logorota.png' },
@@ -162,7 +164,7 @@ export default function LandingPage({
                 </div>
                 <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
               </div>
-              <p className="text-[7px] md:text-[8px] font-black text-thedeal-gold tracking-tight pl-0.5 uppercase">A rede que conecta criadores de conteúdo a grandes marcas. Feche contratos.</p>
+              <p className="text-[7px] md:text-[8px] font-black text-thedeal-gold tracking-tight pl-0.5">A rede onde criadores e grandes marcas se conectam para fechar contratos.</p>
             </div>
             
             <div className="flex items-center gap-2">
@@ -189,7 +191,7 @@ export default function LandingPage({
               </h1>
 
               <p className="text-base md:text-lg text-thedeal-gray400 max-w-md mx-auto font-medium leading-relaxed px-4">
-                A rede que conecta criadores de conteúdo a grandes marcas. Feche contratos reais, seguras e justos. Você cria a audiência. Nós trazemos as oportunidades.
+                A rede social onde criadores de conteúdo e grandes marcas se conectam para fechar parcerias reais, seguras e justas. Você cria a audiência. Nós trazemos as oportunidades.
               </p>
 
               <div className="flex flex-col gap-4 justify-center w-full px-10">
