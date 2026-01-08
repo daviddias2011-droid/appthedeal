@@ -1,7 +1,7 @@
-
 /**
  * THE DEAL - Alpha API Client
  * Standardized fetch calls for MySQL/PHP backend.
+ * Robust handling for non-JSON responses.
  */
 
 export const api = {
@@ -44,12 +44,23 @@ export const api = {
   },
 
   async handleResponse(response: Response) {
-    // Caso o servidor caia ou não exista (404)
+    const text = await response.text();
+    
+    // Se o terminal estiver offline ou rota não existir
     if (response.status === 404) {
-       throw new Error('Terminal Offline: O endpoint da API não foi encontrado no servidor.');
+       throw new Error('Terminal Offline: O endpoint da API não foi encontrado.');
     }
 
-    const data = await response.json();
+    let data;
+    try {
+      // Tenta transformar em JSON
+      data = text ? JSON.parse(text) : {};
+    } catch (e) {
+      // Se não for JSON, loga o erro bruto e lança uma mensagem amigável
+      console.error("Resposta inválida do servidor:", text);
+      throw new Error('O servidor retornou uma resposta corrompida. Verifique os logs do console.');
+    }
+
     if (!response.ok) {
       throw new Error(data.message || 'Erro de comunicação com o terminal Alpha.');
     }

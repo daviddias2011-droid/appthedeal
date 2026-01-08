@@ -1,6 +1,6 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, UserType } from '../types';
+import { api } from '../lib/api';
 
 interface AuthContextType {
   user: { token: string } | null;
@@ -22,36 +22,30 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
 
   const fetchProfile = async (token: string) => {
     try {
-      const response = await fetch('/api/perfil.php', {
-        headers: { 'Authorization': `Bearer ${token}` }
+      const data = await api.get('/api/perfil.php');
+      setConnectionError(false);
+      setProfile({
+        id: data.id,
+        name: data.full_name || 'Membro Alpha',
+        username: data.username || 'membro',
+        email: data.email || '',
+        type: data.user_type as UserType || UserType.Creator,
+        phone: data.phone || '',
+        isVetted: Boolean(data.is_vetted),
+        dealsCompleted: data.deals_count || 0,
+        followers: data.followers || 0,
+        following: data.following || 0,
+        balance: data.balance || 0,
+        logoUrl: data.avatar_url,
+        total_points: data.total_points || 0
       });
-      
-      if (response.ok) {
-        const data = await response.json();
-        setConnectionError(false);
-        setProfile({
-          id: data.id,
-          name: data.full_name || 'Membro Alpha',
-          username: data.username || 'membro',
-          email: data.email || '',
-          type: data.user_type as UserType || UserType.Creator,
-          phone: data.phone || '',
-          isVetted: Boolean(data.is_vetted),
-          dealsCompleted: data.deals_count || 0,
-          followers: data.followers || 0,
-          following: data.following || 0,
-          balance: data.balance || 0,
-          logoUrl: data.avatar_url,
-          total_points: data.total_points || 0
-        });
-      } else if (response.status === 401) {
+    } catch (e: any) {
+      console.error("Erro ao carregar perfil Alpha:", e);
+      if (e.message.includes('inválido') || e.message.includes('Sessão expirada')) {
         signOut();
       } else {
         setConnectionError(true);
       }
-    } catch (e) {
-      console.error("Erro ao carregar perfil Alpha:", e);
-      setConnectionError(true);
     }
   };
 
@@ -69,18 +63,8 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const response = await fetch('/api/login.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
+      const data = await api.post('/api/login.php', { email, password });
       
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.message || 'Falha na autenticação Alpha.');
-      }
-
       localStorage.setItem('auth_token', data.token);
       setUser({ token: data.token });
       
