@@ -1,9 +1,5 @@
 {
   "name": "THE DEAL - Aplicativo",
-  "description": "A plataforma definitiva para contratos de LTV e Licenciamento de IP. Entrada gratuita para Aspirantes. Prove seu valor, suba de nível e conquiste estabilidade financeira.",
-  "requestFramePermissions": [
-    "geolocation",
-    "camera",
-    "microphone"
-  ]
+  "description": "A infraestrutura definitiva para contratos de performance e LTV. Cadastre seu perfil profissional e acesse marcas de elite.",
+  "requestFramePermissions": []
 }
