@@ -75,7 +75,7 @@ export interface Post {
   ctaText?: string;
 }
 
-export type AppView = 'landing' | 'login' | 'invitation' | 'dashboard' | 'validation' | 'welcome' | 'admin-approval' | 'verify-email' | 'how-it-works' | 'missions' | 'academy' | 'simulator' | 'blog' | 'discover' | 'investor' | 'privacy' | 'terms' | 'blacklist' | 'thank-you' | 'pricing';
+export type AppView = 'landing' | 'login' | 'invitation' | 'dashboard' | 'validation' | 'welcome' | 'admin-approval' | 'verify-email' | 'how-it-works' | 'missions' | 'academy' | 'simulator' | 'blog' | 'discover' | 'investor' | 'privacy' | 'terms' | 'thank-you' | 'pricing';
 
 export interface PortfolioItem {
   id: number;
@@ -126,7 +126,7 @@ export interface Message {
   timestamp: string;
 }
 
-export type DashboardTab = 'painel' | 'feed' | 'explorar' | 'missoes' | 'cursos' | 'perfil' | 'roi' | 'carteira' | 'mensagens' | 'empresas' | 'criadores' | 'simulador' | 'pagamentos' | 'contratos' | 'presenca_vip' | 'blacklist' | 'discover' | 'planos' | 'clubalpha';
+export type DashboardTab = 'painel' | 'feed' | 'explorar' | 'missoes' | 'cursos' | 'perfil' | 'roi' | 'carteira' | 'mensagens' | 'empresas' | 'criadores' | 'simulador' | 'pagamentos' | 'contratos' | 'presenca_vip' | 'discover' | 'planos' | 'clubalpha';
 
 export type TrackingMethod = 'pixel' | 'landingpage' | 'cupom';
 

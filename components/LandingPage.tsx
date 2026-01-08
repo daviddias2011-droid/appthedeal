@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { 
-  LogIn, ArrowRight, Zap, Home, Briefcase, 
-  Menu, X as CloseIcon, Trophy, GraduationCap, LayoutGrid, Building2, HelpCircle, Users, Handshake, Calculator, Compass, AlertOctagon, Sparkles, Star, TrendingUp, ShieldCheck, Crown, Check
+  LogIn, ArrowRight, Home, Briefcase, 
+  Menu, X as CloseIcon, Trophy, GraduationCap, Building2, HelpCircle, Handshake, Calculator, Compass, Zap, Crown, Check
 } from 'lucide-react';
 import FeedItem from './FeedItem';
 import AccessModal from './AccessModal';
@@ -23,7 +23,6 @@ interface LandingPageProps {
   onGoToInvestor: () => void;
   onGoToSimulator: () => void;
   onGoToDiscover: () => void;
-  onGoToBlacklist: () => void;
   onGoToPricing?: () => void;
   language: Language;
   t: any;
@@ -71,8 +70,8 @@ const TypewriterText = () => {
 
 export default function LandingPage({ 
   onGoToDemo, onGoToSignup, onGoToForBrands, onGoToForCreators, 
-  onGoToHowItWorks, onGoToBlog, onGoToAcademy, onGoToMissions, 
-  onGoToInvestor, onGoToSimulator, onGoToDiscover, onGoToBlacklist, onGoToPricing, t 
+  onGoToHowItWorks, onGoToAcademy, onGoToMissions, 
+  onGoToInvestor, onGoToSimulator, onGoToDiscover, onGoToPricing, t 
  }: LandingPageProps) {
   const [isAccessModalOpen, setIsAccessModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -121,8 +120,7 @@ export default function LandingPage({
       
       <AccessModal isOpen={isAccessModalOpen} onClose={() => setIsAccessModalOpen(false)} onSignup={handleRequestInvite} />
 
-      {/* MENU ALPHA OVERLAY */}
-      {(isMobileMenuOpen) && (
+      {isMobileMenuOpen && (
         <div className="fixed inset-0 z-[100] bg-thedeal-bg p-6 md:p-8 animate-fade-in flex flex-col overflow-y-auto">
           <div className="flex justify-between items-start mb-12">
             <div className="flex items-center gap-3">
@@ -138,7 +136,6 @@ export default function LandingPage({
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToAcademy(); }} className="text-lg md:text-xl font-bold text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><GraduationCap size={20} /> ACADEMIA</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToPricing?.(); }} className="text-lg md:text-xl font-bold text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><Zap size={20} /> PREÇOS</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToSimulator(); }} className="text-lg md:text-xl font-bold text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><Calculator size={20} /> CALCULADORA</button>
-            <button onClick={() => { setIsMobileMenuOpen(false); onGoToBlacklist(); }} className="text-lg md:text-xl font-bold text-left hover:text-red-500 flex items-center gap-3 transition-colors text-thedeal-gray400"><AlertOctagon size={20} /> LISTA NEGRA</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToInvestor(); }} className="text-lg md:text-xl font-bold text-left text-thedeal-gold flex items-center gap-3 transition-colors"><Handshake size={20} /> SEJA UM INVESTIDOR</button>
             <div className="h-px bg-thedeal-gray700 my-4"></div>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToHowItWorks(); }} className="text-base md:text-lg font-medium text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><HelpCircle size={20} /> COMO FUNCIONA</button>
@@ -202,7 +199,6 @@ export default function LandingPage({
             </div>
           </section>
 
-          {/* CARROSSEL DE MARCAS - ROLAMENTO CONTÍNUO */}
           <section className="py-12 bg-thedeal-card border-y border-thedeal-gray700/50 overflow-hidden relative">
             <h3 className="text-thedeal-gray400 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] mb-10 text-center">Quem já está no The Deal</h3>
             <div className="flex w-full overflow-hidden">
@@ -229,7 +225,6 @@ export default function LandingPage({
             </div>
           </section>
 
-          {/* SEÇÃO DE NÍVEIS E PRECIFICAÇÃO */}
           <section className="py-20 px-6 bg-black border-t border-thedeal-gray700/30">
             <div className="text-center mb-12">
               <h2 className="text-2xl md:text-3xl font-display font-black text-white uppercase tracking-tighter">Escolha como <span className="text-thedeal-gold">você entra.</span></h2>
@@ -237,7 +232,6 @@ export default function LandingPage({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* 1. TRIAGEM */}
               <div className="p-8 bg-thedeal-card border border-white/5 rounded-[2rem] space-y-6 flex flex-col justify-between hover:border-white/10 transition-all group">
                 <div className="space-y-4">
                   <div className="flex justify-between items-start">
@@ -250,7 +244,7 @@ export default function LandingPage({
                   </p>
                   <ul className="space-y-2 mt-4">
                     <li className="flex items-center gap-2 text-[10px] text-thedeal-gray400 font-bold uppercase"><Check size={12} className="text-thedeal-gray600" /> Cadastro na fila de espera</li>
-                    <li className="flex items-center gap-2 text-[10px] text-thedeal-gray400 font-bold uppercase"><Check size={12} className="text-thedeal-gray600" /> Calculadora de Valor (Descubra seu preço)</li>
+                    <li className="flex items-center gap-2 text-[10px] text-thedeal-gray400 font-bold uppercase"><Check size={12} className="text-thedeal-gray600" /> Calculadora de Valor</li>
                     <li className="flex items-center gap-2 text-[10px] text-thedeal-gray400 font-bold uppercase"><Check size={12} className="text-thedeal-gray600" /> Perfil em modo visualização</li>
                   </ul>
                 </div>
@@ -259,7 +253,7 @@ export default function LandingPage({
                     <p className="text-3xl font-black text-white">GRÁTIS</p>
                   </div>
                   <button 
-                    onClick={onGoToSignup ? () => onGoToSignup('creator') : undefined}
+                    onClick={() => onGoToSignup('creator')}
                     className="w-full bg-white/5 border border-white/10 text-white font-black py-4 rounded-xl hover:bg-white/10 transition-all text-[10px] uppercase tracking-widest"
                   >
                     Entrar na Fila
@@ -267,7 +261,6 @@ export default function LandingPage({
                 </div>
               </div>
 
-              {/* 2. PROFISSIONAL */}
               <div className="p-8 bg-thedeal-card border-2 border-thedeal-goldBright/40 rounded-[2rem] space-y-6 flex flex-col justify-between shadow-[0_0_30px_rgba(212,175,55,0.1)] hover:scale-[1.02] transition-all group">
                 <div className="space-y-4">
                   <div className="flex justify-between items-start">
@@ -279,9 +272,9 @@ export default function LandingPage({
                     Pule a fila de espera. Tenha seu perfil liberado em até 72h e comece a negociar.
                   </p>
                   <ul className="space-y-2 mt-4">
-                    <li className="flex items-center gap-2 text-[10px] text-white font-bold uppercase"><Check size={12} className="text-thedeal-gold" /> Aprovação Rápida: Seu perfil ativo em 3 dias</li>
-                    <li className="flex items-center gap-2 text-[10px] text-white font-bold uppercase"><Check size={12} className="text-thedeal-gold" /> Mercado Aberto: Venda fotos, vídeos e feche contratos</li>
-                    <li className="flex items-center gap-2 text-[10px] text-white font-bold uppercase"><Check size={12} className="text-thedeal-gold" /> Capacitação: Acesso liberado aos cursos</li>
+                    <li className="flex items-center gap-2 text-[10px] text-white font-bold uppercase"><Check size={12} className="text-thedeal-gold" /> Aprovação Rápida: Ativo em 3 dias</li>
+                    <li className="flex items-center gap-2 text-[10px] text-white font-bold uppercase"><Check size={12} className="text-thedeal-gold" /> Mercado Aberto: Feche contratos</li>
+                    <li className="flex items-center gap-2 text-[10px] text-white font-bold uppercase"><Check size={12} className="text-thedeal-gold" /> Capacitação: Acesso a cursos</li>
                   </ul>
                 </div>
                 <div className="pt-6 space-y-4">
@@ -290,7 +283,7 @@ export default function LandingPage({
                     <p className="text-[9px] text-thedeal-gray600 font-bold uppercase tracking-widest mt-1">(Cobrado R$ 99,90 uma vez ao ano)</p>
                   </div>
                   <button 
-                    onClick={onGoToSignup ? () => onGoToSignup('creator') : undefined}
+                    onClick={() => onGoToSignup('creator')}
                     className="w-full bg-thedeal-gold text-black font-black py-4 rounded-xl hover:brightness-110 transition-all text-[10px] uppercase tracking-widest shadow-xl shadow-thedeal-gold/20"
                   >
                     Quero Faturar Agora
@@ -299,7 +292,6 @@ export default function LandingPage({
               </div>
             </div>
 
-            {/* 3. SÓCIO / ELITE */}
             <div className="mt-12 p-8 bg-gradient-to-br from-thedeal-card to-black border-2 border-thedeal-gold/20 rounded-[2.5rem] text-center relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
                 <Crown size={180} className="text-thedeal-gold" />
@@ -316,9 +308,9 @@ export default function LandingPage({
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-10">
                    <div className="flex items-center gap-2 text-[10px] text-white/80 font-bold uppercase justify-center"><Check size={12} className="text-thedeal-gold" /> Tudo do plano Profissional</div>
-                   <div className="flex items-center gap-2 text-[10px] text-white/80 font-bold uppercase justify-center"><Check size={12} className="text-thedeal-gold" /> Grandes Negócios: Contratos acima de R$ 20 mil</div>
+                   <div className="flex items-center gap-2 text-[10px] text-white/80 font-bold uppercase justify-center"><Check size={12} className="text-thedeal-gold" /> Grandes Negócios (R$ 20k+)</div>
                    <div className="flex items-center gap-2 text-[10px] text-white/80 font-bold uppercase justify-center"><Check size={12} className="text-thedeal-gold" /> Sociedade: Participação nos lucros</div>
-                   <div className="flex items-center gap-2 text-[10px] text-white/80 font-bold uppercase justify-center"><Check size={12} className="text-thedeal-gold" /> Atendimento VIP: Suporte direto</div>
+                   <div className="flex items-center gap-2 text-[10px] text-white/80 font-bold uppercase justify-center"><Check size={12} className="text-thedeal-gold" /> Atendimento VIP</div>
                 </div>
                 <div className="mb-8">
                    <p className="text-2xl font-black text-white uppercase tracking-widest">SOB APROVAÇÃO</p>

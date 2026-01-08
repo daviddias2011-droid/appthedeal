@@ -4,7 +4,6 @@ import {
   Gift, Users, FileText, Award, Copy, Check, Zap, Star, 
   ShieldCheck, Instagram, MessageCircle, Mail, ArrowRight, MousePointer2, TrendingUp, Info, CheckCircle
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
 import { ReferralSystem, ReferralData } from '../lib/referral';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -14,20 +13,55 @@ export default function MissionsPanel() {
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(true);
   const [emailSending, setEmailSending] = useState(false);
+  const [missions, setMissions] = useState<any[]>([]);
 
   const loadData = async () => {
     if (!profile) return;
-    let refData = ReferralSystem.getUserReferral(profile.id);
-    if (!refData) {
-      refData = ReferralSystem.generateCode(profile.id, profile.name);
+    
+    try {
+      const response = await fetch('/api/missoes.php', {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setMissions(data.missions || []);
+      }
+
+      let refData = ReferralSystem.getUserReferral(profile.id);
+      if (!refData) {
+        refData = ReferralSystem.generateCode(profile.id, profile.name);
+      }
+      setReferralData(refData);
+    } catch (e) {
+      console.error("Erro ao carregar missões:", e);
+    } finally {
+      setLoading(false);
     }
-    setReferralData(refData);
-    setLoading(false);
   };
 
   useEffect(() => {
     loadData();
   }, [profile]);
+
+  const handleCompleteMission = async (missionId: string) => {
+    try {
+      const response = await fetch('/api/missoes/completar.php', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+        },
+        body: JSON.stringify({ mission_id: missionId })
+      });
+      
+      if (response.ok) {
+        alert('Missão enviada para validação!');
+        loadData();
+      }
+    } catch (e) {
+      alert('Erro ao processar missão.');
+    }
+  };
 
   const handleCopy = () => {
     if (!referralData) return;
@@ -47,16 +81,11 @@ export default function MissionsPanel() {
   const shareViaEmail = async () => {
     if (!profile || !referralData || emailSending) return;
     setEmailSending(true);
-    try {
-      const subject = encodeURIComponent("Convite para Rede Privada The Deal");
-      const link = `${window.location.origin}/cadastro?ref=${referralData.code}`;
-      const body = encodeURIComponent(`Olá! Conheci o The Deal, uma plataforma onde criadores fecham contratos reais de R$ 2K-50K. Cadastra pelo meu link para a gente crescer juntos: ${link}`);
-      window.location.href = `mailto:?subject=${subject}&body=${body}`;
-    } catch (e) {
-      alert('Ação processada.');
-    } finally {
-      setEmailSending(false);
-    }
+    const subject = encodeURIComponent("Convite para Rede Privada The Deal");
+    const link = `${window.location.origin}/cadastro?ref=${referralData.code}`;
+    const body = encodeURIComponent(`Olá! Conheci o The Deal, uma plataforma onde criadores fecham contratos reais de R$ 2K-50K. Cadastra pelo meu link para a gente crescer juntos: ${link}`);
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    setEmailSending(false);
   };
 
   const dailyMissions = [
@@ -73,7 +102,7 @@ export default function MissionsPanel() {
   );
 
   return (
-    <div className="space-y-12 animate-fade-in w-full pb-20">
+    <div className="space-y-12 animate-fade-in w-full pb-20 text-left">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
            <h2 className="text-4xl font-display font-black text-white uppercase tracking-tighter">🎯 Missões & <span className="text-thedeal-gold">Indicações</span></h2>
@@ -103,7 +132,10 @@ export default function MissionsPanel() {
                </div>
                <div className="pt-6 mt-6 border-t border-white/5 flex items-center justify-between">
                   <span className="text-thedeal-gold font-black text-xs">+{m.points} PONTOS</span>
-                  <button className="text-[9px] font-black uppercase tracking-widest text-white px-5 py-2 bg-white/5 rounded-lg hover:bg-thedeal-gold hover:text-black transition-all">
+                  <button 
+                    onClick={() => handleCompleteMission(m.id)}
+                    className="text-[9px] font-black uppercase tracking-widest text-white px-5 py-2 bg-white/5 rounded-lg hover:bg-thedeal-gold hover:text-black transition-all"
+                  >
                     {m.action}
                   </button>
                </div>

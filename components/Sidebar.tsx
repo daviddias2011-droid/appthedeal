@@ -3,7 +3,7 @@ import React from 'react';
 import { 
   Home, Search, Briefcase, MessageCircle, 
   Calculator, Building2, Settings, Lock, ShieldCheck, GraduationCap, Trophy,
-  TrendingUp, Wallet, Users, LayoutGrid, Zap, Map, LogOut, Edit3, Handshake, CreditCard, Compass, AlertOctagon
+  TrendingUp, Wallet, Users, Zap, Map, LogOut, Handshake, Compass
 } from 'lucide-react';
 import { DashboardTab, User, UserType } from '../types';
 
@@ -16,14 +16,13 @@ interface SidebarProps {
   onGoToInvestor?: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ activeTab, onNavigate, user, onRestrictedAction, onLogout, onGoToInvestor }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activeTab, onNavigate, user, onLogout, onGoToInvestor }) => {
   const isAdmin = user?.type === UserType.Admin;
 
   const menuItems: { icon: any; label: string; tab: DashboardTab; badge?: number; locked?: boolean; adminOnly?: boolean; highlight?: boolean }[] = [
     { icon: ShieldCheck, label: 'Governança Master', tab: 'painel', adminOnly: true },
     { icon: Home, label: 'Dashboard', tab: 'feed' },
     { icon: Compass, label: 'Descubra', tab: 'discover' },
-    { icon: AlertOctagon, label: 'Lista Negra', tab: 'blacklist' },
     { icon: Trophy, label: 'Objetivos', tab: 'missoes', badge: 1 },
     { icon: Zap, label: 'Acelerar Nível', tab: 'planos', highlight: true },
     { icon: Search, label: 'Explorar Acordos', tab: 'explorar', locked: user ? !user.isVetted && !isAdmin : true },
@@ -39,7 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onNavigate, user, onRestri
   ];
 
   return (
-    <div className="flex flex-col h-full space-y-2">
+    <div className="flex flex-col h-full space-y-2 text-left">
       <nav className="flex-1 space-y-1 overflow-y-auto pr-2 scrollbar-hide">
         {menuItems.filter(i => !i.adminOnly || isAdmin).map((item) => (
           <button
@@ -48,7 +47,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onNavigate, user, onRestri
             className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all relative group ${
               activeTab === item.tab 
                 ? 'bg-white/5 text-white font-bold border border-white/5' 
-                : item.highlight ? 'text-thedeal-goldBright font-bold hover:bg-thedeal-gold/5' : 'text-thedeal-gray400 hover:text-thedeal-gold hover:bg-white/5'
+                : item.highlight ? 'text-thedeal-gold font-bold hover:bg-thedeal-gold/5' : 'text-thedeal-gray400 hover:text-thedeal-gold hover:bg-white/5'
             }`}
           >
             <item.icon className={`w-5 h-5 ${activeTab === item.tab ? 'text-thedeal-goldBright' : ''}`} />

@@ -4,7 +4,7 @@ import { User, Deal, UserType, Application } from '../types';
 import { 
   Users, Database, Globe, Server, Activity, Clock, ShieldAlert, RefreshCcw, Trash2, ExternalLink
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { api } from '../lib/api';
 
 interface AdminDashboardProps {
     adminUser: User;
@@ -36,15 +36,10 @@ export default function AdminDashboard(props: AdminDashboardProps) {
     const fetchLeads = async () => {
         setIsLoading(true);
         try {
-            const { data, error } = await supabase
-                .from('leads')
-                .select('*')
-                .order('created_at', { ascending: false });
-
-            if (error) throw error;
-            setLeads(data || []);
+            const data = await api.get('/api/admin/leads.php');
+            setLeads(data.leads || []);
         } catch (err) {
-            console.error("Erro ao sincronizar leads:", err);
+            console.error("Erro ao sincronizar leads via API:", err);
         } finally {
             setIsLoading(false);
         }
@@ -52,27 +47,28 @@ export default function AdminDashboard(props: AdminDashboardProps) {
 
     useEffect(() => {
         fetchLeads();
-
-        // Configura atualização em tempo real
-        const channel = supabase
-            .channel('realtime_leads')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'leads' }, () => {
-                fetchLeads();
-            })
-            .subscribe();
-
-        return () => {
-            supabase.removeChannel(channel);
-        };
+        // Polling interval since we lost Supabase Realtime
+        const interval = setInterval(fetchLeads, 30000);
+        return () => clearInterval(interval);
     }, []);
 
     const handleDelete = async (id: string) => {
         if (!confirm('Excluir permanentemente este lead da base de curadoria?')) return;
         try {
-            await supabase.from('leads').delete().eq('id', id);
+            await api.post('/api/admin/excluir-lead.php', { id });
             setLeads(leads.filter(l => l.id !== id));
         } catch (e) {
             alert('Falha ao excluir lead.');
+        }
+    };
+
+    const handleApprove = async (id: string) => {
+        try {
+            await api.post('/api/admin/aprovar-lead.php', { id });
+            alert('Membro validado com sucesso!');
+            fetchLeads();
+        } catch (e) {
+            alert('Erro ao aprovar membro.');
         }
     };
 
@@ -98,8 +94,8 @@ export default function AdminDashboard(props: AdminDashboardProps) {
             <div className="bg-thedeal-card border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
                 <div className="p-10 border-b border-white/5 flex justify-between items-center bg-black/20">
                     <div>
-                        <h3 className="text-2xl font-bold text-white uppercase tracking-tight">Fila de Curadoria Real</h3>
-                        <p className="text-[10px] font-black text-thedeal-gold uppercase tracking-[0.4em] mt-1">Dados Sincronizados via Supabase</p>
+                        <h3 className="text-2xl font-bold text-white uppercase tracking-tight">Fila de Curadoria Alpha</h3>
+                        <p className="text-[10px] font-black text-thedeal-gold uppercase tracking-[0.4em] mt-1">Sincronizado com MySQL Master</p>
                     </div>
                     <button onClick={fetchLeads} className={`p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all ${isLoading ? 'animate-spin' : ''}`}>
                         <RefreshCcw size={20} className="text-thedeal-gold" />
@@ -141,9 +137,9 @@ export default function AdminDashboard(props: AdminDashboardProps) {
                                     </td>
                                     <td className="px-10 py-6 text-right">
                                         <div className="flex justify-end gap-3">
-                                            <a href={lead.profile_url} target="_blank" rel="noreferrer" className="p-3 bg-white/5 rounded-xl text-thedeal-gray600 hover:text-white transition-all"><ExternalLink size={16}/></a>
+                                            {lead.profile_url && <a href={lead.profile_url} target="_blank" rel="noreferrer" className="p-3 bg-white/5 rounded-xl text-thedeal-gray600 hover:text-white transition-all"><ExternalLink size={16}/></a>}
                                             <button onClick={() => handleDelete(lead.id)} className="p-3 bg-red-500/10 rounded-xl text-red-500 hover:bg-red-500 hover:text-white transition-all"><Trash2 size={16}/></button>
-                                            <button className="bg-thedeal-goldBright text-black font-black px-6 py-3 rounded-xl text-[10px] uppercase tracking-widest shadow-xl shadow-thedeal-gold/10 hover:scale-105 transition-all">Aprovar</button>
+                                            <button onClick={() => handleApprove(lead.id)} className="bg-thedeal-goldBright text-black font-black px-6 py-3 rounded-xl text-[10px] uppercase tracking-widest shadow-xl shadow-thedeal-gold/10 hover:scale-105 transition-all">Aprovar</button>
                                         </div>
                                     </td>
                                 </tr>

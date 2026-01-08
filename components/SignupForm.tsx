@@ -1,17 +1,16 @@
 
 import React, { useState } from 'react';
 import { 
-  AlertCircle, Loader, ArrowRight, ShieldCheck, Zap, Building2, Check, Lock, Eye, EyeOff, Instagram, ChevronLeft, CreditCard, Star, Clock, User, MessageCircle
+  AlertCircle, Loader, ArrowRight, ShieldCheck, Zap, Building2, Check, Lock, Eye, EyeOff, Star, User, CreditCard, ExternalLink
 } from 'lucide-react';
 import { UserType } from '../types';
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { api } from '../lib/api';
 
 interface SignupFormProps {
   onBack: () => void;
   onSuccess: () => void;
 }
 
-// LINKS DE PAGAMENTO MERCADO PAGO
 const LINK_PAGAMENTO_MENSAL = "https://mpago.la/13NLfeG";
 const LINK_PAGAMENTO_ANUAL = "https://mpago.li/1iwECoa";
 
@@ -24,8 +23,8 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
 
   const [formData, setFormData] = useState<any>({
     fullName: '', email: '', password: '', confirmPassword: '', phone: '', 
-    plan: 'free', // 'free' | 'pro'
-    period: 'monthly', // 'monthly' | 'annual'
+    plan: 'free', 
+    period: 'monthly', 
     socialHandle: '', niche: '',
     motivation: ''
   });
@@ -36,40 +35,22 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
     if (error) setError(null);
   };
 
-  const checkEmailExists = async (email: string) => {
-    if (!isSupabaseConfigured()) return false;
-    const { data, error } = await supabase!
-      .from('profiles')
-      .select('email')
-      .eq('email', email.toLowerCase())
-      .maybeSingle();
-    
-    return !!data;
-  };
-
   const handleStep1Submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError(null);
-
-    try {
-      if (!formData.email || !formData.password || !formData.fullName) {
-        throw new Error('Preencha os dados de identidade Alpha.');
-      }
-      if (formData.password.length < 6) throw new Error('A chave de segurança deve ter 6+ caracteres.');
-      if (formData.password !== formData.confirmPassword) throw new Error('As chaves de segurança não coincidem.');
-
-      const exists = await checkEmailExists(formData.email);
-      if (exists) {
-        throw new Error('Este email já está cadastrado.');
-      }
-
-      setStep(2);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+    if (!formData.email || !formData.password || !formData.fullName) {
+      setError('Preencha os dados de identidade Alpha.');
+      return;
     }
+    if (formData.password.length < 6) {
+      setError('A chave de segurança deve ter 6+ caracteres.');
+      return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      setError('As chaves de segurança não coincidem.');
+      return;
+    }
+    setStep(2);
   };
 
   const handleStep2Submit = (e: React.FormEvent) => {
@@ -98,27 +79,21 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
   const finalizeRegistration = async () => {
     setLoading(true);
     try {
-      if (isSupabaseConfigured()) {
-        const { error: signupError } = await supabase!.auth.signUp({
-          email: formData.email,
-          password: formData.password,
-          options: {
-            data: {
-              full_name: formData.fullName,
-              user_type: userType,
-              plan: formData.plan,
-              period: formData.plan === 'pro' ? formData.period : 'none',
-              social_handle: formData.socialHandle,
-              niche: formData.niche,
-              motivation: formData.motivation
-            }
-          }
-        });
-        if (signupError) throw signupError;
-      }
+      await api.post('/api/cadastro.php', {
+        full_name: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+        user_type: userType,
+        plan: formData.plan,
+        period: formData.plan === 'pro' ? formData.period : 'none',
+        social_handle: formData.socialHandle,
+        niche: formData.niche,
+        motivation: formData.motivation,
+        phone: formData.phone
+      });
       onSuccess(); 
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || 'Erro ao processar cadastro no servidor.');
     } finally {
       setLoading(false);
     }
@@ -126,7 +101,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
 
   if (!userType) {
     return (
-      <div className="max-w-2xl mx-auto py-12 px-6 animate-fade-in">
+      <div className="max-w-2xl mx-auto py-12 px-6 animate-fade-in text-center">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-display font-black text-white uppercase tracking-tighter mb-4">Selecione seu <span className="text-thedeal-gold">Perfil Alpha</span></h2>
           <p className="text-thedeal-gray400 text-sm font-medium tracking-wide">Como você atuará no ecossistema?</p>
@@ -134,20 +109,21 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
         <div className="grid md:grid-cols-2 gap-6">
           <button onClick={() => setUserType(UserType.Creator)} className="group p-10 bg-thedeal-card border border-white/5 rounded-[2.5rem] hover:border-thedeal-gold transition-all text-center space-y-6 shadow-2xl">
             <div className="w-16 h-16 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform"><Zap className="text-thedeal-gold" size={32} /></div>
-            <h3 className="text-xl font-black text-white uppercase tracking-tight">Sou Criador</h3>
+            <h3 className="text-xl font-black text-white uppercase tracking-tight text-center">Sou Criador</h3>
           </button>
           <button onClick={() => setUserType(UserType.Brand)} className="group p-10 bg-thedeal-card border border-white/5 rounded-[2.5rem] hover:border-thedeal-gold transition-all text-center space-y-6 shadow-2xl">
             <div className="w-16 h-16 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform"><Building2 className="text-thedeal-gold" size={32} /></div>
-            <h3 className="text-xl font-black text-white uppercase tracking-tight">Sou Marca</h3>
+            <h3 className="text-xl font-black text-white uppercase tracking-tight text-center">Sou Marca</h3>
           </button>
         </div>
+        <button onClick={onBack} className="mt-12 text-[10px] font-black uppercase text-thedeal-gray600 hover:text-white tracking-widest transition-colors">Voltar</button>
       </div>
     );
   }
 
   return (
     <div className="max-w-xl mx-auto px-4 py-10 animate-fade-in">
-      <div className="bg-thedeal-card border border-white/5 rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative">
+      <div className="bg-thedeal-card border border-white/5 rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative text-left">
         {error && (
           <div className="mb-8 p-4 bg-thedeal-danger/10 border border-thedeal-danger/20 rounded-2xl flex items-center gap-3 animate-shake">
             <AlertCircle className="text-thedeal-danger shrink-0" size={18} />
@@ -198,7 +174,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
         )}
 
         {step === 3 && (
-          <div className="animate-fade-in space-y-8">
+          <div className="animate-fade-in space-y-8 text-center">
             <div className="text-center">
               <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-2">Nível de <span className="text-thedeal-gold">Acesso</span></h3>
               <p className="text-thedeal-gray400 text-sm">Escolha seu protocolo de entrada na rede.</p>
@@ -222,7 +198,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
                 className="p-8 rounded-[2rem] border-2 border-white/5 bg-black/40 text-left transition-all hover:border-white/20 group"
               >
                 <div className="flex justify-between items-start mb-4">
-                  <Clock className="text-thedeal-gray600" size={32} />
+                  <Star className="text-thedeal-gray600" size={32} />
                 </div>
                 <h4 className="text-white font-black uppercase text-lg mb-2">Plano Grátis</h4>
                 <p className="text-thedeal-gray400 text-xs leading-relaxed mb-6">Acesso limitado ao simulador e rede pública. Sujeito a análise manual de longa espera.</p>
@@ -234,7 +210,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
         )}
 
         {step === 4 && (
-          <div className="animate-fade-in space-y-8">
+          <div className="animate-fade-in space-y-8 text-center">
             <div className="text-center">
               <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-2">Frequência de <span className="text-thedeal-gold">Expansão</span></h3>
               <p className="text-thedeal-gray400 text-sm">Selecione o ciclo de faturamento para seu nível PRO.</p>
@@ -276,7 +252,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
               </div>
               <h3 className="text-2xl font-black text-white uppercase tracking-tight">Finalizar <span className="text-thedeal-gold">Ativação</span></h3>
               <p className="text-thedeal-gray400 text-sm leading-relaxed px-4">
-                Você será redirecionado para o ambiente seguro do Mercado Pago para processar seu pagamento {formData.period === 'monthly' ? 'mensal' : 'anual'}.
+                Você será redirecionado para o ambiente seguro para processar seu pagamento {formData.period === 'monthly' ? 'mensal' : 'anual'}.
               </p>
             </div>
 
@@ -292,11 +268,11 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
               <div className="flex items-center justify-center gap-6 opacity-30">
                 <div className="flex items-center gap-2">
                   <ShieldCheck size={14} />
-                  <span className="text-[8px] font-black uppercase tracking-widest">SSL Secure</span>
+                  <span className="text-[8px] font-black uppercase tracking-widest">Secure Payment</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Lock size={14} />
-                  <span className="text-[8px] font-black uppercase tracking-widest">Anti-Fraud</span>
+                  <span className="text-[8px] font-black uppercase tracking-widest">Alpha Protocol</span>
                 </div>
               </div>
             </div>
