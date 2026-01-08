@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { 
-  Loader, ArrowRight, Zap, Building2, User, CreditCard, ExternalLink, FileCheck, MessageCircle, Mail, CheckCircle2, Star
+  Loader, ArrowRight, Zap, Building2, User, CreditCard, ExternalLink, FileCheck, MessageCircle, Mail, CheckCircle2, Star, AlertCircle
 } from 'lucide-react';
 import { UserType } from '../types';
 
@@ -51,7 +51,7 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
       `- Perfil: ${userType === UserType.Creator ? 'Criador' : 'Marca'}\n` +
       `- E-mail: ${formData.email}\n` +
       `- Handle: ${formData.socialHandle}\n\n` +
-      `*ESTOU ANEXANDO O COMPROVANTE NESTA MENSAGEM.*`
+      `*IMPORTANTE: ESTOU ANEXANDO O COMPROVANTE NESTA CONVERSA AGORA.*`
     );
   };
 
@@ -150,7 +150,7 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
               <h3 className="text-xl font-black text-white uppercase tracking-tight">Etapa Final: Validar</h3>
             </div>
             
-            <p className="text-xs text-thedeal-gray400 font-medium leading-relaxed">Selecione o comprovante e escolha o canal de envio para liberar seu terminal.</p>
+            <p className="text-xs text-thedeal-gray400 font-medium leading-relaxed">Anexe o arquivo abaixo para registro e escolha o canal para envio final.</p>
 
             {/* Upload Area */}
             <div className={`p-8 border-2 border-dashed rounded-3xl text-center transition-all ${fileSelected ? 'border-thedeal-success bg-thedeal-success/5' : 'border-thedeal-gray700 bg-black/20'}`}>
@@ -161,33 +161,45 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
                     <CheckCircle2 className="text-thedeal-success" size={40} />
                     <div className="space-y-1">
                       <p className="text-white font-black uppercase text-xs">{fileSelected.name}</p>
-                      <p className="text-thedeal-success font-bold text-[9px] uppercase tracking-widest">Arquivo Pronto</p>
+                      <p className="text-thedeal-success font-bold text-[9px] uppercase tracking-widest">Arquivo Carregado</p>
                     </div>
                   </>
                 ) : (
                   <>
                     <FileCheck className="text-thedeal-gray600" size={40} />
-                    <span className="text-[10px] font-black uppercase text-thedeal-gray400 tracking-[0.2em]">Clique para Anexar Comprovante</span>
+                    <span className="text-[10px] font-black uppercase text-thedeal-gray400 tracking-[0.2em]">Clique para Carregar Comprovante</span>
                   </>
                 )}
               </label>
             </div>
 
+            {/* Manual Attachment Warning */}
+            {fileSelected && (
+              <div className="bg-orange-500/10 border border-orange-500/20 p-4 rounded-2xl flex gap-3 animate-fade-in">
+                <AlertCircle className="text-orange-500 shrink-0" size={20} />
+                <p className="text-[10px] text-orange-200 font-bold uppercase leading-relaxed tracking-wider">
+                  Atenção: Ao abrir o WhatsApp ou E-mail, você deve <span className="text-white underline">anexar o arquivo manualmente</span> novamente na conversa.
+                </p>
+              </div>
+            )}
+
             {/* Channels Area */}
             <div className={`space-y-3 transition-opacity ${!fileSelected ? 'opacity-30 pointer-events-none' : 'opacity-100'}`}>
-              <p className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-widest text-center">Agora, envie o arquivo selecionado:</p>
+              <p className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-widest text-center">Agora, selecione o canal para enviar:</p>
               <div className="grid grid-cols-2 gap-3">
                 <button 
                   onClick={() => handleChannelAction('wa')}
-                  className={`flex items-center justify-center gap-2 p-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${actionTaken ? 'bg-white/5 text-white border border-white/10' : 'bg-[#25D366] text-white shadow-lg shadow-[#25D366]/20 hover:scale-105'}`}
+                  className={`flex flex-col items-center justify-center gap-2 p-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${actionTaken ? 'bg-white/5 text-white border border-white/10' : 'bg-[#25D366] text-white shadow-lg shadow-[#25D366]/20 hover:scale-105'}`}
                 >
-                  <MessageCircle size={18}/> WhatsApp
+                  <div className="flex items-center gap-2"><MessageCircle size={18}/> WhatsApp</div>
+                  <span className="text-[7px] opacity-70">Anexe o arquivo no chat</span>
                 </button>
                 <button 
                   onClick={() => handleChannelAction('mail')}
-                  className={`flex items-center justify-center gap-2 p-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${actionTaken ? 'bg-white/5 text-white border border-white/10' : 'bg-thedeal-gold text-black shadow-lg shadow-thedeal-gold/20 hover:scale-105'}`}
+                  className={`flex flex-col items-center justify-center gap-2 p-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${actionTaken ? 'bg-white/5 text-white border border-white/10' : 'bg-thedeal-gold text-black shadow-lg shadow-thedeal-gold/20 hover:scale-105'}`}
                 >
-                  <Mail size={18}/> E-mail
+                  <div className="flex items-center gap-2"><Mail size={18}/> E-mail</div>
+                  <span className="text-[7px] opacity-70">Anexe o arquivo no e-mail</span>
                 </button>
               </div>
             </div>
@@ -201,7 +213,7 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
               >
                 {loading ? <Loader className="animate-spin mx-auto" size={20}/> : (
                   <span className="flex items-center justify-center gap-3">
-                    Confirmar Envio <CheckCircle2 size={18} />
+                    Confirmar que Enviei <CheckCircle2 size={18} />
                   </span>
                 )}
                 {!loading && fileSelected && actionTaken && (
