@@ -11,6 +11,7 @@ import SimulatorPage from './SimulatorPage';
 import KnowledgeHub from './KnowledgeHub';
 import PricingPage from './PricingPage';
 import DiscoverPage from './DiscoverPage';
+import BlacklistPage from './Blacklist';
 import { MOCK_POSTS, USERS } from '../constants';
 import { useAuth } from '../contexts/AuthContext';
 import { Briefcase, X, ShieldCheck, AlertTriangle, RefreshCw, CheckCircle, Menu } from 'lucide-react';
@@ -55,6 +56,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
           </div>
         );
       case 'discover': return <DiscoverPage onBack={() => setActiveTab('feed')} onSignup={() => setActiveTab('planos')} />;
+      case 'blacklist': return <BlacklistPage onBack={() => setActiveTab('feed')} />;
       case 'missoes': return <MissionsPanel />;
       case 'planos': return <PricingPage onBack={() => setActiveTab('feed')} />;
       case 'cursos': return <KnowledgeHub onNavigateBack={() => setActiveTab('feed')} />;
