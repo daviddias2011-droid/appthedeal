@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   LogIn, ArrowRight, Home, Briefcase, 
-  Menu, X as CloseIcon, Trophy, GraduationCap, Building2, HelpCircle, Handshake, Calculator, Compass, Zap, Crown, Check
+  Menu, X as CloseIcon, Trophy, GraduationCap, Building2, HelpCircle, Handshake, Calculator, Compass, Zap, Crown, Check, ExternalLink
 } from 'lucide-react';
 import FeedItem from './FeedItem';
 import AccessModal from './AccessModal';
@@ -225,104 +225,93 @@ export default function LandingPage({
             </div>
           </section>
 
-          <section className="py-20 px-6 bg-black border-t border-thedeal-gray700/30">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl font-display font-black text-white uppercase tracking-tighter">Escolha como <span className="text-thedeal-gold">você entra.</span></h2>
+          {/* PRICING SECTION - 2 COLUNAS */}
+          <section className="py-20 px-6 bg-black border-t border-thedeal-gray700/30 text-left">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter">Escolha Seu <span className="text-thedeal-gold">Acesso.</span></h2>
               <p className="text-thedeal-gray600 text-[10px] font-bold uppercase tracking-[0.3em] mt-2">Protocolos de Expansão Profissional</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-8 bg-thedeal-card border border-white/5 rounded-[2rem] space-y-6 flex flex-col justify-between hover:border-white/10 transition-all group">
-                <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {/* CRIADOR */}
+              <div className="p-8 md:p-10 bg-thedeal-card border border-white/5 rounded-[2.5rem] space-y-10 flex flex-col justify-between hover:border-thedeal-gold/30 transition-all group shadow-2xl relative overflow-hidden">
+                <div className="space-y-6">
                   <div className="flex justify-between items-start">
-                    <h3 className="text-white font-black text-xl uppercase tracking-tight">1. TRIAGEM</h3>
-                    <div className="bg-white/10 text-white/40 px-3 py-1 rounded-full text-[8px] font-black uppercase">Análise</div>
+                    <h3 className="text-white font-black text-2xl uppercase tracking-tight">Criador</h3>
+                    <div className="bg-thedeal-gold/10 text-thedeal-gold px-3 py-1 rounded-full text-[8px] font-black uppercase">48h Aprovação</div>
                   </div>
-                  <p className="text-thedeal-gold font-black text-[10px] uppercase tracking-widest">Acesso sob análise.</p>
-                  <p className="text-thedeal-gray400 text-xs font-medium leading-relaxed">
-                    Para quem está chegando agora. Você entra na fila de espera e descobre quanto vale, mas ainda não fecha negócios.
-                  </p>
-                  <ul className="space-y-2 mt-4">
-                    <li className="flex items-center gap-2 text-[10px] text-thedeal-gray400 font-bold uppercase"><Check size={12} className="text-thedeal-gray600" /> Cadastro na fila de espera</li>
-                    <li className="flex items-center gap-2 text-[10px] text-thedeal-gray400 font-bold uppercase"><Check size={12} className="text-thedeal-gray600" /> Calculadora de Valor</li>
-                    <li className="flex items-center gap-2 text-[10px] text-thedeal-gray400 font-bold uppercase"><Check size={12} className="text-thedeal-gray600" /> Perfil em modo visualização</li>
+                  <div>
+                    <p className="text-4xl font-black text-thedeal-goldBright tracking-tighter">R$ 297<span className="text-sm font-bold text-thedeal-gray600">/ano</span></p>
+                  </div>
+                  <ul className="space-y-4 pt-6 border-t border-white/5">
+                    <li className="flex items-start gap-3 text-[11px] text-white font-bold uppercase tracking-widest"><Check size={16} className="text-thedeal-gold shrink-0" /> Seu perfil no marketplace</li>
+                    <li className="flex items-start gap-3 text-[11px] text-white font-bold uppercase tracking-widest"><Check size={16} className="text-thedeal-gold shrink-0" /> Receba propostas de marcas</li>
+                    <li className="flex items-start gap-3 text-[11px] text-white font-bold uppercase tracking-widest"><Check size={16} className="text-thedeal-gold shrink-0" /> Contrato + Escrow Automático</li>
+                    <li className="flex items-start gap-3 text-[11px] text-thedeal-goldBright font-black uppercase tracking-widest"><Zap size={16} className="shrink-0" /> Taxa: 10% por deal fechado</li>
                   </ul>
                 </div>
-                <div className="pt-6 space-y-4">
-                  <div>
-                    <p className="text-3xl font-black text-white">GRÁTIS</p>
-                  </div>
-                  <button 
-                    onClick={() => onGoToSignup('creator')}
-                    className="w-full bg-white/5 border border-white/10 text-white font-black py-4 rounded-xl hover:bg-white/10 transition-all text-[10px] uppercase tracking-widest"
-                  >
-                    Entrar na Fila
-                  </button>
-                </div>
+                <button 
+                  onClick={() => onGoToSignup('creator')}
+                  className="w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-5 rounded-2xl uppercase text-[11px] tracking-widest transition-all shadow-xl shadow-thedeal-gold/20 active:scale-95"
+                >
+                  ATIVAR PERFIL
+                </button>
               </div>
 
-              <div className="p-8 bg-thedeal-card border-2 border-thedeal-goldBright/40 rounded-[2rem] space-y-6 flex flex-col justify-between shadow-[0_0_30px_rgba(212,175,55,0.1)] hover:scale-[1.02] transition-all group">
-                <div className="space-y-4">
+              {/* MARCA */}
+              <div className="p-8 md:p-10 bg-thedeal-card border border-white/5 rounded-[2.5rem] space-y-10 flex flex-col justify-between hover:border-thedeal-gold transition-all group shadow-2xl relative overflow-hidden">
+                <div className="space-y-6">
                   <div className="flex justify-between items-start">
-                    <h3 className="text-white font-black text-xl uppercase tracking-tight">2. PROFISSIONAL</h3>
-                    <div className="bg-thedeal-gold text-black px-3 py-1 rounded-full text-[8px] font-black uppercase">Express</div>
+                    <h3 className="text-white font-black text-2xl uppercase tracking-tight">Marca</h3>
+                    <div className="bg-white text-black px-3 py-1 rounded-full text-[8px] font-black uppercase">Ativação Imediata</div>
                   </div>
-                  <p className="text-thedeal-goldBright font-black text-[10px] uppercase tracking-widest">Para quem quer faturar.</p>
-                  <p className="text-thedeal-gray400 text-xs font-medium leading-relaxed">
-                    Pule a fila de espera. Tenha seu perfil liberado em até 72h e comece a negociar.
-                  </p>
-                  <ul className="space-y-2 mt-4">
-                    <li className="flex items-center gap-2 text-[10px] text-white font-bold uppercase"><Check size={12} className="text-thedeal-gold" /> Aprovação Rápida: Ativo em 3 dias</li>
-                    <li className="flex items-center gap-2 text-[10px] text-white font-bold uppercase"><Check size={12} className="text-thedeal-gold" /> Mercado Aberto: Feche contratos</li>
-                    <li className="flex items-center gap-2 text-[10px] text-white font-bold uppercase"><Check size={12} className="text-thedeal-gold" /> Capacitação: Acesso a cursos</li>
+                  <div>
+                    <p className="text-4xl font-black text-white tracking-tighter">R$ 497<span className="text-sm font-bold text-thedeal-gray600">/ano</span></p>
+                  </div>
+                  <ul className="space-y-4 pt-6 border-t border-white/5">
+                    <li className="flex items-start gap-3 text-[11px] text-white font-bold uppercase tracking-widest"><Check size={16} className="text-thedeal-gold shrink-0" /> Acesso total aos criadores</li>
+                    <li className="flex items-start gap-3 text-[11px] text-white font-bold uppercase tracking-widest"><Check size={16} className="text-thedeal-gold shrink-0" /> Propostas ilimitadas</li>
+                    <li className="flex items-start gap-3 text-[11px] text-white font-bold uppercase tracking-widest"><Check size={16} className="text-thedeal-gold shrink-0" /> Contrato + Escrow Automático</li>
+                    <li className="flex items-start gap-3 text-[11px] text-thedeal-goldBright font-black uppercase tracking-widest"><Zap size={16} className="shrink-0" /> Taxa: 10% por deal fechado</li>
                   </ul>
                 </div>
-                <div className="pt-6 space-y-4">
-                  <div>
-                    <p className="text-3xl font-black text-thedeal-goldBright">R$ 9,90 <span className="text-sm font-bold text-thedeal-gray600">/mês</span></p>
-                    <p className="text-[9px] text-thedeal-gray600 font-bold uppercase tracking-widest mt-1">(Cobrado R$ 99,90 uma vez ao ano)</p>
-                  </div>
-                  <button 
-                    onClick={() => onGoToSignup('creator')}
-                    className="w-full bg-thedeal-gold text-black font-black py-4 rounded-xl hover:brightness-110 transition-all text-[10px] uppercase tracking-widest shadow-xl shadow-thedeal-gold/20"
-                  >
-                    Quero Faturar Agora
-                  </button>
-                </div>
+                <button 
+                  onClick={() => onGoToSignup('brand')}
+                  className="w-full bg-white hover:bg-zinc-200 text-black font-black py-5 rounded-2xl uppercase text-[11px] tracking-widest transition-all active:scale-95 shadow-xl shadow-white/5"
+                >
+                  COMEÇAR A CONTRATAR
+                </button>
               </div>
             </div>
 
-            <div className="mt-12 p-8 bg-gradient-to-br from-thedeal-card to-black border-2 border-thedeal-gold/20 rounded-[2.5rem] text-center relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
-                <Crown size={180} className="text-thedeal-gold" />
-              </div>
-              
-              <div className="relative z-10">
-                <div className="w-12 h-12 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Crown size={24} className="text-thedeal-gold" />
-                </div>
-                <h3 className="text-2xl font-black text-white uppercase tracking-tight">3. SÓCIO / ELITE</h3>
-                <p className="text-thedeal-goldBright font-black text-[10px] uppercase tracking-[0.3em] mt-2 mb-4">Para quem joga alto.</p>
-                <p className="text-thedeal-gray400 text-sm mt-2 mb-8 max-w-lg mx-auto font-medium leading-relaxed">
-                  O nível máximo. Acesso a contratos grandes e sociedade em marcas.
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-10">
-                   <div className="flex items-center gap-2 text-[10px] text-white/80 font-bold uppercase justify-center"><Check size={12} className="text-thedeal-gold" /> Tudo do plano Profissional</div>
-                   <div className="flex items-center gap-2 text-[10px] text-white/80 font-bold uppercase justify-center"><Check size={12} className="text-thedeal-gold" /> Grandes Negócios (R$ 20k+)</div>
-                   <div className="flex items-center gap-2 text-[10px] text-white/80 font-bold uppercase justify-center"><Check size={12} className="text-thedeal-gold" /> Sociedade: Participação nos lucros</div>
-                   <div className="flex items-center gap-2 text-[10px] text-white/80 font-bold uppercase justify-center"><Check size={12} className="text-thedeal-gold" /> Atendimento VIP</div>
-                </div>
-                <div className="mb-8">
-                   <p className="text-2xl font-black text-white uppercase tracking-widest">SOB APROVAÇÃO</p>
-                </div>
-                <button 
-                  onClick={handleRequestDemo} 
-                  className="bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black px-12 py-5 rounded-2xl text-xs uppercase tracking-[0.3em] transition-all shadow-xl shadow-thedeal-gold/20 active:scale-95 flex items-center justify-center gap-3 mx-auto"
-                >
-                  SOLICITAR ACESSO ELITE
-                  <ArrowRight size={16} />
-                </button>
-              </div>
+            <div className="mt-12 text-center">
+                 <button onClick={handleRequestDemo} className="text-thedeal-gray600 hover:text-thedeal-gold transition-colors font-black uppercase tracking-[0.4em] text-[9px] flex items-center justify-center gap-3 mx-auto">
+                    Enterprise? Contratos acima de R$ 50k? <span className="underline underline-offset-4">Falar com o time</span>
+                 </button>
+            </div>
+
+            {/* PERGUNTAS DIRETAS (FAQ) */}
+            <div className="mt-32 max-w-4xl mx-auto space-y-16">
+                 <div className="text-center space-y-4">
+                    <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white">Perguntas <span className="text-thedeal-gold">Diretas.</span></h2>
+                    <p className="text-thedeal-gray600 font-bold uppercase tracking-[0.3em] text-[10px]">Verdade sem filtro para profissionais de elite.</p>
+                 </div>
+                 <div className="grid md:grid-cols-2 gap-8">
+                    {[
+                      { q: "Por que pagar R$ 297?", a: "Porque você elimina calote, ghosting e burocracia. São R$ 0,81/dia pra nunca mais perder tempo com contrato furado." },
+                      { q: "A taxa de 10% não é alta?", a: "Agências cobram 20-30%. Advogado + contrato custa R$ 1.500+. E nós só cobramos se o deal fechar." },
+                      { q: "E se a marca não confirmar?", a: "Você tem 48h pra apresentar prova no terminal. Nossa equipe analisa as evidências e libera o pagamento." },
+                      { q: "Posso cancelar?", a: "Sim. Sem multa ou pegadinha. Você mantém acesso até o fim do período anual já contratado." }
+                    ].map((item, i) => (
+                      <div key={i} className="bg-thedeal-card border border-white/5 p-8 rounded-3xl space-y-4">
+                         <div className="flex items-center gap-3 text-thedeal-gold">
+                            <HelpCircle size={18} />
+                            <h4 className="text-xs font-black uppercase tracking-widest leading-tight">{item.q}</h4>
+                         </div>
+                         <p className="text-thedeal-gray400 text-sm font-medium leading-relaxed">{item.a}</p>
+                      </div>
+                    ))}
+                 </div>
             </div>
           </section>
 

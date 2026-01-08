@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import { User } from '../types';
 import { 
-  ShieldIcon, 
-  LockIcon, 
-  DeviceIcon, 
-  TrashIcon, 
-  CheckCircleIcon,
+  Shield, 
+  Lock, 
+  Monitor, 
+  Trash2, 
+  CheckCircle2,
   Instagram,
   ExternalLink,
   Unlink
@@ -98,7 +98,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ user, onLogout }) => {
             <div className="bg-thedeal-card border border-thedeal-gray700 rounded-3xl overflow-hidden shadow-2xl">
                 <div className="p-5 border-b border-white/5 bg-white/[0.02]">
                     <h2 className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2">
-                        <LockIcon className="w-4 h-4 text-thedeal-gold" />
+                        <Lock className="w-4 h-4 text-thedeal-gold" />
                         Credenciais de Acesso
                     </h2>
                 </div>
@@ -112,7 +112,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ user, onLogout }) => {
                                 disabled 
                                 className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 pl-14 text-sm font-bold text-thedeal-gray600 opacity-70 cursor-not-allowed"
                             />
-                            <LockIcon className="w-4 h-4 text-thedeal-gray700 absolute left-5 top-1/2 -translate-y-1/2" />
+                            <Lock className="w-4 h-4 text-thedeal-gray700 absolute left-5 top-1/2 -translate-y-1/2" />
                         </div>
                     </div>
                     <div className="flex items-center justify-between p-4 border border-white/5 rounded-2xl">
@@ -142,7 +142,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ user, onLogout }) => {
             <div className="bg-thedeal-card border border-thedeal-gray700 rounded-3xl overflow-hidden shadow-2xl">
                 <div className="p-5 border-b border-white/5 bg-white/[0.02]">
                     <h2 className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2">
-                        <ShieldIcon className="w-4 h-4 text-thedeal-gold" />
+                        <Shield className="w-4 h-4 text-thedeal-gold" />
                         Privacidade do Perfil
                     </h2>
                 </div>
@@ -165,7 +165,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ user, onLogout }) => {
             <div className="bg-thedeal-card border border-thedeal-gray700 rounded-3xl overflow-hidden shadow-2xl">
                 <div className="p-5 border-b border-white/5 bg-white/[0.02]">
                     <h2 className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2">
-                        <DeviceIcon className="w-4 h-4 text-thedeal-gold" />
+                        <Monitor className="w-4 h-4 text-thedeal-gold" />
                         Sessões do Terminal
                     </h2>
                 </div>
@@ -173,7 +173,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ user, onLogout }) => {
                     <div className="flex items-center justify-between p-4 bg-black/40 border border-white/5 rounded-2xl">
                         <div className="flex items-center gap-4">
                             <div className="w-10 h-10 bg-thedeal-gold/10 rounded-xl flex items-center justify-center">
-                                <DeviceIcon className="w-5 h-5 text-thedeal-gold" />
+                                <Monitor className="w-5 h-5 text-thedeal-gold" />
                             </div>
                             <div>
                                 <p className="text-sm font-bold text-white uppercase tracking-tight">Este Dispositivo</p>
@@ -189,7 +189,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ user, onLogout }) => {
 
             <div className="border border-red-500/20 bg-red-500/5 rounded-3xl p-8">
                 <div className="flex items-start gap-4">
-                    <TrashIcon className="w-6 h-6 text-red-500 mt-1" />
+                    <Trash2 className="w-6 h-6 text-red-500 mt-1" />
                     <div className="text-left">
                         <h2 className="text-lg font-black text-white uppercase tracking-tight">Protocolo de Exclusão</h2>
                         <p className="text-sm text-thedeal-gray400 mt-2 leading-relaxed">

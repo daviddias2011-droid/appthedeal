@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { 
-  AlertCircle, Loader, ArrowRight, ShieldCheck, Zap, Building2, Check, Lock, Eye, EyeOff, Star, User, CreditCard, ExternalLink
+  AlertCircle, Loader, ArrowRight, ShieldCheck, Zap, Building2, Check, Lock, Eye, EyeOff, Star, User, CreditCard, ExternalLink, HelpCircle
 } from 'lucide-react';
 import { UserType } from '../types';
 import { api } from '../lib/api';
@@ -11,8 +11,8 @@ interface SignupFormProps {
   onSuccess: () => void;
 }
 
-const LINK_PAGAMENTO_MENSAL = "https://mpago.la/13NLfeG";
-const LINK_PAGAMENTO_ANUAL = "https://mpago.li/1iwECoa";
+const LINK_PAGAMENTO_CRIADOR = "https://mpago.li/1iwECoa";
+const LINK_PAGAMENTO_MARCA = "https://mpago.la/13NLfeG";
 
 const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
   const [userType, setUserType] = useState<UserType | null>(null);
@@ -23,8 +23,6 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
 
   const [formData, setFormData] = useState<any>({
     fullName: '', email: '', password: '', confirmPassword: '', phone: '', 
-    plan: 'free', 
-    period: 'monthly', 
     socialHandle: '', niche: '',
     motivation: ''
   });
@@ -62,20 +60,6 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
     setStep(3);
   };
 
-  const handlePlanSelection = (plan: 'free' | 'pro') => {
-    setFormData({ ...formData, plan });
-    if (plan === 'free') {
-      finalizeRegistration();
-    } else {
-      setStep(4);
-    }
-  };
-
-  const handlePeriodSelection = (period: 'monthly' | 'annual') => {
-    setFormData({ ...formData, period });
-    setStep(5);
-  };
-
   const finalizeRegistration = async () => {
     setLoading(true);
     try {
@@ -84,8 +68,6 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
         email: formData.email,
         password: formData.password,
         user_type: userType,
-        plan: formData.plan,
-        period: formData.plan === 'pro' ? formData.period : 'none',
         social_handle: formData.socialHandle,
         niche: formData.niche,
         motivation: formData.motivation,
@@ -110,10 +92,12 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
           <button onClick={() => setUserType(UserType.Creator)} className="group p-10 bg-thedeal-card border border-white/5 rounded-[2.5rem] hover:border-thedeal-gold transition-all text-center space-y-6 shadow-2xl">
             <div className="w-16 h-16 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform"><Zap className="text-thedeal-gold" size={32} /></div>
             <h3 className="text-xl font-black text-white uppercase tracking-tight text-center">Sou Criador</h3>
+            <p className="text-[10px] font-bold text-thedeal-gray600 uppercase tracking-widest">Foco em Performance</p>
           </button>
           <button onClick={() => setUserType(UserType.Brand)} className="group p-10 bg-thedeal-card border border-white/5 rounded-[2.5rem] hover:border-thedeal-gold transition-all text-center space-y-6 shadow-2xl">
             <div className="w-16 h-16 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform"><Building2 className="text-thedeal-gold" size={32} /></div>
             <h3 className="text-xl font-black text-white uppercase tracking-tight text-center">Sou Marca</h3>
+            <p className="text-[10px] font-bold text-thedeal-gray600 uppercase tracking-widest">Foco em ROI</p>
           </button>
         </div>
         <button onClick={onBack} className="mt-12 text-[10px] font-black uppercase text-thedeal-gray600 hover:text-white tracking-widest transition-colors">Voltar</button>
@@ -148,8 +132,8 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
               </div>
               <input name="confirmPassword" type="password" placeholder="Confirmar Chave" required value={formData.confirmPassword} onChange={handleChange} className="w-full bg-black/40 border border-thedeal-gray700 rounded-2xl p-5 text-white outline-none focus:border-thedeal-gold transition-all" />
             </div>
-            <button type="submit" disabled={loading} className="w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-5 rounded-2xl shadow-xl shadow-thedeal-gold/20 flex items-center justify-center gap-3 uppercase text-[10px] tracking-widest transition-all">
-              {loading ? <Loader className="animate-spin" size={18} /> : 'Próximo'}
+            <button type="submit" className="w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-5 rounded-2xl shadow-xl shadow-thedeal-gold/20 flex items-center justify-center gap-3 uppercase text-[10px] tracking-widest transition-all">
+              Próximo
               <ArrowRight size={18} />
             </button>
           </form>
@@ -174,94 +158,28 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
         )}
 
         {step === 3 && (
-          <div className="animate-fade-in space-y-8 text-center">
-            <div className="text-center">
-              <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-2">Nível de <span className="text-thedeal-gold">Acesso</span></h3>
-              <p className="text-thedeal-gray400 text-sm">Escolha seu protocolo de entrada na rede.</p>
-            </div>
-            <div className="grid gap-6">
-              <button 
-                onClick={() => handlePlanSelection('pro')}
-                className="p-8 rounded-[2rem] border-2 border-thedeal-goldBright bg-thedeal-gold/10 text-left transition-all hover:scale-[1.02] shadow-xl shadow-thedeal-gold/10 group"
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <Zap className="text-thedeal-goldBright" size={32} />
-                  <span className="bg-thedeal-gold text-black px-4 py-1 rounded-full text-[8px] font-black uppercase tracking-widest">Recomendado</span>
-                </div>
-                <h4 className="text-white font-black uppercase text-lg mb-2">Plano PRO</h4>
-                <p className="text-thedeal-gray400 text-xs leading-relaxed mb-6">Acesso total à rede, contratos de performance de alto ticket e analytics de ROI Alpha.</p>
-                <p className="text-thedeal-gold font-black text-xl">A partir de R$ 9,90 <span className="text-xs font-bold text-thedeal-gray600">/mês</span></p>
-              </button>
-
-              <button 
-                onClick={() => handlePlanSelection('free')}
-                className="p-8 rounded-[2rem] border-2 border-white/5 bg-black/40 text-left transition-all hover:border-white/20 group"
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <Star className="text-thedeal-gray600" size={32} />
-                </div>
-                <h4 className="text-white font-black uppercase text-lg mb-2">Plano Grátis</h4>
-                <p className="text-thedeal-gray400 text-xs leading-relaxed mb-6">Acesso limitado ao simulador e rede pública. Sujeito a análise manual de longa espera.</p>
-                <p className="text-white font-black text-xl">R$ 0,00</p>
-              </button>
-            </div>
-            <button onClick={() => setStep(2)} className="w-full text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest hover:text-white transition-colors">Voltar</button>
-          </div>
-        )}
-
-        {step === 4 && (
-          <div className="animate-fade-in space-y-8 text-center">
-            <div className="text-center">
-              <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-2">Frequência de <span className="text-thedeal-gold">Expansão</span></h3>
-              <p className="text-thedeal-gray400 text-sm">Selecione o ciclo de faturamento para seu nível PRO.</p>
-            </div>
-            <div className="grid gap-4">
-              <button 
-                onClick={() => handlePeriodSelection('monthly')}
-                className="p-6 rounded-3xl border-2 border-white/5 bg-black/40 text-left hover:border-thedeal-gold transition-all flex items-center justify-between group"
-              >
-                <div>
-                  <h4 className="text-white font-black uppercase text-sm">Faturamento Mensal</h4>
-                  <p className="text-thedeal-gold font-black text-lg">R$ 9,90 <span className="text-[10px] text-thedeal-gray600">/mês</span></p>
-                </div>
-                <ArrowRight className="text-thedeal-gray700 group-hover:text-thedeal-gold transition-colors" />
-              </button>
-
-              <button 
-                onClick={() => handlePeriodSelection('annual')}
-                className="p-6 rounded-3xl border-2 border-thedeal-gold/30 bg-thedeal-gold/5 text-left hover:border-thedeal-gold transition-all flex items-center justify-between group relative overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 bg-thedeal-gold text-black px-3 py-1 text-[8px] font-black uppercase tracking-widest">Melhor Valor</div>
-                <div>
-                  <h4 className="text-white font-black uppercase text-sm">Faturamento Anual</h4>
-                  <p className="text-thedeal-gold font-black text-lg">R$ 99,90 <span className="text-[10px] text-thedeal-gray600">/ano</span></p>
-                  <p className="text-[9px] text-thedeal-success font-bold uppercase mt-1">Desconto Alpha Ativo</p>
-                </div>
-                <ArrowRight className="text-thedeal-gray700 group-hover:text-thedeal-gold transition-colors" />
-              </button>
-            </div>
-            <button onClick={() => setStep(3)} className="w-full text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest hover:text-white transition-colors">Voltar aos planos</button>
-          </div>
-        )}
-
-        {step === 5 && (
           <div className="animate-fade-in space-y-10 text-center">
             <div className="space-y-4">
               <div className="w-20 h-20 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto ring-4 ring-thedeal-gold/20">
                 <CreditCard className="text-thedeal-gold" size={36} />
               </div>
-              <h3 className="text-2xl font-black text-white uppercase tracking-tight">Finalizar <span className="text-thedeal-gold">Ativação</span></h3>
-              <p className="text-thedeal-gray400 text-sm leading-relaxed px-4">
-                Você será redirecionado para o ambiente seguro para processar seu pagamento {formData.period === 'monthly' ? 'mensal' : 'anual'}.
-              </p>
+              <h3 className="text-2xl font-black text-white uppercase tracking-tight">Ativar <span className="text-thedeal-gold">Terminal</span></h3>
+              <div className="bg-black/40 border border-white/5 p-6 rounded-3xl text-left">
+                  <p className="text-white font-black uppercase text-lg">Plano {userType === UserType.Creator ? 'Criador' : 'Marca'}</p>
+                  <p className="text-thedeal-gold font-black text-2xl mt-1">R$ {userType === UserType.Creator ? '297' : '497'}<span className="text-xs text-thedeal-gray600">/ano</span></p>
+                  <ul className="mt-6 space-y-3">
+                      <li className="flex gap-2 text-[10px] text-thedeal-gray400 font-bold uppercase"><Check size={14} className="text-thedeal-gold" /> Contrato + Escrow Ativo</li>
+                      <li className="flex gap-2 text-[10px] text-thedeal-gray400 font-bold uppercase"><Check size={14} className="text-thedeal-gold" /> Taxa de 10% no sucesso</li>
+                  </ul>
+              </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-6">
               <button 
-                onClick={() => { window.open(formData.period === 'monthly' ? LINK_PAGAMENTO_MENSAL : LINK_PAGAMENTO_ANUAL, '_blank'); finalizeRegistration(); }}
+                onClick={() => { window.open(userType === UserType.Creator ? LINK_PAGAMENTO_CRIADOR : LINK_PAGAMENTO_MARCA, '_blank'); finalizeRegistration(); }}
                 className="w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-6 rounded-2xl shadow-xl shadow-thedeal-gold/20 flex items-center justify-center gap-4 uppercase text-xs tracking-[0.2em] transition-all hover:scale-[1.02]"
               >
-                <span>Pagar {formData.period === 'monthly' ? 'Mensalmente' : 'Anualmente'}</span>
+                <span>Pagar e Ativar Acesso</span>
                 <ArrowRight size={20} />
               </button>
               
@@ -277,7 +195,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess }) => {
               </div>
             </div>
 
-            <button onClick={() => setStep(4)} className="text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest hover:text-white transition-colors">Trocar periodicidade</button>
+            <button onClick={() => setStep(2)} className="text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest hover:text-white transition-colors">Voltar</button>
           </div>
         )}
       </div>

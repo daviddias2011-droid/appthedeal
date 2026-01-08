@@ -40,7 +40,8 @@ const DealDetailsModal: React.FC<DealDetailsModalProps> = ({ deal, onClose, user
     : "Gerenciar Deal";
 
   const handleBrandAction = () => {
-    onNavigate('deals');
+    // FIX: Changed 'deals' to 'marketplace' to match DashboardTab type.
+    onNavigate('marketplace');
     onClose();
   }
 

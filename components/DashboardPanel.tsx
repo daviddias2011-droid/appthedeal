@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { User, Deal, DashboardTab, UserType } from '../types';
 
@@ -32,7 +33,8 @@ const DashboardPanel: React.FC<DashboardPanelProps> = ({ user, deals, onNavigate
                 </p>
                 <div className="pt-4">
                     <button 
-                        onClick={() => onNavigate('deals')}
+                        // FIX: Changed 'deals' to 'marketplace' to match DashboardTab type.
+                        onClick={() => onNavigate('marketplace')}
                         className="bg-brand-text text-brand-dark px-12 py-5 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-brand-gold transition-all"
                     >
                         Ver Oportunidades
@@ -92,7 +94,8 @@ const DashboardPanel: React.FC<DashboardPanelProps> = ({ user, deals, onNavigate
                 </h2>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                     <button 
-                        onClick={() => onNavigate('deals')}
+                        // FIX: Changed 'deals' to 'create-deal' to match DashboardTab type.
+                        onClick={() => onNavigate('create-deal')}
                         className="w-full sm:w-auto px-12 py-5 border border-brand-text text-[10px] font-black uppercase tracking-[0.2em] text-white hover:bg-white hover:text-brand-dark transition-all"
                     >
                         Criar um Deal

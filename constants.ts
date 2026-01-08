@@ -7,7 +7,7 @@ export const USERS: User[] = [
     name: 'Usuário Teste', 
     username: 'tester', 
     email: 'teste@thedeal.app', 
-    password: '123456', 
+    // FIX: Removed password as it is not a property of User
     type: UserType.Creator, 
     phone: '11988887777', 
     isVetted: false, 
@@ -23,7 +23,7 @@ export const USERS: User[] = [
     name: 'Master Access', 
     username: 'master', 
     email: 'admin@thedeal.app', 
-    password: 'password123', 
+    // FIX: Removed password as it is not a property of User
     type: UserType.Admin, 
     phone: '5500000000000', 
     isVetted: true, 
@@ -39,7 +39,7 @@ export const USERS: User[] = [
     name: 'Membro Verificado', 
     username: 'membro', 
     email: 'membro@thedeal.app', 
-    password: 'password', 
+    // FIX: Removed password as it is not a property of User
     type: UserType.Creator, 
     phone: '1199999999', 
     isVetted: true, 
