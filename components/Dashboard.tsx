@@ -11,7 +11,6 @@ import SimulatorPage from './SimulatorPage';
 import KnowledgeHub from './KnowledgeHub';
 import PricingPage from './PricingPage';
 import DiscoverPage from './DiscoverPage';
-import BlacklistPage from './Blacklist';
 import { MOCK_POSTS, USERS } from '../constants';
 import { useAuth } from '../contexts/AuthContext';
 import { Briefcase, X, ShieldCheck, AlertTriangle, RefreshCw, CheckCircle, Menu } from 'lucide-react';
@@ -56,7 +55,6 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
           </div>
         );
       case 'discover': return <DiscoverPage onBack={() => setActiveTab('feed')} onSignup={() => setActiveTab('planos')} />;
-      case 'blacklist': return <BlacklistPage onBack={() => setActiveTab('feed')} />;
       case 'missoes': return <MissionsPanel />;
       case 'planos': return <PricingPage onBack={() => setActiveTab('feed')} />;
       case 'cursos': return <KnowledgeHub onNavigateBack={() => setActiveTab('feed')} />;
@@ -85,11 +83,14 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
   return (
     <div className="min-h-screen bg-thedeal-bg text-thedeal-gray100 font-sans flex flex-col items-center w-full overflow-x-hidden relative">
       <header className="fixed top-0 left-0 right-0 z-40 bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 p-4 h-16 flex items-center justify-between">
-         <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center">
-              <Briefcase size={18} className="text-black" />
+         <div className="flex flex-col items-start gap-0.5">
+            <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center">
+                  <Briefcase size={18} className="text-black" />
+                </div>
+                <h1 className="text-lg font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
             </div>
-            <h1 className="text-lg font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
+            <p className="text-[7px] md:text-[8px] font-black text-thedeal-gold tracking-tight pl-0.5">A rede onde criadores e grandes marcas se conectam para fechar contratos.</p>
          </div>
          <button onClick={() => setIsSidebarOpen(true)} className="p-2 text-thedeal-gray400 hover:text-white bg-white/5 rounded-xl border border-white/10">
             <Menu size={24} />

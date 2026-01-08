@@ -11,9 +11,6 @@ interface SignupFormProps {
   onRedirectToValidation: () => void;
 }
 
-const LINK_PAGAMENTO_MENSAL = "https://mpago.la/13NLfeG";
-const LINK_PAGAMENTO_ANUAL = "https://mpago.li/1iwECoa";
-
 const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectToValidation }) => {
   const [userType, setUserType] = useState<UserType | null>(null);
   const [step, setStep] = useState(1);
@@ -41,18 +38,38 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
     setStep(2);
   };
 
-  const handleStep2Submit = (e: React.FormEvent) => {
+  const handleStep2Submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    finalizeRegistration();
-  };
-
-  const finalizeRegistration = async () => {
     setLoading(true);
-    // Simulação de registro local
-    setTimeout(() => {
-        setLoading(false);
-        onRedirectToValidation();
-    }, 1500);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/register-member', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+          userType: userType,
+          niche: formData.niche,
+          socialHandle: formData.socialHandle,
+          motivation: formData.motivation
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao registrar no terminal.');
+      }
+
+      onRedirectToValidation();
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!userType) {

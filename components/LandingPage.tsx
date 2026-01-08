@@ -23,7 +23,6 @@ interface LandingPageProps {
   onGoToInvestor: () => void;
   onGoToSimulator: () => void;
   onGoToDiscover: () => void;
-  onGoToBlacklist: () => void;
   onGoToPricing?: () => void;
   language: Language;
   t: any;
@@ -72,7 +71,7 @@ const TypewriterText = () => {
 export default function LandingPage({ 
   onGoToDemo, onGoToSignup, onGoToForBrands, onGoToForCreators, 
   onGoToHowItWorks, onGoToBlog, onGoToAcademy, onGoToMissions, 
-  onGoToInvestor, onGoToSimulator, onGoToDiscover, onGoToBlacklist, onGoToPricing, t 
+  onGoToInvestor, onGoToSimulator, onGoToDiscover, onGoToPricing, t 
  }: LandingPageProps) {
   const [isAccessModalOpen, setIsAccessModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -138,12 +137,16 @@ export default function LandingPage({
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToAcademy(); }} className="text-lg md:text-xl font-bold text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><GraduationCap size={20} /> ACADEMIA</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToPricing?.(); }} className="text-lg md:text-xl font-bold text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><Zap size={20} /> PREÇOS</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToSimulator(); }} className="text-lg md:text-xl font-bold text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><Calculator size={20} /> CALCULADORA</button>
-            <button onClick={() => { setIsMobileMenuOpen(false); onGoToBlacklist(); }} className="text-lg md:text-xl font-bold text-left hover:text-red-500 flex items-center gap-3 transition-colors text-thedeal-gray400"><AlertOctagon size={20} /> LISTA NEGRA</button>
-            <button onClick={() => { setIsMobileMenuOpen(false); onGoToInvestor(); }} className="text-lg md:text-xl font-bold text-left text-thedeal-gold flex items-center gap-3 transition-colors"><Handshake size={20} /> SEJA UM INVESTIDOR</button>
+            
             <div className="h-px bg-thedeal-gray700 my-4"></div>
+            
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToHowItWorks(); }} className="text-base md:text-lg font-medium text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><HelpCircle size={20} /> COMO FUNCIONA</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToForBrands(); }} className="text-base md:text-lg font-medium text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><Building2 size={20} /> PARA MARCAS</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToForCreators(); }} className="text-base md:text-lg font-medium text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><Zap size={20} /> PARA CRIADORES</button>
+            
+            <div className="h-px bg-thedeal-gray700 my-4"></div>
+            
+            <button onClick={() => { setIsMobileMenuOpen(false); onGoToInvestor(); }} className="text-xs font-medium text-left text-thedeal-gray600 hover:text-thedeal-gold flex items-center gap-3 transition-colors">RELAÇÕES COM INVESTIDORES</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToDemo(); }} className="text-base md:text-lg font-bold text-left text-thedeal-gold mt-4 flex items-center gap-3 transition-colors"><LogIn size={20} /> LOGIN</button>
           </nav>
         </div>
@@ -160,7 +163,7 @@ export default function LandingPage({
                 </div>
                 <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
               </div>
-              <p className="text-[7px] md:text-[8px] font-black uppercase text-thedeal-gold tracking-[0.3em] pl-0.5">Rede Social Privada</p>
+              <p className="text-[7px] md:text-[8px] font-black text-thedeal-gold tracking-tight pl-0.5">A rede onde criadores e grandes marcas se conectam para fechar contratos.</p>
             </div>
             
             <div className="flex items-center gap-2">

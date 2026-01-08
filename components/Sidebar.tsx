@@ -3,7 +3,7 @@ import React from 'react';
 import { 
   Home, Search, Briefcase, MessageCircle, 
   Calculator, Building2, Settings, Lock, ShieldCheck, GraduationCap, Trophy,
-  TrendingUp, Wallet, Users, LayoutGrid, Zap, Map, LogOut, Edit3, Handshake, CreditCard, Compass, AlertOctagon
+  TrendingUp, Wallet, Users, LayoutGrid, Zap, Map, LogOut, Edit3, Handshake, CreditCard, Compass
 } from 'lucide-react';
 import { DashboardTab, User, UserType } from '../types';
 
@@ -23,7 +23,6 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onNavigate, user, onRestri
     { icon: ShieldCheck, label: 'Governança Master', tab: 'painel', adminOnly: true },
     { icon: Home, label: 'Dashboard', tab: 'feed' },
     { icon: Compass, label: 'Descubra', tab: 'discover' },
-    { icon: AlertOctagon, label: 'Lista Negra', tab: 'blacklist' },
     { icon: Trophy, label: 'Objetivos', tab: 'missoes', badge: 1 },
     { icon: Zap, label: 'Acelerar Nível', tab: 'planos', highlight: true },
     { icon: Search, label: 'Explorar Acordos', tab: 'explorar', locked: user ? !user.isVetted && !isAdmin : true },
@@ -62,10 +61,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, onNavigate, user, onRestri
 
         <button 
           onClick={onGoToInvestor}
-          className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-thedeal-gold hover:bg-thedeal-gold/10 transition-all"
+          className="w-full flex items-center gap-4 px-4 py-2 rounded-xl text-thedeal-gray600 hover:text-thedeal-gold transition-colors group"
         >
-          <Handshake className="w-5 h-5" />
-          <span className="text-xs font-black uppercase tracking-widest">Investidores</span>
+          <Handshake className="w-4 h-4 opacity-50 group-hover:opacity-100" />
+          <span className="text-[10px] font-black uppercase tracking-widest">Relações com Investidores</span>
         </button>
       </nav>
 
