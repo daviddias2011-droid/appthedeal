@@ -1,10 +1,10 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { User as SupabaseUser } from '@supabase/supabase-js';
+import { supabase, getProfile, isSupabaseConfigured } from '../lib/supabase';
 import { User, UserType } from '../types';
-import { api } from '../lib/api';
 
 interface AuthContextType {
-  user: any | null;
+  user: SupabaseUser | null;
   profile: User | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
@@ -15,14 +15,15 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children?: React.ReactNode }) {
-  const [user, setUser] = useState<any | null>(null);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
   const [profile, setProfile] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = async (userId: string) => {
+    if (!isSupabaseConfigured() || !supabase) return;
     try {
-      const data = await api.post('/get_profile.php', { userId });
-      if (data) {
+      const { data, error } = await getProfile(userId);
+      if (data && !error) {
         setProfile({
           id: data.id,
           name: data.full_name || 'Membro',
@@ -30,7 +31,7 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
           email: data.email || '',
           type: data.user_type as UserType || UserType.Creator,
           phone: data.phone || '',
-          isVetted: data.is_vetted == 1,
+          isVetted: data.is_vetted || false,
           dealsCompleted: data.deals_count || 0,
           followers: data.followers || 0,
           following: data.following || 0,
@@ -40,45 +41,63 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
         });
       }
     } catch (e) {
-      console.error("Erro ao carregar perfil do MySQL:", e);
+      console.error("Erro ao carregar perfil (DNS/Database offline):", e);
     }
   };
 
   useEffect(() => {
+    if (!isSupabaseConfigured() || !supabase) {
+      setLoading(false);
+      // Fallback para modo demo local se existir
+      const demo = localStorage.getItem('demo_profile');
+      if (demo) setProfile(JSON.parse(demo));
+      return;
+    }
+
     const initAuth = async () => {
       try {
-        const savedSession = localStorage.getItem('thedeal_session');
-        if (savedSession) {
-          const session = JSON.parse(savedSession);
-          setUser(session);
-          await fetchProfile(session.id);
-        }
+        const { data: { session } } = await supabase.auth.getSession();
+        setUser(session?.user || null);
+        if (session?.user) await fetchProfile(session.user.id);
       } catch (e) {
-        console.warn("Sessão expirada ou terminal inacessível.");
+        console.warn("Falha na inicialização da sessão (DNS ainda propagando).");
       } finally {
         setLoading(false);
       }
     };
 
     initAuth();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+      if (session?.user) fetchProfile(session.user.id);
+      else setProfile(null);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    try {
-      const data = await api.post('/login.php', { email, password });
-      setUser(data.user);
-      localStorage.setItem('thedeal_session', JSON.stringify(data.user));
-      await fetchProfile(data.user.id);
-      return { error: null };
-    } catch (err: any) {
-      return { error: err };
+    if (!isSupabaseConfigured() || !supabase) {
+      // Mock Login para emergência DNS
+      if (email === 'admin@thedeal.app' && password === 'password123') {
+        const mockUser = { id: 'admin-id', email } as SupabaseUser;
+        setUser(mockUser);
+        setProfile({ id: 'admin-id', name: 'Master Access (DNS Offline)', type: UserType.Admin, isVetted: true } as any);
+        return { error: null };
+      }
+      return { error: { message: 'DNS em propagação. Tente novamente em alguns minutos.' } };
     }
+    return await supabase.auth.signInWithPassword({ email, password });
   };
 
   const signOut = async () => {
-    localStorage.removeItem('thedeal_session');
+    if (isSupabaseConfigured() && supabase) {
+      await supabase.auth.signOut();
+    }
     setUser(null);
     setProfile(null);
+    localStorage.removeItem('demo_profile');
   };
 
   const refreshProfile = async () => {

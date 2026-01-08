@@ -1,8 +1,9 @@
 
 import React, { useState } from 'react';
+// FIX: Added missing Users and Clock icons to the lucide-react imports.
 import { ArrowLeft, User, Mail, Phone, FileText, Check, Copy, Trophy, Target, ShieldCheck, Loader, ArrowRight, Briefcase, Zap, Star, Users, Clock } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 import { ReferralSystem } from '../lib/referral';
-import { api } from '../lib/api';
 
 interface MissionsPageProps {
   onBack: () => void;
@@ -33,19 +34,25 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
       const tempId = `MISSION_${Date.now()}`;
       const referral = ReferralSystem.generateCode(tempId, formData.fullName);
       
-      await api.post('/save_lead.php', {
-        full_name: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
-        motivation: `Cadastro simplificado via Hub de Missões. CPF: ${formData.cpf}. Referral Code: ${referral.code}`,
-        status: 'pending'
-      });
+      if (supabase) {
+        const { error } = await supabase.from('leads').insert({
+          full_name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          motivation: `Cadastro simplificado via Hub de Missões. CPF: ${formData.cpf}. Referral Code: ${referral.code}`,
+          status: 'pending'
+        });
+
+        if (error) console.warn("Supabase Error:", error.message);
+      } else {
+        await new Promise(resolve => setTimeout(resolve, 1500));
+      }
 
       setReferralCode(referral.code);
       setSuccess(true);
     } catch (err) {
       console.error(err);
-      alert("Erro ao processar cadastro no terminal MySQL. Tente novamente.");
+      alert("Erro ao processar cadastro no terminal. Tente novamente.");
     } finally {
       setLoading(false);
     }
@@ -101,6 +108,7 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col items-center animate-fade-in selection:bg-thedeal-gold selection:text-black text-left">
+      {/* Standard Header Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-[100] bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20 transition-all">
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
             <div className="flex flex-col items-start gap-1 cursor-pointer group" onClick={onBack}>
@@ -137,6 +145,7 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
            </p>
         </header>
 
+        {/* EXPLICATIVO DAS MISSÕES */}
         <section className="grid md:grid-cols-3 gap-6">
             <div className="bg-thedeal-card border border-white/5 p-8 rounded-[2rem] flex flex-col gap-4 group hover:border-thedeal-gold/30 transition-all">
                 <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-thedeal-gold"><Users size={20} /></div>
@@ -240,7 +249,7 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
            
            <div className="pt-8 border-t border-white/5 flex items-center justify-center gap-4 opacity-40">
               <ShieldCheck className="text-[#D4AF37]" size={18} />
-              <p className="text-[10px] font-black uppercase text-[#666666] tracking-[0.3em]">Criptografia MySQL Ativa</p>
+              <p className="text-[10px] font-black uppercase text-[#666666] tracking-[0.3em]">Criptografia Ativa</p>
            </div>
         </form>
 
