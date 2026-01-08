@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch('/api/login.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -40,7 +40,7 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Falha na autenticação.');
+        throw new Error(data.error || 'Credenciais inválidas.');
       }
 
       setProfile(data.user);
@@ -54,10 +54,11 @@ export function AuthProvider({ children }: { children?: React.ReactNode }) {
   const signOut = async () => {
     setProfile(null);
     localStorage.removeItem('thedeal_session');
+    window.location.reload();
   };
 
   const refreshProfile = async () => {
-    // Pode ser implementado um /api/me no futuro para atualizar dados
+    // Futura integração me.php
   };
 
   return (

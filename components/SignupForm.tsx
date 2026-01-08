@@ -44,7 +44,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
     setError(null);
 
     try {
-      const response = await fetch('/api/register-member', {
+      const response = await fetch('/api/register-member.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

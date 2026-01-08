@@ -1,10 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-// FIX: Added 'Lock' to the lucide-react imports to fix the JSX component error on line 104.
-import { ArrowLeft, User, Mail, Phone, FileText, Check, Copy, Trophy, Target, ShieldCheck, Loader, ArrowRight, Briefcase, Zap, Star, Users, Clock, Lock } from 'lucide-react';
-import { ReferralSystem } from '../lib/referral';
+import { ArrowLeft, Mail, Check, Copy, Trophy, Target, Briefcase, Zap, Users, Clock, Lock } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { EmailService } from '../lib/emailjs';
 
 interface MissionsPageProps {
   onBack: () => void;
@@ -13,34 +10,28 @@ interface MissionsPageProps {
 
 const MissionsPage: React.FC<MissionsPageProps> = ({ onBack, onRequireAuth }) => {
   const { profile } = useAuth();
-  const [loading, setLoading] = useState(false);
   const [referralCode, setReferralCode] = useState("");
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (profile) {
-      const ref = ReferralSystem.getUserReferral(profile.id) || ReferralSystem.generateCode(profile.id, profile.name);
-      setReferralCode(ref.code);
+      // Lógica simplificada sem dependência de lib/referral
+      const savedCode = localStorage.getItem(`thedeal_ref_${profile.id}`);
+      if (savedCode) {
+        setReferralCode(savedCode);
+      } else {
+        const newCode = (profile.name.substring(0, 3) + Math.random().toString(36).substring(2, 6)).toUpperCase();
+        localStorage.setItem(`thedeal_ref_${profile.id}`, newCode);
+        setReferralCode(newCode);
+      }
     }
   }, [profile]);
 
-  const handleGenerateCode = () => {
-    if (!profile) {
-      onRequireAuth();
-      return;
-    }
-    // O código já é gerado no useEffect se logado
-  };
-
   const handleCopy = () => {
     const link = `${window.location.origin}/?ref=${referralCode}`;
-    navigator.clipboard.writeText(`🚀 Acabei de entrar no Hub de Missões do The Deal! Use meu código para análise prioritária: ${referralCode}\n\n${link}`);
+    navigator.clipboard.writeText(`🚀 Acabei de entrar no Hub de Missões do The Deal! Use meu código: ${referralCode}\n\n${link}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-    
-    if (profile) {
-        EmailService.sendReferralInvitation(profile.name, profile.email, referralCode);
-    }
   };
 
   return (
@@ -71,41 +62,12 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack, onRequireAuth }) =>
            <h1 className="text-4xl md:text-7xl font-display font-black uppercase tracking-tighter leading-none">
              CONQUISTE SEU <br/><span className="text-[#D4AF37]">VITALÍCIO.</span>
            </h1>
-           <p className="text-[#A0A0A0] text-lg md:text-xl max-w-lg mx-auto font-light leading-relaxed text-center">
-             O acesso definitivo à rede é por mérito. Cumpra os requisitos técnicos e garanta sua vaga permanente no ecossistema.
-           </p>
         </header>
-
-        <section className="grid md:grid-cols-3 gap-6">
-            <div className="bg-thedeal-card border border-white/5 p-8 rounded-[2rem] flex flex-col gap-4 group hover:border-thedeal-gold/30 transition-all">
-                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-thedeal-gold"><Users size={20} /></div>
-                <div>
-                    <h4 className="text-white font-black uppercase text-xs tracking-widest mb-1">Passo 01</h4>
-                    <p className="text-thedeal-gray400 text-[11px] font-medium leading-relaxed">Convide 2 novos membros que sejam aprovados pela nossa curadoria.</p>
-                </div>
-            </div>
-            <div className="bg-thedeal-card border border-white/5 p-8 rounded-[2rem] flex flex-col gap-4 group hover:border-thedeal-gold/30 transition-all">
-                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-thedeal-gold"><Briefcase size={20} /></div>
-                <div>
-                    <h4 className="text-white font-black uppercase text-xs tracking-widest mb-1">Passo 02</h4>
-                    <p className="text-thedeal-gray400 text-[11px] font-medium leading-relaxed">Conclua pelo menos 1 deal (contrato) oficial através do terminal The Deal.</p>
-                </div>
-            </div>
-            <div className="bg-thedeal-card border border-white/5 p-8 rounded-[2rem] flex flex-col gap-4 group hover:border-thedeal-gold/30 transition-all">
-                <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-thedeal-gold"><Clock size={20} /></div>
-                <div>
-                    <h4 className="text-white font-black uppercase text-xs tracking-widest mb-1">Passo 03</h4>
-                    <p className="text-thedeal-gray400 text-[11px] font-medium leading-relaxed">Mantenha seu perfil ativo e em conformidade por um período de 6 meses.</p>
-                </div>
-            </div>
-        </section>
 
         {!profile ? (
             <div className="bg-[#141414] border border-white/5 p-12 rounded-[3rem] text-center space-y-8">
-                {/* FIX: Use Lock component imported from lucide-react. */}
                 <Lock className="text-thedeal-gold mx-auto" size={48} />
-                <h3 className="text-2xl font-black uppercase text-white">Acesso Identificado Necessário</h3>
-                <p className="text-thedeal-gray400 max-w-sm mx-auto">Para gerar seu código de expansão e participar das missões, você precisa estar logado no terminal.</p>
+                <h3 className="text-2xl font-black uppercase text-white">Acesso Necessário</h3>
                 <button onClick={onRequireAuth} className="bg-thedeal-gold text-black font-black px-12 py-5 rounded-2xl uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl shadow-thedeal-gold/20">Acessar Terminal</button>
             </div>
         ) : (
@@ -124,10 +86,6 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack, onRequireAuth }) =>
                 </div>
             </div>
         )}
-
-        <footer className="text-center opacity-30 pt-10 space-y-4">
-            <p className="text-[8px] font-black uppercase tracking-[0.5em] text-thedeal-gray600">THE DEAL TODOS OS DIREITOS RESERVADOS CNPJ: 59.440.114/0001-03 | LEME - SÃO PAULO</p>
-        </footer>
       </div>
     </div>
   );
