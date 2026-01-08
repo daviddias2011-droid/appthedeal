@@ -6,34 +6,20 @@ const NotificationPermissionManager: React.FC = () => {
     const [showBanner, setShowBanner] = useState(false);
 
     useEffect(() => {
-        // Verificação segura da API de Notificações
-        if (typeof window !== 'undefined' && 'Notification' in window) {
-            try {
-                if (Notification.permission === 'default' && !sessionStorage.getItem('notification_banner_dismissed')) {
-                    setShowBanner(true);
-                }
-            } catch (e) {
-                console.warn('Ambiente restrito: Acesso à API de Notificações negado pelo navegador.');
+        if ('Notification' in window) {
+            if (Notification.permission === 'default' && !sessionStorage.getItem('notification_banner_dismissed')) {
+                setShowBanner(true);
             }
         }
     }, []);
 
     const handleRequestPermission = async () => {
-        try {
-            const permission = await Notification.requestPermission();
-            if (permission === 'granted') {
-                // Tenta instanciar apenas se for um construtor válido no ambiente atual
-                try {
-                    new Notification('THE DEAL', {
-                        body: 'Protocolo de Notificações ativado com sucesso.',
-                        icon: '/favicon.ico'
-                    });
-                } catch (err) {
-                    console.log('Notificação visual enviada (construtor nativo não suportado neste frame).');
-                }
-            }
-        } catch (e) {
-            console.error('Erro ao solicitar permissão de notificação:', e);
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+            new Notification('THE DEAL', {
+                body: 'Ótimo! Agora você receberá as notificações importantes.',
+                icon: '/vite.svg'
+            });
         }
         setShowBanner(false);
         sessionStorage.setItem('notification_banner_dismissed', 'true');
@@ -44,24 +30,26 @@ const NotificationPermissionManager: React.FC = () => {
         sessionStorage.setItem('notification_banner_dismissed', 'true');
     };
 
-    if (!showBanner) return null;
+    if (!showBanner) {
+        return null;
+    }
 
     return (
-        <div className="fixed bottom-24 lg:bottom-10 right-6 bg-[#121212] border border-thedeal-gold/30 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] p-6 max-w-sm z-[500] animate-float-in border-l-4 border-l-thedeal-gold">
-            <div className="flex items-start gap-4">
-                <div className="bg-thedeal-gold/10 p-2 rounded-xl">
-                    <BellIcon className="w-6 h-6 text-thedeal-gold" />
+        <div className="fixed bottom-16 sm:bottom-4 right-4 bg-brand-light-gray border border-brand-border rounded-lg shadow-lg p-4 max-w-sm z-50 animate-fade-in">
+            <div className="flex items-start gap-3">
+                <div className="bg-brand-primary/10 p-2 rounded-full">
+                    <BellIcon className="w-6 h-6 text-brand-primary" />
                 </div>
                 <div>
-                    <h4 className="font-black text-white uppercase text-[10px] tracking-widest mb-1">Terminal de Alertas</h4>
-                    <p className="text-[11px] text-thedeal-gray400 leading-relaxed font-medium uppercase opacity-80">
-                        Ative as notificações para receber atualizações em tempo real sobre novos deals e convites de elite.
+                    <h4 className="font-bold text-white">Fique por dentro</h4>
+                    <p className="text-sm text-brand-text-secondary mt-1">
+                        Ative as notificações para não perder nenhuma oportunidade ou mensagem importante.
                     </p>
-                    <div className="flex gap-3 mt-4">
-                        <button onClick={handleRequestPermission} className="bg-thedeal-gold text-black font-black py-2 px-4 text-[9px] rounded-lg uppercase tracking-widest hover:brightness-110 transition-all">
+                    <div className="flex gap-2 mt-3">
+                        <button onClick={handleRequestPermission} className="bg-brand-primary text-brand-dark font-bold py-1 px-3 text-sm rounded-md hover:brightness-110">
                             Ativar
                         </button>
-                        <button onClick={handleDismiss} className="bg-white/5 text-thedeal-gray600 font-black py-2 px-4 text-[9px] rounded-lg uppercase tracking-widest hover:bg-white/10 transition-all">
+                        <button onClick={handleDismiss} className="bg-brand-gray text-brand-text-secondary font-bold py-1 px-3 text-sm rounded-md hover:bg-brand-border">
                             Agora não
                         </button>
                     </div>
