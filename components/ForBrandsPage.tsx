@@ -30,19 +30,19 @@ const ForBrandsPage: React.FC<ForBrandsPageProps> = ({ onBack, onGoToSignup }) =
             PARE DE <br/><span className="text-thedeal-gold">PROCURAR.</span> <br/>COMECE A CONTRATAR.
           </h1>
           <p className="text-xl text-thedeal-gray400 max-w-2xl font-medium leading-relaxed">
-            Esqueça o ghosting em DMs e planilhas de "influenciadores". Publique sua missão com budget definido e receba propostas de criadores auditados e prontos para entregar ROI.
+            Esqueça o ghosting em DMs e planilhas de "influenciadores". Publique sua missão com budget definido e receba propostas de criadores auditados e prontos para entregar ROI e previsibilidade.
           </p>
           <button onClick={onGoToSignup} className="bg-thedeal-goldBright text-black font-black px-12 py-5 rounded-2xl uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl shadow-thedeal-gold/20">Publicar Primeira Missão</button>
         </section>
 
         <section className="grid md:grid-cols-2 gap-12">
           <div className="bg-thedeal-card border border-white/5 p-10 rounded-[3rem] space-y-6">
-            <h3 className="text-2xl font-black text-white uppercase tracking-tight">O Fim da Bagunça</h3>
+            <h3 className="text-2xl font-black text-white uppercase tracking-tight">Mídia sem Processo vira Bagunça</h3>
             <div className="space-y-4">
               {[
                 "Sem 'vamos conversar por WhatsApp'",
                 "Sem propostas sem pé nem cabeça",
-                "Sem surpresas no faturamento",
+                "Sem marcas perdidas na medição",
                 "Sem criadores que somem após o PIX"
               ].map((text, i) => (
                 <div key={i} className="flex items-center gap-3 text-thedeal-gray400">
@@ -53,13 +53,13 @@ const ForBrandsPage: React.FC<ForBrandsPageProps> = ({ onBack, onGoToSignup }) =
             </div>
           </div>
           <div className="bg-thedeal-card border border-thedeal-gold/20 p-10 rounded-[3rem] space-y-6">
-            <h3 className="text-2xl font-black text-white uppercase tracking-tight">Infraestrutura Alpha</h3>
+            <h3 className="text-2xl font-black text-white uppercase tracking-tight">Infraestrutura Profissional</h3>
             <div className="space-y-4">
               {[
                 "Criadores curados por performance",
                 "Contratos digitais com validade",
                 "Pagamento em custódia (Escrow)",
-                "Relatórios de performance nativos"
+                "Relatórios de ROI e P&L nativos"
               ].map((text, i) => (
                 <div key={i} className="flex items-center gap-3 text-white">
                   <Check className="text-thedeal-success" size={18} />
@@ -72,7 +72,7 @@ const ForBrandsPage: React.FC<ForBrandsPageProps> = ({ onBack, onGoToSignup }) =
 
         <section className="bg-black border border-white/5 p-12 md:p-20 rounded-[4rem] text-center space-y-10">
           <h2 className="text-4xl md:text-6xl font-display font-black text-white uppercase tracking-tighter">Sua influência vira <br/><span className="text-thedeal-gold">contrato fechado.</span></h2>
-          <p className="text-thedeal-gray400 max-w-xl mx-auto font-medium">Acesso imediato para empresas que investem acima de R$ 5k/mês em mídia.</p>
+          <p className="text-thedeal-gray400 max-w-xl mx-auto font-medium">Lideramos a transição para uma economia de influência pautada em contratos reais e ativos de mídia.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button onClick={onGoToSignup} className="bg-white text-black font-black px-12 py-5 rounded-2xl uppercase text-[10px] tracking-widest transition-all hover:scale-105">Solicitar Acesso Marca</button>
           </div>

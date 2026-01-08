@@ -14,7 +14,6 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
-  // Estados de validação para o passo 4
   const [fileSelected, setFileSelected] = useState<File | null>(null);
   const [actionTaken, setActionTaken] = useState(false);
 
@@ -83,7 +82,7 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
           <button onClick={() => setUserType(UserType.Creator)} className="group p-10 bg-thedeal-card border border-white/5 rounded-[2.5rem] hover:border-thedeal-gold transition-all text-center space-y-4 shadow-2xl">
             <div className="w-16 h-16 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto group-hover:bg-thedeal-gold group-hover:text-black transition-colors"><Zap size={32} /></div>
             <h3 className="text-xl font-black text-white uppercase tracking-tight">Sou Criador</h3>
-            <p className="text-[10px] font-bold text-thedeal-gray600 uppercase tracking-widest">Performance & LTV</p>
+            <p className="text-[10px] font-bold text-thedeal-gray600 uppercase tracking-widest">Contratos & Performance</p>
           </button>
           <button onClick={() => setUserType(UserType.Brand)} className="group p-10 bg-thedeal-card border border-white/5 rounded-[2.5rem] hover:border-thedeal-gold transition-all text-center space-y-4 shadow-2xl">
             <div className="w-16 h-16 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto group-hover:bg-thedeal-gold group-hover:text-black transition-colors"><Building2 size={32} /></div>
@@ -129,9 +128,9 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
             <div className="w-20 h-20 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto ring-4 ring-thedeal-gold/20"><CreditCard className="text-thedeal-gold" size={36} /></div>
             <h3 className="text-2xl font-black text-white uppercase tracking-tight">Ativar <span className="text-thedeal-gold">Acesso</span></h3>
             <div className="bg-black/40 border border-white/5 p-6 rounded-3xl text-left">
-                <p className="text-white font-black uppercase text-lg">Acesso Anual {userType === UserType.Creator ? 'Criador' : 'Marca'}</p>
+                <p className="text-white font-black uppercase text-lg">Acesso Mensal {userType === UserType.Creator ? 'Criador' : 'Marca'}</p>
                 <p className="text-thedeal-gold font-black text-3xl mt-1">R$ {userType === UserType.Creator ? '297' : '497'}</p>
-                <p className="text-[10px] text-thedeal-gray600 uppercase font-bold mt-4 tracking-widest">O link será aberto em uma nova aba.</p>
+                <p className="text-[10px] text-thedeal-gray600 uppercase font-bold mt-4 tracking-widest">O link de checkout seguro será aberto em uma nova aba.</p>
             </div>
             <button 
               onClick={() => { window.open(userType === UserType.Creator ? LINK_PAGAMENTO_CRIADOR : LINK_PAGAMENTO_MARCA, '_blank'); setStep(4); }}
@@ -150,9 +149,8 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
               <h3 className="text-xl font-black text-white uppercase tracking-tight">Etapa Final: Validar</h3>
             </div>
             
-            <p className="text-xs text-thedeal-gray400 font-medium leading-relaxed">Anexe o arquivo abaixo para registro e escolha o canal para envio final.</p>
+            <p className="text-xs text-thedeal-gray400 font-medium leading-relaxed">Anexe o comprovante abaixo e selecione o canal para validação humana imediata.</p>
 
-            {/* Upload Area */}
             <div className={`p-8 border-2 border-dashed rounded-3xl text-center transition-all ${fileSelected ? 'border-thedeal-success bg-thedeal-success/5' : 'border-thedeal-gray700 bg-black/20'}`}>
               <input type="file" id="proof-upload" className="hidden" onChange={handleFileChange} accept="image/*,application/pdf" />
               <label htmlFor="proof-upload" className="cursor-pointer flex flex-col items-center gap-3">
@@ -167,13 +165,12 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
                 ) : (
                   <>
                     <FileCheck className="text-thedeal-gray600" size={40} />
-                    <span className="text-[10px] font-black uppercase text-thedeal-gray400 tracking-[0.2em]">Clique para Carregar Comprovante</span>
+                    <span className="text-[10px] font-black uppercase text-thedeal-gray400 tracking-[0.2em]">Carregar Comprovante de Pagamento</span>
                   </>
                 )}
               </label>
             </div>
 
-            {/* Manual Attachment Warning */}
             {fileSelected && (
               <div className="bg-orange-500/10 border border-orange-500/20 p-4 rounded-2xl flex gap-3 animate-fade-in">
                 <AlertCircle className="text-orange-500 shrink-0" size={20} />
@@ -183,7 +180,6 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
               </div>
             )}
 
-            {/* Channels Area */}
             <div className={`space-y-3 transition-opacity ${!fileSelected ? 'opacity-30 pointer-events-none' : 'opacity-100'}`}>
               <p className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-widest text-center">Agora, selecione o canal para enviar:</p>
               <div className="grid grid-cols-2 gap-3">
@@ -204,7 +200,6 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
               </div>
             </div>
 
-            {/* Finish Button */}
             <div className="pt-4">
               <button 
                 onClick={handleFinish}
@@ -220,11 +215,6 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
                   <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                 )}
               </button>
-              {(!fileSelected || !actionTaken) && (
-                <p className="text-center text-[9px] font-bold text-thedeal-gray600 uppercase mt-4 tracking-widest">
-                  {!fileSelected ? "Anexe o arquivo para prosseguir" : "Selecione o canal de envio acima"}
-                </p>
-              )}
             </div>
           </div>
         )}

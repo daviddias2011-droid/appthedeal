@@ -75,11 +75,11 @@ export default function LandingPage(props: any) {
           </div>
         </section>
 
-        {/* O PROBLEMA */}
+        {/* O PROBLEMA QUE NINGUÉM FALA */}
         <section className="p-8 md:p-12 space-y-12 border-b border-white/5">
            <div className="text-center md:text-left space-y-4">
               <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter leading-none">O PROBLEMA QUE <br/><span className="text-thedeal-danger">NINGUÉM FALA</span></h2>
-              <p className="text-thedeal-gray400 text-sm font-medium leading-relaxed">Você tem audiência, engajamento e propostas. Mas no final do mês, o que entra na conta?</p>
+              <p className="text-thedeal-gray400 text-sm font-medium leading-relaxed">Você tem audiência, engajamento e proposta de marca toda semana. Mas no final do mês, o que entra na conta?</p>
            </div>
 
            <div className="grid gap-4">
@@ -99,7 +99,7 @@ export default function LandingPage(props: any) {
            <div className="bg-thedeal-card border border-thedeal-gray700 p-8 rounded-[2.5rem] relative overflow-hidden group">
               <TrendingUp className="absolute -bottom-4 -right-4 w-32 h-32 text-thedeal-gold opacity-5 group-hover:opacity-10 transition-opacity" />
               <p className="text-lg md:text-xl font-serif italic text-thedeal-gray100 leading-relaxed relative z-10">
-                "Isso não é mercado. É loteria. Enquanto você reza para a marca responder, ela também está perdida. <span className="text-thedeal-gold">Os dois lados perdem porque não existe infraestrutura.</span>"
+                "Isso não é mercado. É loteria. Enquanto você reza para a marca responder, ela também está perdida — sem saber quem contratar, quanto pagar, como medir. <span className="text-thedeal-gold">Os dois lados perdem porque não existe infraestrutura.</span>"
               </p>
            </div>
         </section>
@@ -108,7 +108,7 @@ export default function LandingPage(props: any) {
         <section className="p-8 md:p-12 space-y-12 bg-black">
            <div className="text-center md:text-left space-y-4">
               <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter leading-none">COMO O <br/><span className="text-thedeal-gold">THE DEAL RESOLVE</span></h2>
-              <p className="text-thedeal-gray400 text-sm font-medium">Imagine se toda publi funcionasse de forma estruturada e profissional.</p>
+              <p className="text-thedeal-gray400 text-sm font-medium">Imagine se toda publi funcionasse assim:</p>
            </div>
 
            <div className="space-y-4 relative">
@@ -118,7 +118,7 @@ export default function LandingPage(props: any) {
                 { t: "Você aplica com proposta", d: "Sem mimimi, direto ao ponto técnico." },
                 { t: "Curadoria valida", d: "Qualidade > Volume de seguidores." },
                 { t: "Deal fechado", d: "Termos claros, prazo e valor registrados." },
-                { t: "Pagamento garantido", d: "Dinheiro protegido liberado após a entrega." }
+                { t: "Pagamento garantido", d: "Dinheiro bloqueado e liberado após entrega." }
               ].map((step, i) => (
                 <div key={i} className="flex gap-6 relative z-10">
                    <div className="w-12 h-12 rounded-2xl bg-black border border-white/10 flex items-center justify-center font-black text-thedeal-gold shadow-lg shadow-black group hover:border-thedeal-gold transition-all">
@@ -130,6 +130,12 @@ export default function LandingPage(props: any) {
                    </div>
                 </div>
               ))}
+           </div>
+
+           <div className="bg-thedeal-gold/10 border border-thedeal-gold/20 p-6 rounded-2xl text-center">
+              <p className="text-white font-bold text-sm uppercase tracking-widest leading-relaxed">
+                Nada de DM perdida. Nada de "ficou interessada?". Nada de ghosting. <span className="text-thedeal-gold">Só negócio.</span>
+              </p>
            </div>
 
            <button onClick={() => props.onGoToSignup()} className="w-full bg-white text-black font-black py-6 rounded-2xl uppercase tracking-[0.3em] text-xs shadow-xl shadow-white/5 hover:scale-[1.02] active:scale-95 transition-all">
@@ -146,7 +152,7 @@ export default function LandingPage(props: any) {
                  <ul className="space-y-4">
                     {[
                       "Creator com +10k seguidores",
-                      "Busca parar de depender de sorte",
+                      "Quer parar de depender de sorte",
                       "Marca que quer previsibilidade",
                       "Leva conteúdo a sério"
                     ].map((item, i) => (
@@ -170,20 +176,44 @@ export default function LandingPage(props: any) {
             </div>
         </section>
 
-        {/* TRUST FACTORS */}
-        <section className="p-8 md:p-12 grid grid-cols-2 gap-8 border-b border-white/5">
-           {[
-             { icon: ShieldCheck, t: "Certificado e garantia", d: "Transação protegida" },
-             { icon: Shield, t: "Garantia de pagamento", d: "Pagamento após entrega" },
-             { icon: Award, t: "Seleção criteriosa", d: "Zero spam, zero amador" },
-             { icon: MessageCircle, t: "Suporte real", d: "Gente de verdade" }
-           ].map((f, i) => (
-             <div key={i} className="space-y-3">
-                <f.icon className="text-thedeal-gold" size={24} />
-                <h4 className="text-white font-black uppercase text-[10px] tracking-widest leading-tight">{f.t}</h4>
-                <p className="text-thedeal-gray600 text-[9px] font-bold uppercase tracking-widest">{f.d}</p>
-             </div>
-           ))}
+        {/* POR QUE CONFIAR */}
+        <section className="p-8 md:p-12 space-y-10">
+           <h2 className="text-3xl font-display font-black text-white uppercase tracking-tighter text-center">POR QUE CONFIAR?</h2>
+           <div className="grid grid-cols-2 gap-8">
+              {[
+                { icon: ShieldCheck, t: "Certificado e garantia", d: "Toda transação protegida" },
+                { icon: Shield, t: "Garantia de pagamento", d: "Só libera após a entrega" },
+                { icon: Award, t: "Seleção criteriosa", d: "Zero spam, zero amadorismo" },
+                { icon: MessageCircle, t: "Suporte real", d: "Não é chatbot, é gente" }
+              ].map((f, i) => (
+                <div key={i} className="space-y-3">
+                    <f.icon className="text-thedeal-gold" size={24} />
+                    <h4 className="text-white font-black uppercase text-[10px] tracking-widest leading-tight">{f.t}</h4>
+                    <p className="text-thedeal-gray600 text-[9px] font-bold uppercase tracking-widest">{f.d}</p>
+                </div>
+              ))}
+           </div>
+           <div className="bg-black p-6 rounded-2xl border border-white/5 text-center">
+              <p className="text-thedeal-gold font-black uppercase text-sm tracking-widest">👉 Se der errado, você não perde. Simples assim.</p>
+           </div>
+        </section>
+
+        {/* COMO COMEÇAR */}
+        <section className="p-8 md:p-12 space-y-8 bg-white/[0.02]">
+           <h2 className="text-3xl font-display font-black text-white uppercase tracking-tighter text-center">COMO COMEÇAR</h2>
+           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {[
+                "Solicita acesso",
+                "Passa pela análise",
+                "Entra na plataforma",
+                "Fecha deals"
+              ].map((text, i) => (
+                <div key={i} className="flex flex-col items-center gap-3 text-center">
+                   <div className="w-10 h-10 rounded-full bg-thedeal-gold text-black flex items-center justify-center font-black text-sm">{i+1}</div>
+                   <p className="text-[10px] font-black text-white uppercase tracking-widest">{text}</p>
+                </div>
+              ))}
+           </div>
         </section>
 
         {/* PRICING */}
@@ -204,8 +234,8 @@ export default function LandingPage(props: any) {
                 <ul className="space-y-4 text-[10px] text-white font-bold uppercase tracking-widest">
                   <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Deals com marcas de até 20k</li>
                   <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Pagamento garantido</li>
+                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Missões verificadas</li>
                   <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Calculadora "Meu Cachê"</li>
-                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Suporte dedicado</li>
                 </ul>
                 <button onClick={() => props.onGoToSignup()} className="w-full bg-thedeal-goldBright text-black font-black py-6 rounded-2xl uppercase text-[11px] tracking-widest shadow-xl shadow-thedeal-gold/20 hover:scale-[1.02] transition-all">SOLICITAR ACESSO — CRIADOR</button>
               </div>
@@ -236,7 +266,7 @@ export default function LandingPage(props: any) {
                 <span className="text-thedeal-gold">SEPARA O AMADOR.</span>
               </h2>
               <p className="text-thedeal-gray400 text-lg md:text-xl font-light italic">
-                O THE DEAL é a infraestrutura que faltava. Não é mágica. É processo.
+                Influência é mídia. Mídia sem processo vira bagunça. Bagunça não escala. O THE DEAL é a infraestrutura que faltava.
               </p>
             </div>
 
