@@ -30,8 +30,7 @@ export default defineConfig({
   },
   define: {
     'process.env.API_KEY': JSON.stringify(process.env.API_KEY || ''),
-    'process.env.NEXT_PUBLIC_SUPABASE_URL': JSON.stringify(process.env.NEXT_PUBLIC_SUPABASE_URL || ''),
-    'process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY': JSON.stringify(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''),
-    'process.env.RESEND_API_KEY': JSON.stringify(process.env.RESEND_API_KEY || ''),
+    // As variáveis MYSQL abaixo NÃO devem ser expostas ao client via Vite define para segurança.
+    // Elas estarão disponíveis apenas no ambiente de execução do Node.js (Backend).
   }
 })

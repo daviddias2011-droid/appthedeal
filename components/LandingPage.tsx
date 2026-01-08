@@ -138,13 +138,17 @@ export default function LandingPage({
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToAcademy(); }} className="text-lg md:text-xl font-bold text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><GraduationCap size={20} /> ACADEMIA</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToPricing?.(); }} className="text-lg md:text-xl font-bold text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><Zap size={20} /> PREÇOS</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToSimulator(); }} className="text-lg md:text-xl font-bold text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><Calculator size={20} /> CALCULADORA</button>
-            <button onClick={() => { setIsMobileMenuOpen(false); onGoToBlacklist(); }} className="text-lg md:text-xl font-bold text-left hover:text-red-500 flex items-center gap-3 transition-colors text-thedeal-gray400"><AlertOctagon size={20} /> LISTA NEGRA</button>
-            <button onClick={() => { setIsMobileMenuOpen(false); onGoToInvestor(); }} className="text-lg md:text-xl font-bold text-left text-thedeal-gold flex items-center gap-3 transition-colors"><Handshake size={20} /> SEJA UM INVESTIDOR</button>
+            
             <div className="h-px bg-thedeal-gray700 my-4"></div>
+            
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToHowItWorks(); }} className="text-base md:text-lg font-medium text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><HelpCircle size={20} /> COMO FUNCIONA</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToForBrands(); }} className="text-base md:text-lg font-medium text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><Building2 size={20} /> PARA MARCAS</button>
             <button onClick={() => { setIsMobileMenuOpen(false); onGoToForCreators(); }} className="text-base md:text-lg font-medium text-left hover:text-thedeal-gold flex items-center gap-3 transition-colors"><Zap size={20} /> PARA CRIADORES</button>
-            <button onClick={() => { setIsMobileMenuOpen(false); onGoToDemo(); }} className="text-base md:text-lg font-bold text-left text-thedeal-gold mt-4 flex items-center gap-3 transition-colors"><LogIn size={20} /> LOGIN</button>
+            
+            <div className="mt-auto pt-8 border-t border-white/5 space-y-4">
+               <button onClick={() => { setIsMobileMenuOpen(false); onGoToInvestor(); }} className="text-sm font-black uppercase tracking-[0.2em] text-thedeal-gray600 hover:text-thedeal-gray400 transition-all">Relação com Investidores</button>
+               <button onClick={() => { setIsMobileMenuOpen(false); onGoToDemo(); }} className="w-full bg-white/5 border border-white/10 text-white font-black py-4 rounded-xl flex items-center justify-center gap-3 text-sm uppercase tracking-widest"><LogIn size={18} /> ACESSAR TERMINAL</button>
+            </div>
           </nav>
         </div>
       )}
@@ -160,7 +164,7 @@ export default function LandingPage({
                 </div>
                 <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
               </div>
-              <p className="text-[7px] md:text-[8px] font-black uppercase text-thedeal-gold tracking-[0.3em] pl-0.5">Rede Social Privada</p>
+              <p className="text-[7px] md:text-[8px] font-black text-thedeal-gold tracking-tight pl-0.5">A rede onde criadores e grandes marcas se conectam para fechar contratos.</p>
             </div>
             
             <div className="flex items-center gap-2">
