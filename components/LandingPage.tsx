@@ -1,114 +1,258 @@
 
 import React, { useState, useEffect } from 'react';
 import { 
-  LogIn, ArrowRight, Briefcase, 
-  Menu, X as CloseIcon, Building2, HelpCircle, Calculator, Compass, Zap, Check
+  ArrowRight, Briefcase, Menu, X as CloseIcon, Building2, Calculator, Compass, Zap, 
+  // Added missing CheckCircle2, Award, MessageCircle icons from lucide-react
+  Check, X, ShieldCheck, TrendingUp, AlertTriangle, Star, Shield, CheckCircle2, Award, MessageCircle
 } from 'lucide-react';
 import FeedItem from './FeedItem';
 import AccessModal from './AccessModal';
-
-const TypewriterText = () => {
-  const [text, setText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [loopNum, setLoopNum] = useState(0);
-  const words = ["Influência", "Marca"];
-  useEffect(() => {
-    let timer = setTimeout(() => {
-      const i = loopNum % words.length;
-      const fullText = words[i];
-      setText(isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1));
-      if (!isDeleting && text === fullText) setTimeout(() => setIsDeleting(true), 2000);
-      else if (isDeleting && text === '') { setIsDeleting(false); setLoopNum(loopNum + 1); }
-    }, isDeleting ? 50 : 150);
-    return () => clearTimeout(timer);
-  }, [text, isDeleting, loopNum]);
-  return <span className="text-thedeal-gold italic">{text}<span className="animate-pulse">|</span></span>;
-};
 
 export default function LandingPage(props: any) {
   const [isAccessModalOpen, setIsAccessModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const mockPosts = [
-    { id: 1, author: "SIGAPAY", avatar: "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a4/4c/ee/a44cee2c-07bd-af1c-3b5a-74aeeb451e50/Placeholder.mill/400x400bb-75.webp", tag: "FINTECH", time: "Ativa", content: "Buscamos criadores para campanha de mobilidade. Foco em conversão.", imageUrl: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop", stats: "Exclusivo", isDeal: true },
-    { id: 2, author: "IGUATEMI", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyRo_h_9fHHTStKN6kPal9_m-j0Guuqs_8NQ&s", tag: "LUXO", time: "Destaque", content: "Seleção para vozes do Luxury Living. Arquitetura e Design.", imageUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop", stats: "Vetted Only", isDeal: true }
-  ];
-
   return (
-    <div className="min-h-screen bg-thedeal-bg text-thedeal-gray100 font-sans selection:bg-thedeal-goldBright selection:text-black overflow-x-hidden flex justify-center text-left">
+    <div className="min-h-screen bg-thedeal-bg text-thedeal-gray100 font-sans selection:bg-thedeal-goldBright selection:text-black overflow-x-hidden flex flex-col items-center text-left">
       <AccessModal isOpen={isAccessModalOpen} onClose={() => setIsAccessModalOpen(false)} onSignup={() => props.onGoToSignup()} />
 
+      {/* Navigation */}
+      <header className="fixed top-0 z-[100] w-full max-w-2xl bg-thedeal-bg/80 backdrop-blur-xl border-x border-b border-thedeal-gray700 p-4 flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 md:w-10 md:h-10 bg-thedeal-gold rounded flex items-center justify-center shadow-lg shadow-thedeal-gold/10"><Briefcase size={18} className="text-black" /></div>
+          <h1 className="text-lg md:text-xl font-display font-black text-white uppercase leading-none tracking-tighter">THE DEAL</h1>
+        </div>
+        <div className="flex items-center gap-2">
+          <button onClick={() => props.onGoToSignup()} className="px-5 py-2 bg-thedeal-gold text-black rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg shadow-thedeal-gold/20">Entrar</button>
+          <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 bg-white/5 rounded-xl border border-white/10 text-white"><Menu size={24} /></button>
+        </div>
+      </header>
+
+      {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-[100] bg-thedeal-bg p-8 animate-fade-in flex flex-col overflow-y-auto">
+        <div className="fixed inset-0 z-[200] bg-black p-8 animate-fade-in flex flex-col overflow-y-auto">
           <div className="flex justify-between items-center mb-12">
             <div className="flex items-center gap-3"><div className="w-10 h-10 bg-thedeal-gold rounded flex items-center justify-center"><Briefcase size={20} className="text-black" /></div><h2 className="text-xl font-display font-black text-white">THE DEAL</h2></div>
-            <button onClick={() => setIsMobileMenuOpen(false)}><CloseIcon size={28}/></button>
+            <button onClick={() => setIsMobileMenuOpen(false)} className="text-white"><CloseIcon size={28}/></button>
           </div>
           <nav className="flex flex-col gap-6 w-full max-w-sm mx-auto">
-            <button onClick={() => { props.onGoToForBrands(); setIsMobileMenuOpen(false); }} className="text-xl font-bold flex items-center gap-3"><Building2 size={20} /> MARCAS</button>
-            <button onClick={() => { props.onGoToForCreators(); setIsMobileMenuOpen(false); }} className="text-xl font-bold flex items-center gap-3"><Zap size={20} /> CRIADORES</button>
-            <button onClick={() => { props.onGoToSimulator(); setIsMobileMenuOpen(false); }} className="text-xl font-bold flex items-center gap-3"><Calculator size={20} /> CALCULADORA</button>
-            <button onClick={() => { props.onGoToDiscover(); setIsMobileMenuOpen(false); }} className="text-xl font-bold flex items-center gap-3"><Compass size={20} /> DESCUBRA</button>
-            <button onClick={() => { props.onGoToSignup(); setIsMobileMenuOpen(false); }} className="mt-8 bg-thedeal-gold text-black font-black py-4 rounded-xl">ENTRAR AGORA</button>
+            <button onClick={() => { props.onGoToForBrands(); setIsMobileMenuOpen(false); }} className="text-xl font-bold flex items-center gap-3 text-white uppercase tracking-tighter"><Building2 size={20} className="text-thedeal-gold" /> MARCAS</button>
+            <button onClick={() => { props.onGoToForCreators(); setIsMobileMenuOpen(false); }} className="text-xl font-bold flex items-center gap-3 text-white uppercase tracking-tighter"><Zap size={20} className="text-thedeal-gold" /> CRIADORES</button>
+            <button onClick={() => { props.onGoToSimulator(); setIsMobileMenuOpen(false); }} className="text-xl font-bold flex items-center gap-3 text-white uppercase tracking-tighter"><Calculator size={20} className="text-thedeal-gold" /> CALCULADORA</button>
+            <button onClick={() => { props.onGoToDiscover(); setIsMobileMenuOpen(false); }} className="text-xl font-bold flex items-center gap-3 text-white uppercase tracking-tighter"><Compass size={20} className="text-thedeal-gold" /> DESCUBRA</button>
+            <button onClick={() => { props.onGoToSignup(); setIsMobileMenuOpen(false); }} className="mt-8 bg-thedeal-gold text-black font-black py-4 rounded-xl uppercase tracking-widest text-xs">SOLICITAR ACESSO</button>
           </nav>
         </div>
       )}
 
-      <main className="w-full max-w-2xl min-h-screen border-x border-thedeal-gray700/50 pb-32">
-        <header className="sticky top-0 z-40 bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 p-4 flex items-center justify-between h-16 md:h-20">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 md:w-10 md:h-10 bg-thedeal-gold rounded flex items-center justify-center"><Briefcase size={18} className="text-black" /></div>
-            <h1 className="text-lg md:text-xl font-display font-black text-white uppercase leading-none">THE DEAL</h1>
+      <main className="w-full max-w-2xl min-h-screen border-x border-thedeal-gray700/50 pb-20 pt-20">
+        
+        {/* HERO SECTION */}
+        <section className="px-6 py-20 md:py-32 text-center space-y-10 border-b border-thedeal-gray700/30 bg-gradient-to-b from-thedeal-card/50 to-transparent">
+          <div className="space-y-4">
+            <h1 className="text-4xl sm:text-7xl font-display font-black text-white leading-[0.95] tracking-tighter uppercase">
+              SUA INFLUÊNCIA <br/>
+              <span className="text-thedeal-gold italic">JÁ VALE DINHEIRO.</span>
+            </h1>
+            <h2 className="text-2xl sm:text-4xl font-display font-black text-white uppercase tracking-tighter opacity-40">
+              FALTA SÓ O CONTRATO.
+            </h2>
           </div>
-          <div className="flex items-center gap-2">
-            <button onClick={() => props.onGoToSignup()} className="px-5 py-2 bg-thedeal-gold text-black rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg shadow-thedeal-gold/20">Entrar</button>
-            <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 bg-white/5 rounded-xl border border-white/10"><Menu size={24} /></button>
-          </div>
-        </header>
+          
+          <p className="text-base md:text-lg text-thedeal-gray400 max-w-md mx-auto font-medium leading-relaxed">
+            O THE DEAL é a infraestrutura onde creators viram fornecedores e marcas contratam mídia como se contrata qualquer serviço profissional.
+          </p>
 
-        <section className="px-6 py-16 md:py-24 text-center space-y-10 border-b border-thedeal-gray700/30">
-          <h1 className="text-4xl sm:text-6xl font-display font-bold text-white leading-[1] tracking-tighter uppercase">
-            SUA <TypewriterText /> <br/> EM PRIMEIRO LUGAR.
-          </h1>
-          <p className="text-base md:text-lg text-thedeal-gray400 max-w-md mx-auto font-medium">A infraestrutura profissional onde criadores estratégicos e grandes marcas fecham contratos reais.</p>
-          <div className="flex flex-col gap-4 px-10">
-            <button onClick={() => props.onGoToSignup()} className="w-full bg-thedeal-goldBright text-black font-black py-5 rounded-2xl shadow-2xl flex items-center justify-center gap-3 uppercase text-xs tracking-widest transition-all hover:scale-105">Quero Fazer Parte <ArrowRight size={16} /></button>
-            <button onClick={() => props.onGoToHowItWorks()} className="w-full bg-white/5 border border-white/10 text-white font-black py-5 rounded-2xl uppercase text-xs tracking-widest">Como funciona</button>
+          <div className="bg-black/40 border border-white/5 px-6 py-3 rounded-full inline-flex items-center gap-3 mx-auto">
+             <div className="w-2 h-2 bg-thedeal-gold animate-pulse rounded-full"></div>
+             <span className="text-[10px] font-black text-thedeal-gold uppercase tracking-[0.2em]">Aqui, influência vira linha de P&L.</span>
+          </div>
+
+          <div className="flex flex-col gap-4 px-4 sm:px-12 pt-4">
+            <button onClick={() => props.onGoToSignup()} className="w-full bg-thedeal-goldBright text-black font-black py-6 rounded-2xl shadow-2xl flex flex-col items-center justify-center transition-all hover:scale-105 active:scale-95 group">
+              <span className="uppercase text-xs tracking-[0.2em]">VER SE VOCÊ SE QUALIFICA</span>
+              <span className="text-[9px] opacity-60 font-bold uppercase mt-1 tracking-widest flex items-center gap-1 group-hover:opacity-100 transition-opacity">⚡ Acesso por curadoria — não é automático</span>
+            </button>
           </div>
         </section>
 
-        <section className="p-6 space-y-8">
-          {mockPosts.map(post => <FeedItem key={post.id} {...post} onAction={() => setIsAccessModalOpen(true)} />)}
+        {/* O PROBLEMA */}
+        <section className="p-8 md:p-12 space-y-12 border-b border-white/5">
+           <div className="text-center md:text-left space-y-4">
+              <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter leading-none">O PROBLEMA QUE <br/><span className="text-thedeal-danger">NINGUÉM FALA</span></h2>
+              <p className="text-thedeal-gray400 text-sm font-medium leading-relaxed">Você tem audiência, engajamento e propostas. Mas no final do mês, o que entra na conta?</p>
+           </div>
+
+           <div className="grid gap-4">
+              {[
+                "Marca some depois do 'vamos conversar'",
+                "Pagamento que vira 'próximo mês'",
+                "Contrato que nunca chega",
+                "Você aceitando menos porque tem pressa"
+              ].map((text, i) => (
+                <div key={i} className="flex items-center gap-4 p-5 bg-thedeal-danger/5 border border-thedeal-danger/20 rounded-2xl group">
+                   <X className="text-thedeal-danger group-hover:scale-110 transition-transform" size={20} />
+                   <span className="text-white font-black uppercase text-[11px] tracking-widest">{text}</span>
+                </div>
+              ))}
+           </div>
+
+           <div className="bg-thedeal-card border border-thedeal-gray700 p-8 rounded-[2.5rem] relative overflow-hidden group">
+              <TrendingUp className="absolute -bottom-4 -right-4 w-32 h-32 text-thedeal-gold opacity-5 group-hover:opacity-10 transition-opacity" />
+              <p className="text-lg md:text-xl font-serif italic text-thedeal-gray100 leading-relaxed relative z-10">
+                "Isso não é mercado. É loteria. Enquanto você reza para a marca responder, ela também está perdida. <span className="text-thedeal-gold">Os dois lados perdem porque não existe infraestrutura.</span>"
+              </p>
+           </div>
         </section>
 
-        <section className="py-20 px-6 bg-black border-y border-thedeal-gray700/30 text-center space-y-16">
+        {/* COMO RESOLVEMOS */}
+        <section className="p-8 md:p-12 space-y-12 bg-black">
+           <div className="text-center md:text-left space-y-4">
+              <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter leading-none">COMO O <br/><span className="text-thedeal-gold">THE DEAL RESOLVE</span></h2>
+              <p className="text-thedeal-gray400 text-sm font-medium">Imagine se toda publi funcionasse de forma estruturada e profissional.</p>
+           </div>
+
+           <div className="space-y-4 relative">
+              <div className="absolute left-6 top-10 bottom-10 w-px bg-white/5"></div>
+              {[
+                { t: "Marca publica missão", d: "Objetivo, entrega e budget claros." },
+                { t: "Você aplica com proposta", d: "Sem mimimi, direto ao ponto técnico." },
+                { t: "Curadoria valida", d: "Qualidade > Volume de seguidores." },
+                { t: "Deal fechado", d: "Termos claros, prazo e valor registrados." },
+                { t: "Pagamento garantido", d: "Dinheiro protegido liberado após a entrega." }
+              ].map((step, i) => (
+                <div key={i} className="flex gap-6 relative z-10">
+                   <div className="w-12 h-12 rounded-2xl bg-black border border-white/10 flex items-center justify-center font-black text-thedeal-gold shadow-lg shadow-black group hover:border-thedeal-gold transition-all">
+                      <Check size={20} />
+                   </div>
+                   <div className="flex-1 pt-1 pb-8">
+                      <h4 className="text-white font-black uppercase text-sm tracking-tight">{step.t}</h4>
+                      <p className="text-thedeal-gray400 text-xs font-medium mt-1 uppercase tracking-widest opacity-60">{step.d}</p>
+                   </div>
+                </div>
+              ))}
+           </div>
+
+           <button onClick={() => props.onGoToSignup()} className="w-full bg-white text-black font-black py-6 rounded-2xl uppercase tracking-[0.3em] text-xs shadow-xl shadow-white/5 hover:scale-[1.02] active:scale-95 transition-all">
+             SOLICITAR ACESSO AGORA
+           </button>
+        </section>
+
+        {/* PARA QUEM É */}
+        <section className="p-8 md:p-12 space-y-12 border-y border-white/5 bg-thedeal-card/30">
+            <h2 className="text-3xl font-display font-black text-white uppercase tracking-tighter text-center">PARA QUEM É</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                 <p className="text-[10px] font-black text-thedeal-success uppercase tracking-[0.3em] flex items-center gap-2"><CheckCircle2 size={14}/> Você entra se:</p>
+                 <ul className="space-y-4">
+                    {[
+                      "Creator com +10k seguidores",
+                      "Busca parar de depender de sorte",
+                      "Marca que quer previsibilidade",
+                      "Leva conteúdo a sério"
+                    ].map((item, i) => (
+                      <li key={i} className="text-[11px] font-bold text-white uppercase tracking-widest border-l-2 border-thedeal-success pl-4">{item}</li>
+                    ))}
+                 </ul>
+              </div>
+              <div className="space-y-6">
+                 <p className="text-[10px] font-black text-thedeal-danger uppercase tracking-[0.3em] flex items-center gap-2"><X size={14}/> Não é para você se:</p>
+                 <ul className="space-y-4">
+                    {[
+                      "Quer só trocar produto por post",
+                      "Confunde influência com ego",
+                      "Acha que 'exposição' paga conta",
+                      "Sem compromisso com entrega"
+                    ].map((item, i) => (
+                      <li key={i} className="text-[11px] font-bold text-thedeal-gray600 uppercase tracking-widest border-l-2 border-thedeal-danger pl-4">{item}</li>
+                    ))}
+                 </ul>
+              </div>
+            </div>
+        </section>
+
+        {/* TRUST FACTORS */}
+        <section className="p-8 md:p-12 grid grid-cols-2 gap-8 border-b border-white/5">
+           {[
+             { icon: ShieldCheck, t: "Certificado e garantia", d: "Transação protegida" },
+             { icon: Shield, t: "Garantia de pagamento", d: "Pagamento após entrega" },
+             { icon: Award, t: "Seleção criteriosa", d: "Zero spam, zero amador" },
+             { icon: MessageCircle, t: "Suporte real", d: "Gente de verdade" }
+           ].map((f, i) => (
+             <div key={i} className="space-y-3">
+                <f.icon className="text-thedeal-gold" size={24} />
+                <h4 className="text-white font-black uppercase text-[10px] tracking-widest leading-tight">{f.t}</h4>
+                <p className="text-thedeal-gray600 text-[9px] font-bold uppercase tracking-widest">{f.d}</p>
+             </div>
+           ))}
+        </section>
+
+        {/* PRICING */}
+        <section className="py-20 px-6 bg-black text-center space-y-16">
             <div className="space-y-4">
-              <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter">Escolha Seu <span className="text-thedeal-gold">Acesso.</span></h2>
+              <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter">ESCOLHA SEU <span className="text-thedeal-gold">ACESSO.</span></h2>
               <p className="text-thedeal-gray600 text-[10px] font-bold uppercase tracking-[0.3em]">Protocolos Profissionais</p>
             </div>
+            
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto text-left">
-              <div className="p-8 bg-thedeal-card border border-white/5 rounded-[2.5rem] space-y-8">
-                <h3 className="text-white font-black text-2xl uppercase">Criador</h3>
-                <p className="text-4xl font-black text-thedeal-goldBright">R$ 297<span className="text-sm font-bold text-thedeal-gray600">/ano</span></p>
-                <ul className="space-y-4 text-[11px] text-white font-bold uppercase tracking-widest">
-                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Marketplace Ativo</li>
-                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Escrow de Segurança</li>
+              <div className="p-10 bg-thedeal-card border border-white/5 rounded-[3rem] space-y-8 hover:border-thedeal-gold transition-all shadow-2xl relative overflow-hidden group">
+                <Zap size={80} className="absolute -top-4 -right-4 text-thedeal-gold opacity-5 group-hover:opacity-10 transition-opacity" />
+                <h3 className="text-white font-black text-2xl uppercase tracking-tighter">💼 Criador</h3>
+                <div className="flex items-baseline gap-2">
+                  <p className="text-5xl font-black text-thedeal-goldBright tracking-tighter">R$ 297</p>
+                  <span className="text-sm font-bold text-thedeal-gray600 uppercase">/mês</span>
+                </div>
+                <ul className="space-y-4 text-[10px] text-white font-bold uppercase tracking-widest">
+                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Deals com marcas de até 20k</li>
+                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Pagamento garantido</li>
+                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Calculadora "Meu Cachê"</li>
+                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Suporte dedicado</li>
                 </ul>
-                <button onClick={() => props.onGoToSignup()} className="w-full bg-thedeal-goldBright text-black font-black py-5 rounded-2xl uppercase text-[10px] tracking-widest shadow-xl shadow-thedeal-gold/20">ATIVAR PERFIL</button>
+                <button onClick={() => props.onGoToSignup()} className="w-full bg-thedeal-goldBright text-black font-black py-6 rounded-2xl uppercase text-[11px] tracking-widest shadow-xl shadow-thedeal-gold/20 hover:scale-[1.02] transition-all">SOLICITAR ACESSO — CRIADOR</button>
               </div>
-              <div className="p-8 bg-thedeal-card border border-white/5 rounded-[2.5rem] space-y-8 border-l-4 border-l-thedeal-gold">
-                <h3 className="text-white font-black text-2xl uppercase">Marca</h3>
-                <p className="text-4xl font-black text-white">R$ 497<span className="text-sm font-bold text-thedeal-gray600">/ano</span></p>
-                <ul className="space-y-4 text-[11px] text-white font-bold uppercase tracking-widest">
-                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Acesso aos Criadores</li>
-                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Propostas Ilimitadas</li>
+
+              <div className="p-10 bg-thedeal-card border border-white/5 rounded-[3rem] space-y-8 hover:border-thedeal-gold transition-all shadow-2xl relative overflow-hidden group">
+                <Building2 size={80} className="absolute -top-4 -right-4 text-thedeal-gold opacity-5 group-hover:opacity-10 transition-opacity" />
+                <h3 className="text-white font-black text-2xl uppercase tracking-tighter">🏢 Marca</h3>
+                <div className="flex items-baseline gap-2">
+                  <p className="text-5xl font-black text-white tracking-tighter">R$ 497</p>
+                  <span className="text-sm font-bold text-thedeal-gray600 uppercase">/mês</span>
+                </div>
+                <ul className="space-y-4 text-[10px] text-white font-bold uppercase tracking-widest">
+                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Acesso aos criadores curados</li>
+                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Propostas ilimitadas</li>
+                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Gestão de campanhas</li>
+                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Relatórios de performance</li>
                 </ul>
-                <button onClick={() => props.onGoToSignup()} className="w-full bg-white text-black font-black py-5 rounded-2xl uppercase text-[10px] tracking-widest shadow-xl shadow-white/5">COMEÇAR A CONTRATAR</button>
+                <button onClick={() => props.onGoToSignup()} className="w-full bg-white text-black font-black py-6 rounded-2xl uppercase text-[11px] tracking-widest shadow-xl shadow-white/5 hover:scale-[1.02] transition-all">SOLICITAR ACESSO — MARCA</button>
               </div>
             </div>
         </section>
 
-        <footer className="py-20 px-6 text-center space-y-6 opacity-30">
+        {/* FINAL CTA */}
+        <section className="py-32 px-8 text-center space-y-12">
+            <div className="space-y-6">
+              <h2 className="text-4xl md:text-7xl font-display font-black text-white uppercase tracking-tighter leading-none">
+                ESTRUTURA É O QUE <br/>
+                <span className="text-thedeal-gold">SEPARA O AMADOR.</span>
+              </h2>
+              <p className="text-thedeal-gray400 text-lg md:text-xl font-light italic">
+                O THE DEAL é a infraestrutura que faltava. Não é mágica. É processo.
+              </p>
+            </div>
+
+            <div className="pt-4">
+              <button 
+                onClick={() => props.onGoToSignup()}
+                className="w-full sm:w-auto bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black px-16 py-8 rounded-3xl text-sm transition-all shadow-2xl shadow-thedeal-gold/30 uppercase tracking-[0.3em] hover:scale-105 active:scale-95"
+              >
+                SOLICITAR ACESSO ANTECIPADO
+              </button>
+              <p className="text-[11px] font-black uppercase text-thedeal-gray600 mt-6 tracking-widest">⚡ Vagas limitadas por curadoria — não deixe para depois</p>
+            </div>
+        </section>
+
+        <footer className="py-20 px-6 text-center space-y-6 opacity-30 border-t border-white/5">
           <p className="text-[8px] font-black uppercase tracking-[0.5em]">THE DEAL • CNPJ: 59.440.114/0001-03</p>
           <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em]">EM DESENVOLVIMENTO • SUPORTE@THEDEAL.COM.BR</p>
         </footer>
