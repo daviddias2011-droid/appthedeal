@@ -1,12 +1,16 @@
 
 import React, { useState } from 'react';
-import { BookOpen, Video, Mic, ArrowLeft, ArrowRight, PlayCircle, Clock, Sparkles, Zap, Search } from 'lucide-react';
+import { BookOpen, Video, Mic, ArrowLeft, ArrowRight, PlayCircle, Clock, Sparkles, Zap, Search, Lock } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 
 interface KnowledgeHubProps {
   onNavigateBack: () => void;
+  onRestrictedAction?: () => void;
 }
 
-const KnowledgeHub: React.FC<KnowledgeHubProps> = ({ onNavigateBack }) => {
+const KnowledgeHub: React.FC<KnowledgeHubProps> = ({ onNavigateBack, onRestrictedAction }) => {
+  const { profile } = useAuth();
+  const userIsLoggedIn = !!profile;
   const [view, setView] = useState<'hub' | 'cursos' | 'artigos'>('hub');
 
   const modulos = [
@@ -14,6 +18,14 @@ const KnowledgeHub: React.FC<KnowledgeHubProps> = ({ onNavigateBack }) => {
     { id: 2, titulo: 'Engenharia de Contratos', desc: 'Domine cláusulas de Equity e RevShare.', icon: '📑', aulas: 8, duracao: '3h 15min' },
     { id: 3, titulo: 'Performance Criativa', desc: 'Conteúdo focado 100% em conversão e ROI.', icon: '🎯', aulas: 10, duracao: '5h' },
   ];
+
+  const handleAction = (targetView: 'cursos' | 'artigos') => {
+      if (!userIsLoggedIn) {
+          onRestrictedAction?.();
+          return;
+      }
+      setView(targetView);
+  };
 
   const artigos = [
     { title: 'O Fim do #Publi Tradicional', cat: 'Mercado', time: '12 min', img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop' },
@@ -91,13 +103,15 @@ const KnowledgeHub: React.FC<KnowledgeHubProps> = ({ onNavigateBack }) => {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <button onClick={() => setView('cursos')} className="p-10 bg-thedeal-card rounded-[2.5rem] border border-thedeal-gray700 text-left hover:border-thedeal-gold transition-all group shadow-2xl hover:shadow-thedeal-gold/10">
+        <button onClick={() => handleAction('cursos')} className="p-10 bg-thedeal-card rounded-[2.5rem] border border-thedeal-gray700 text-left hover:border-thedeal-gold transition-all group shadow-2xl hover:shadow-thedeal-gold/10 relative">
+          {!userIsLoggedIn && <Lock size={18} className="absolute top-6 right-6 text-thedeal-gold/30" />}
           <BookOpen className="w-12 h-12 text-thedeal-gold mb-8 group-hover:scale-110 transition-transform" />
           <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-2">Formação Alpha</h3>
           <p className="text-sm text-thedeal-gray400 font-medium leading-relaxed">Cursos práticos sobre monetização, negociação e equity.</p>
         </button>
 
-        <button onClick={() => setView('artigos')} className="p-10 bg-thedeal-card rounded-[2.5rem] border border-thedeal-gray700 text-left hover:border-thedeal-gold transition-all group shadow-2xl hover:shadow-thedeal-gold/10">
+        <button onClick={() => handleAction('artigos')} className="p-10 bg-thedeal-card rounded-[2.5rem] border border-thedeal-gray700 text-left hover:border-thedeal-gold transition-all group shadow-2xl hover:shadow-thedeal-gold/10 relative">
+          {!userIsLoggedIn && <Lock size={18} className="absolute top-6 right-6 text-thedeal-gold/30" />}
           <Zap className="w-12 h-12 text-thedeal-gold mb-8 group-hover:scale-110 transition-transform" />
           <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-2">Intelligence</h3>
           <p className="text-sm text-thedeal-gray400 font-medium leading-relaxed">Análises profundas de mercado e tendências da creator economy.</p>
@@ -110,6 +124,18 @@ const KnowledgeHub: React.FC<KnowledgeHubProps> = ({ onNavigateBack }) => {
           <div className="absolute top-4 right-4 bg-thedeal-gray700 text-[8px] font-black px-3 py-1 rounded-sm uppercase text-white tracking-widest">Em Breve</div>
         </button>
       </div>
+
+      {!userIsLoggedIn && (
+        <div className="bg-gradient-to-r from-thedeal-gold/10 to-transparent border border-thedeal-gold/20 p-8 rounded-3xl text-center">
+            <p className="text-thedeal-gold font-black uppercase text-[10px] tracking-[0.3em] mb-4">Acesso limitado ao terminal de conhecimento</p>
+            <button 
+                onClick={onRestrictedAction}
+                className="bg-thedeal-gold text-black font-black px-8 py-3 rounded-xl uppercase text-[10px] tracking-widest hover:scale-105 transition-all"
+            >
+                Fazer Login para Desbloquear
+            </button>
+        </div>
+      )}
 
       <div className="bg-gradient-to-r from-thedeal-card to-thedeal-bg border-2 border-thedeal-goldDim/30 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
          <div className="absolute top-0 right-0 p-10 opacity-5"><Video size={200} className="text-thedeal-gold" /></div>

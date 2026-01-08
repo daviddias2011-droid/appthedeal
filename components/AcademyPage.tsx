@@ -25,6 +25,8 @@ interface Course {
 
 interface AcademyPageProps {
     onBack: () => void;
+    userIsLoggedIn: boolean;
+    onRestrictedAction: () => void;
     t: any;
 }
 
@@ -152,7 +154,7 @@ const COURSES: Course[] = [
           lessons: [
             { id: '4-4', title: 'A Matemática da Influência: Calculando CAC, LTV e ROAS para marcas.' },
             { id: '4-5', title: 'Mídia Kit 2.0: Como apresentar números que brilham os olhos de investidores.' },
-            { id: '4-6', title: 'Precificação Dinâmica: Quanto cobrar (e quando cobrar Equity).' }
+            { id: '4-6', title: 'Precificação Dinâmica: Quanto cobrar ((e quando cobrar Equity).' }
           ]
         },
         {
@@ -168,9 +170,17 @@ const COURSES: Course[] = [
     }
 ];
 
-const AcademyPage: React.FC<AcademyPageProps> = ({ onBack, t }) => {
+const AcademyPage: React.FC<AcademyPageProps> = ({ onBack, userIsLoggedIn, onRestrictedAction, t }) => {
     const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
     const goldTextClass = "text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F4E0A1] to-[#D4AF37]";
+
+    const handleSelectCourse = (course: Course) => {
+        if (!userIsLoggedIn) {
+            onRestrictedAction();
+            return;
+        }
+        setSelectedCourse(course);
+    };
 
     const renderCourseDetail = (course: Course) => (
       <div className="max-w-4xl mx-auto animate-fade-in px-4">
@@ -292,9 +302,14 @@ const AcademyPage: React.FC<AcademyPageProps> = ({ onBack, t }) => {
                         {COURSES.map((modulo) => (
                             <div 
                               key={modulo.id} 
-                              onClick={() => setSelectedCourse(modulo)}
-                              className="p-10 bg-[#0A0A0A] border border-white/5 rounded-[2.5rem] hover:border-thedeal-gold/30 transition-all group cursor-pointer shadow-2xl"
+                              onClick={() => handleSelectCourse(modulo)}
+                              className="p-10 bg-[#0A0A0A] border border-white/5 rounded-[2.5rem] hover:border-thedeal-gold/30 transition-all group cursor-pointer shadow-2xl relative overflow-hidden"
                             >
+                                {!userIsLoggedIn && (
+                                  <div className="absolute top-6 right-6 text-thedeal-gold/40">
+                                    <Lock size={20} />
+                                  </div>
+                                )}
                                 <div className="text-6xl mb-8 group-hover:scale-110 transition-transform">{modulo.icone}</div>
                                 <h3 className="text-2xl md:text-3xl font-bold text-white uppercase tracking-tight mb-4 group-hover:text-thedeal-gold transition-colors leading-tight">{modulo.titulo}</h3>
                                 <p className="text-white/40 text-lg leading-relaxed mb-10 font-light line-clamp-2">{modulo.descricao}</p>
@@ -310,7 +325,9 @@ const AcademyPage: React.FC<AcademyPageProps> = ({ onBack, t }) => {
                                             <span className="text-xs font-black uppercase tracking-widest text-white/60">{modulo.duracao}</span>
                                         </div>
                                     </div>
-                                    <button className="text-thedeal-gold group-hover:translate-x-2 transition-transform"><ChevronRight className="w-6 h-6"/></button>
+                                    <button className="text-thedeal-gold group-hover:translate-x-2 transition-transform">
+                                      {userIsLoggedIn ? <ChevronRight className="w-6 h-6"/> : <Lock className="w-5 h-5" />}
+                                    </button>
                                 </div>
                             </div>
                         ))}

@@ -46,7 +46,6 @@ const AppContent = () => {
       if (profile.isVetted && (view === 'landing' || view === 'login' || view === 'invitation')) {
         setView('dashboard');
       } else if (!profile.isVetted && view === 'dashboard') {
-        // Redirecionar para validação se o perfil logado não for vetted
         setView('validation');
       }
     } else {
@@ -60,7 +59,6 @@ const AppContent = () => {
     try {
       const { error } = await signIn(email, password);
       if (error) throw error;
-      // Perfil carregado no refreshProfile disparado pelo setProfile no context
     } catch (err: any) {
       setLoginError(err.message || "Credenciais Alpha inválidas.");
     }
@@ -98,7 +96,7 @@ const AppContent = () => {
       case 'pricing': return <PricingPage onBack={() => setView('landing')} />;
       case 'how-it-works': return <HowItWorksPage onBack={() => setView('landing')} onGoToSignup={() => setView('invitation')} />;
       case 'missions': return <MissionsPage onBack={() => setView('landing')} />;
-      case 'academy': return <AcademyPage onBack={() => setView('landing')} t={t} />;
+      case 'academy': return <AcademyPage onBack={() => setView('landing')} userIsLoggedIn={!!profile} onRestrictedAction={() => setView('login')} t={t} />;
       case 'thank-you':
         return (
           <div className="min-h-screen bg-black flex flex-col items-center justify-center p-6 text-center animate-fade-in text-left">
