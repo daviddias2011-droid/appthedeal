@@ -39,14 +39,15 @@ export const api = {
 
   async handleResponse(response: Response) {
     const text = await response.text();
-    const cleanText = text.trim(); // Remove espaços que o PHP pode ter inserido
+    // Limpeza profunda para evitar que quebras de linha no PHP quebrem o JSON.parse
+    const cleanText = text.trim();
     
     let data;
     try {
       data = cleanText ? JSON.parse(cleanText) : {};
     } catch (e) {
-      console.error("ERRO DE PROTOCOLO ALPHA:", text);
-      throw new Error('Resposta inválida do servidor. Verifique os logs de sistema.');
+      console.error("ERRO DE PROTOCOLO ALPHA - Resposta bruta:", text);
+      throw new Error('Resposta do servidor não é um JSON válido. Verifique o terminal PHP.');
     }
 
     if (!response.ok) {
