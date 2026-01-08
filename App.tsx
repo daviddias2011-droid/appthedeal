@@ -14,6 +14,7 @@ import ForBrandsPage from './components/ForBrandsPage';
 import ForCreatorsPage from './components/ForCreatorsPage';
 import DiscoverPage from './components/DiscoverPage';
 import PricingPage from './components/PricingPage';
+import Footer from './components/Footer';
 import { translations } from './translations';
 import { BriefcaseIcon, ArrowLeftIcon } from './components/Icons';
 
@@ -21,6 +22,8 @@ const AppContent = () => {
   const [view, setView] = useState<AppView | any>('landing');
   const [language] = useState<'pt' | 'en'>('pt');
   const t = useMemo(() => translations[language], [language]);
+
+  const showFooter = !['invitation', 'welcome'].includes(view);
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] relative">
@@ -46,7 +49,7 @@ const AppContent = () => {
           
           case 'simulator':
             return (
-              <div className="min-h-screen bg-black text-left">
+              <div className="min-h-screen bg-black text-left pb-32">
                 <nav className="fixed top-0 left-0 right-0 z-[100] bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20">
                     <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
                         <div className="flex flex-col items-start gap-1 cursor-pointer group" onClick={() => setView('landing')}>
@@ -76,6 +79,11 @@ const AppContent = () => {
           default: return <LandingPage onGoToDemo={() => setView('login')} onGoToSignup={() => setView('invitation')} onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')} onGoToForBrands={() => setView('for-brands')} onGoToForCreators={() => setView('for-creators')} onGoToHowItWorks={() => setView('how-it-works')} onGoToHub={() => setView('landing')} onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')} onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')} onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')} language={language} t={t} />;
         }
       })()}
+
+      {showFooter && (
+        <Footer activeTab={view} setActiveTab={(newTab) => setView(newTab)} />
+      )}
+      
       <CookieConsent onAccept={() => {}} onDecline={() => {}} />
     </div>
   );

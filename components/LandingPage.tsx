@@ -6,7 +6,6 @@ import {
 } from 'lucide-react';
 import FeedItem from './FeedItem';
 import AccessModal from './AccessModal';
-import Footer from './Footer';
 
 const TypewriterText = () => {
   const [text, setText] = useState('');
@@ -114,8 +113,6 @@ export default function LandingPage(props: any) {
           <p className="text-[7px] font-bold text-thedeal-gold uppercase tracking-[0.2em]">EM DESENVOLVIMENTO • SUPORTE@THEDEAL.COM.BR</p>
         </footer>
       </main>
-
-      <Footer activeTab="landing" setActiveTab={(tab) => props[`onGoTo${tab.charAt(0).toUpperCase() + tab.slice(1).replace('-','').replace('landing','Hub')}`]()} />
     </div>
   );
 }

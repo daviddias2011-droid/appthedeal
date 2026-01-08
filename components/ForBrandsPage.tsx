@@ -15,7 +15,7 @@ const ForBrandsPage: React.FC<ForBrandsPageProps> = ({ onBack, onGoToSignup }) =
   const handleRequestDemo = () => window.open(WHATSAPP_LINK, '_blank');
 
   return (
-    <div className="min-h-screen bg-thedeal-bg text-thedeal-gray100 animate-fade-in font-sans selection:bg-thedeal-goldBright selection:text-black text-left">
+    <div className="min-h-screen bg-thedeal-bg text-thedeal-gray100 animate-fade-in font-sans selection:bg-thedeal-goldBright selection:text-black text-left pb-32">
       {/* Standardized Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-[100] bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20 transition-all">
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
