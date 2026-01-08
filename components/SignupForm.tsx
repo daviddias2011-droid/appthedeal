@@ -44,7 +44,8 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
     setError(null);
 
     try {
-      const response = await fetch('/api/register-member.php', {
+      // CORREÇÃO: Removido .php para usar o endpoint Node/TypeScript
+      const response = await fetch('/api/register-member', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -58,10 +59,9 @@ const SignupForm: React.FC<SignupFormProps> = ({ onBack, onSuccess, onRedirectTo
         })
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.error || 'Erro ao registrar no terminal.');
+        const errorData = await response.json().catch(() => ({ error: 'Falha crítica no servidor.' }));
+        throw new Error(errorData.error || 'Erro ao registrar no terminal.');
       }
 
       onRedirectToValidation();

@@ -24,7 +24,8 @@ export default function MissionsPanel() {
     setLoadingId(missionId);
     
     try {
-      const response = await fetch('/api/complete-mission.php', {
+      // CORREÇÃO: Removido .php
+      const response = await fetch('/api/complete-mission', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -36,7 +37,7 @@ export default function MissionsPanel() {
 
       const data = await response.json();
       if (data.success) {
-        await refreshProfile(); // Atualiza os pontos na tela
+        await refreshProfile(); 
         alert(`Missão concluída! +${points} pontos Alpha.`);
       } else {
         alert(data.error || "Missão já realizada.");
@@ -93,7 +94,7 @@ export default function MissionsPanel() {
               <h3 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter">Seu Link de <br/><span className="text-thedeal-gold">Expansão</span></h3>
               <div className="flex flex-col sm:flex-row gap-4">
                   <div className="flex-1 bg-white/5 border border-white/10 rounded-xl px-6 py-5 text-white font-mono text-2xl flex items-center justify-center tracking-widest shadow-inner uppercase">
-                    {profile?.referral_code || "GERANDO..."}
+                    {profile?.referral_code || "ALPHA"}
                   </div>
                   <button onClick={handleCopy} className="bg-thedeal-goldBright text-black font-black px-8 py-5 rounded-xl uppercase text-[10px] tracking-widest hover:scale-105 transition-all shadow-xl shadow-thedeal-gold/20 flex items-center justify-center gap-3">
                     {copied ? <Check size={18} strokeWidth={4} /> : <Copy size={18} />}
