@@ -11,10 +11,9 @@ import SimulatorPage from './SimulatorPage';
 import KnowledgeHub from './KnowledgeHub';
 import PricingPage from './PricingPage';
 import DiscoverPage from './DiscoverPage';
-import BlacklistPage from './Blacklist';
 import { MOCK_POSTS, USERS } from '../constants';
 import { useAuth } from '../contexts/AuthContext';
-import { Briefcase, X, ShieldCheck, AlertTriangle, RefreshCw, CheckCircle, Menu } from 'lucide-react';
+import { Briefcase, Menu, CheckCircle } from 'lucide-react';
 
 interface DashboardProps {
   user: User;
@@ -22,7 +21,7 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
-  const { profile, refreshProfile } = useAuth();
+  const { profile } = useAuth();
   const isAdmin = user.type === UserType.Admin;
   const [activeTab, setActiveTab] = useState<DashboardTab>(isAdmin ? 'painel' : 'feed');
   const [posts, setPosts] = useState<Post[]>(MOCK_POSTS);
@@ -56,7 +55,6 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
           </div>
         );
       case 'discover': return <DiscoverPage onBack={() => setActiveTab('feed')} onSignup={() => setActiveTab('planos')} />;
-      case 'blacklist': return <BlacklistPage onBack={() => setActiveTab('feed')} />;
       case 'missoes': return <MissionsPanel />;
       case 'planos': return <PricingPage onBack={() => setActiveTab('feed')} />;
       case 'cursos': return <KnowledgeHub onNavigateBack={() => setActiveTab('feed')} />;

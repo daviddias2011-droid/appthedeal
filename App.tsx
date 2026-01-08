@@ -21,13 +21,9 @@ import ForBrandsPage from './components/ForBrandsPage';
 import ForCreatorsPage from './components/ForCreatorsPage';
 import DiscoverPage from './components/DiscoverPage';
 import InvestorPage from './components/InvestorPage';
-import LegalPage from './components/LegalPage';
-import BlacklistPage from './components/Blacklist';
 import PricingPage from './components/PricingPage';
 import { translations } from './translations';
 import { ReferralSystem } from './lib/referral';
-import { BriefcaseIcon, ArrowLeftIcon, ShieldCheck } from './components/Icons';
-import { MessageCircle } from 'lucide-react';
 
 const AppContent = () => {
   const { profile, loading, signIn, signOut } = useAuth();
@@ -76,7 +72,6 @@ const AppContent = () => {
           onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')}
           onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')}
           onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')}
-          onGoToBlacklist={() => setView('blacklist')}
           onGoToPricing={() => setView('pricing')}
           language={language} t={t}
         />;
@@ -93,7 +88,6 @@ const AppContent = () => {
       case 'pricing':
         return <PricingPage onBack={() => setView('landing')} />;
 
-      // FIX: Added cases for missing views in renderView to satisfy type checks and provide functionality.
       case 'for-brands':
         return <ForBrandsPage onBack={() => setView('landing')} onGoToSignup={() => setView('invitation')} />;
 
@@ -118,12 +112,8 @@ const AppContent = () => {
       case 'investor':
         return <InvestorPage onBack={() => setView('landing')} />;
 
-      case 'blacklist':
-        return <BlacklistPage onBack={() => setView('landing')} />;
-
       default:
-        // Renderização de outras telas estáticas omitida por brevidade, mantém o padrão atual
-        return <LandingPage onGoToDemo={() => setView('login')} onGoToSignup={() => setView('invitation')} onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')} onGoToForBrands={() => setView('for-brands')} onGoToForCreators={() => setView('for-creators')} onGoToHowItWorks={() => setView('how-it-works')} onGoToHub={() => setView('landing')} onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')} onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')} onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')} onGoToBlacklist={() => setView('blacklist')} language={language} t={t} />;
+        return <LandingPage onGoToDemo={() => setView('login')} onGoToSignup={() => setView('invitation')} onGoToPrivacy={() => setView('privacy')} onGoToTerms={() => setView('terms')} onGoToForBrands={() => setView('for-brands')} onGoToForCreators={() => setView('for-creators')} onGoToHowItWorks={() => setView('how-it-works')} onGoToHub={() => setView('landing')} onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')} onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')} onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')} language={language} t={t} />;
     }
   };
 

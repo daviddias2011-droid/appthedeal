@@ -75,8 +75,7 @@ export interface Post {
   ctaText?: string;
 }
 
-// FIX: Added 'for-brands' and 'for-creators' to AppView union type to allow navigation to these pages.
-export type AppView = 'landing' | 'login' | 'invitation' | 'dashboard' | 'validation' | 'welcome' | 'admin-approval' | 'verify-email' | 'how-it-works' | 'missions' | 'academy' | 'simulator' | 'blog' | 'discover' | 'investor' | 'privacy' | 'terms' | 'blacklist' | 'thank-you' | 'pricing' | 'for-brands' | 'for-creators';
+export type AppView = 'landing' | 'login' | 'invitation' | 'dashboard' | 'validation' | 'welcome' | 'admin-approval' | 'verify-email' | 'how-it-works' | 'missions' | 'academy' | 'simulator' | 'blog' | 'discover' | 'investor' | 'privacy' | 'terms' | 'thank-you' | 'pricing' | 'for-brands' | 'for-creators';
 
 export interface PortfolioItem {
   id: number;
@@ -127,8 +126,7 @@ export interface Message {
   timestamp: string;
 }
 
-// FIX: Added 'deals' to DashboardTab union type to fix navigation errors in Header, DealDetailsModal, and DashboardPanel.
-export type DashboardTab = 'painel' | 'feed' | 'explorar' | 'missoes' | 'cursos' | 'perfil' | 'roi' | 'carteira' | 'mensagens' | 'empresas' | 'criadores' | 'simulador' | 'pagamentos' | 'contratos' | 'presenca_vip' | 'blacklist' | 'discover' | 'planos' | 'clubalpha' | 'deals';
+export type DashboardTab = 'painel' | 'feed' | 'explorar' | 'missoes' | 'cursos' | 'perfil' | 'roi' | 'carteira' | 'mensagens' | 'empresas' | 'criadores' | 'simulador' | 'pagamentos' | 'contratos' | 'presenca_vip' | 'discover' | 'planos' | 'clubalpha' | 'deals';
 
 export type TrackingMethod = 'pixel' | 'landingpage' | 'cupom';
 
