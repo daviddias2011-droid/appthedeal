@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
   ArrowRight, Briefcase, Menu, X as CloseIcon, Building2, Calculator, Compass, Zap, 
-  // Added missing CheckCircle2, Award, MessageCircle icons from lucide-react
   Check, X, ShieldCheck, TrendingUp, AlertTriangle, Star, Shield, CheckCircle2, Award, MessageCircle
 } from 'lucide-react';
 import FeedItem from './FeedItem';
@@ -65,7 +64,7 @@ export default function LandingPage(props: any) {
 
           <div className="bg-black/40 border border-white/5 px-6 py-3 rounded-full inline-flex items-center gap-3 mx-auto">
              <div className="w-2 h-2 bg-thedeal-gold animate-pulse rounded-full"></div>
-             <span className="text-[10px] font-black text-thedeal-gold uppercase tracking-[0.2em]">Aqui, influência vira linha de P&L.</span>
+             <span className="text-[10px] font-black text-thedeal-gold uppercase tracking-[0.2em]">Aqui, influência vira contrato fechado.</span>
           </div>
 
           <div className="flex flex-col gap-4 px-4 sm:px-12 pt-4">
