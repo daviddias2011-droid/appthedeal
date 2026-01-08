@@ -1,0 +1,35 @@
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+	http_response_code(405);
+	echo json_encode(['message' => 'Método não permitido']);
+	exit;
+}
+<?php
+require_once __DIR__ . '/config.php';
+header('Content-Type: application/json');
+$data = json_decode(file_get_contents('php://input'), true);
+if (!isset($data['email'], $data['password'])) {
+	http_response_code(400);
+	echo json_encode(['message' => 'Dados incompletos']);
+	exit;
+}
+$email = $data['email'];
+$password = $data['password'];
+$stmt = $pdo->prepare('SELECT * FROM users WHERE email = ?');
+$stmt->execute([$email]);
+$user = $stmt->fetch();
+if ($user && password_verify($password, $user['password'])) {
+	// Gera token simples (ideal: JWT)
+	$token = bin2hex(random_bytes(32));
+	$stmt = $pdo->prepare('UPDATE users SET auth_token = ? WHERE id = ?');
+	$stmt->execute([$token, $user['id']]);
+	unset($user['password']);
+	$user['auth_token'] = $token;
+	echo json_encode([
+		'message' => 'Login realizado com sucesso',
+		'token' => $token,
+		'user' => $user
+	]);
+} else {
+	http_response_code(401);
+	echo json_encode(['message' => 'Email ou senha inválidos']);
+}
