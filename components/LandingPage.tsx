@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { 
   ArrowRight, Briefcase, Menu, X as CloseIcon, Building2, Calculator, Compass, Zap, 
   Check, X, ShieldCheck, TrendingUp, Star, Shield, CheckCircle2, Award, MessageCircle,
-  Instagram, Twitter, Video, Target, FileText, Lock
+  Instagram, Twitter, Video, Target, FileText, Lock, ShieldOff, Handshake, DollarSign
 } from 'lucide-react';
 import AccessModal from './AccessModal';
 import { KwaiIcon } from './Icons';
@@ -47,19 +47,21 @@ export default function LandingPage(props: any) {
 
       <main className="w-full max-w-2xl min-h-screen border-x border-thedeal-gray700/50 pb-20 pt-20">
         
-        {/* HERO SECTION */}
+        {/* 1. HERO SECTION */}
         <section className="px-6 py-20 md:py-32 text-center space-y-10 border-b border-thedeal-gray700/30 bg-gradient-to-b from-thedeal-card/50 to-transparent">
           <div className="space-y-6">
             <h1 className="text-4xl sm:text-7xl font-display font-black text-white leading-[0.95] tracking-tighter uppercase">
               SUA INFLUÊNCIA <br/>
               <span className="text-thedeal-gold italic">JÁ VALE DINHEIRO.</span>
             </h1>
-            <p className="text-lg md:text-xl text-thedeal-gray100 font-medium leading-tight max-w-lg mx-auto">
-              O problema é que quase ninguém transforma isso em contrato.
-            </p>
-            <p className="text-sm md:text-base text-thedeal-gray400 max-w-md mx-auto font-medium leading-relaxed opacity-80">
-              O THE DEAL existe para fazer isso acontecer — com curadoria, método e pagamento real.
-            </p>
+            <div className="space-y-3">
+              <p className="text-lg md:text-xl text-white font-bold tracking-tight">
+                O problema é que quase ninguém transforma isso em contrato.
+              </p>
+              <p className="text-sm md:text-base text-thedeal-gray400 max-w-md mx-auto font-medium leading-relaxed">
+                O THE DEAL existe para fazer isso acontecer — com curadoria, método e pagamento real.
+              </p>
+            </div>
           </div>
 
           <div className="bg-black/40 border border-white/5 px-6 py-3 rounded-full inline-flex items-center gap-3 mx-auto">
@@ -69,13 +71,13 @@ export default function LandingPage(props: any) {
 
           <div className="flex flex-col gap-4 px-4 sm:px-12 pt-4">
             <button onClick={() => props.onGoToSignup()} className="w-full bg-thedeal-goldBright text-black font-black py-6 rounded-2xl shadow-2xl transition-all hover:scale-105 active:scale-95 group uppercase text-xs tracking-widest">
-              VER SE VOCÊ SE QUALIFICA
+              ENTRAR PARA A CURADORIA
             </button>
           </div>
         </section>
 
-        {/* O QUE MUDA QUANDO VOCÊ ENTRA */}
-        <section className="p-8 md:p-12 space-y-10 border-b border-white/5">
+        {/* 2. O QUE MUDA QUANDO VOCÊ ENTRA */}
+        <section className="p-8 md:p-12 space-y-10 border-b border-white/5 bg-thedeal-card/20">
            <div className="text-center md:text-left space-y-4">
               <h2 className="text-2xl md:text-4xl font-display font-black text-white uppercase tracking-tighter leading-none">O QUE MUDA QUANDO <br/><span className="text-thedeal-gold">VOCÊ ENTRA NO THE DEAL</span></h2>
            </div>
@@ -102,8 +104,32 @@ export default function LandingPage(props: any) {
            </div>
         </section>
 
-        {/* O PROBLEMA QUE NINGUÉM FALA */}
-        <section className="p-8 md:p-12 space-y-12 border-b border-white/5 bg-black/20">
+        {/* BLOCO IDENTIDADE: O QUE NÃO SOMOS VS O QUE SOMOS */}
+        <section className="p-8 md:p-12 grid md:grid-cols-2 gap-8 border-b border-white/5">
+           <div className="space-y-6">
+              <h3 className="text-thedeal-danger font-black uppercase text-xs tracking-widest flex items-center gap-2">
+                <X size={16} /> O que NÃO somos
+              </h3>
+              <ul className="space-y-4">
+                 {["Não somos agência", "Não somos assessoria", "Não somos empresários", "Não ficamos com % do seu cachê"].map((item, i) => (
+                   <li key={i} className="text-thedeal-gray600 font-bold uppercase text-[11px] tracking-widest border-l-2 border-thedeal-danger/30 pl-4">{item}</li>
+                 ))}
+              </ul>
+           </div>
+           <div className="space-y-6">
+              <h3 className="text-thedeal-success font-black uppercase text-xs tracking-widest flex items-center gap-2">
+                <Check size={16} /> O que SOMOS
+              </h3>
+              <ul className="space-y-4">
+                 {["Plataforma de contratos", "Ferramenta de negociação", "Estrutura profissional", "Ambiente de negócios"].map((item, i) => (
+                   <li key={i} className="text-white font-bold uppercase text-[11px] tracking-widest border-l-2 border-thedeal-success/30 pl-4">{item}</li>
+                 ))}
+              </ul>
+           </div>
+        </section>
+
+        {/* 3. O PROBLEMA QUE NINGUÉM FALA */}
+        <section className="p-8 md:p-12 space-y-12 border-b border-white/5 bg-black">
            <div className="text-center md:text-left space-y-4">
               <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter leading-none">O PROBLEMA QUE <br/><span className="text-thedeal-danger">NINGUÉM FALA</span></h2>
               <p className="text-lg text-white font-bold uppercase tracking-tight">Influência não falha por falta de seguidores.</p>
@@ -115,25 +141,49 @@ export default function LandingPage(props: any) {
               </p>
               
               <div className="grid gap-4">
-                <div className="bg-thedeal-danger/5 border border-thedeal-danger/20 p-5 rounded-2xl flex gap-4 items-center">
-                   <X className="text-thedeal-danger" size={20} />
-                   <p className="text-xs text-white font-bold uppercase tracking-widest leading-relaxed">Criadores aceitando qualquer valor por desespero.</p>
-                </div>
-                <div className="bg-thedeal-danger/5 border border-thedeal-danger/20 p-5 rounded-2xl flex gap-4 items-center">
-                   <X className="text-thedeal-danger" size={20} />
-                   <p className="text-xs text-white font-bold uppercase tracking-widest leading-relaxed">Marcas com medo de investir e não ter ROI.</p>
-                </div>
+                {[
+                  "Ninguém ensina a negociar",
+                  "Ninguém protege o criador",
+                  "Ninguém estrutura contrato"
+                ].map((text, i) => (
+                  <div key={i} className="bg-thedeal-danger/5 border border-thedeal-danger/20 p-5 rounded-2xl flex gap-4 items-center">
+                     <X className="text-thedeal-danger" size={20} />
+                     <p className="text-xs text-white font-bold uppercase tracking-widest">{text}</p>
+                  </div>
+                ))}
               </div>
            </div>
 
            <div className="bg-thedeal-card border border-thedeal-gray700 p-8 rounded-[2.5rem] relative overflow-hidden group">
-              <p className="text-xl md:text-2xl font-serif italic text-white leading-relaxed text-center">
-                "O THE DEAL nasce nesse vácuo."
+              <p className="text-lg md:text-xl font-serif italic text-thedeal-gray400 leading-relaxed text-center">
+                O resultado? Criadores aceitando qualquer valor. <br/>Marcas com medo de investir.
+              </p>
+              <p className="text-xl md:text-2xl font-black text-white uppercase tracking-tighter text-center mt-6">
+                O THE DEAL NASCE NESSE VÁCUO.
               </p>
            </div>
         </section>
 
-        {/* COMO O THE DEAL RESOLVE */}
+        {/* SOBRE O CONTROLE */}
+        <section className="p-8 md:p-12 space-y-10 border-b border-white/5 bg-gradient-to-br from-thedeal-card/50 to-transparent">
+            <h3 className="text-xl font-display font-black text-white uppercase tracking-tight text-center">VOCÊ NO CONTROLE TOTAL</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+               {[
+                 { t: "Você decide o preço", i: DollarSign },
+                 { t: "Você aprova propostas", i: CheckCircle2 },
+                 { t: "Fala direto com a marca", i: MessageCircle },
+                 { t: "Sai quando quiser", i: X },
+                 { t: "Sem exclusividade", i: ShieldOff }
+               ].map((item, i) => (
+                 <div key={i} className="flex flex-col items-center gap-3 p-4 bg-white/5 rounded-2xl text-center">
+                    <item.i className="text-thedeal-gold" size={20} />
+                    <span className="text-[10px] font-black uppercase text-white tracking-widest leading-tight">{item.t}</span>
+                 </div>
+               ))}
+            </div>
+        </section>
+
+        {/* 4. COMO O THE DEAL RESOLVE */}
         <section className="p-8 md:p-12 space-y-12 bg-black">
            <div className="text-center md:text-left space-y-4">
               <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter leading-none">COMO O <br/><span className="text-thedeal-gold">THE DEAL RESOLVE</span></h2>
@@ -145,8 +195,8 @@ export default function LandingPage(props: any) {
                 { t: "Estrutura", d: "Pitch, proposta e valor com lógica comercial." },
                 { t: "Contrato", d: "Pagamento claro. Sem improviso." }
               ].map((step, i) => (
-                <div key={i} className="flex gap-6 p-6 bg-white/[0.02] border border-white/5 rounded-3xl hover:border-thedeal-gold transition-all">
-                   <div className="w-12 h-12 rounded-2xl bg-black border border-white/10 flex items-center justify-center font-black text-thedeal-gold shadow-lg">
+                <div key={i} className="flex gap-6 p-6 bg-white/[0.02] border border-white/5 rounded-3xl hover:border-thedeal-gold transition-all group">
+                   <div className="w-12 h-12 rounded-2xl bg-black border border-white/10 flex items-center justify-center font-black text-thedeal-gold shadow-lg group-hover:scale-110 transition-transform">
                       {i + 1}
                    </div>
                    <div className="flex-1">
@@ -164,29 +214,29 @@ export default function LandingPage(props: any) {
            </div>
         </section>
 
-        {/* PARA QUEM É */}
+        {/* 5. PARA QUEM É */}
         <section className="p-8 md:p-12 space-y-12 border-y border-white/5 bg-thedeal-card/30">
             <h2 className="text-3xl font-display font-black text-white uppercase tracking-tighter text-center">PARA QUEM É</h2>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6">
                  <p className="text-[10px] font-black text-thedeal-success uppercase tracking-[0.3em] flex items-center gap-2">CRIADORES</p>
                  <p className="text-[11px] font-bold text-white uppercase tracking-widest border-l-2 border-thedeal-success pl-4">
-                   Querem parar de depender de permuta, sorte ou DM ignorada.
+                   Criadores que querem parar de viver de permuta, sorte ou DM ignorada.
                  </p>
               </div>
               <div className="space-y-6">
                  <p className="text-[10px] font-black text-thedeal-gold uppercase tracking-[0.3em] flex items-center gap-2">MARCAS</p>
                  <p className="text-[11px] font-bold text-white uppercase tracking-widest border-l-2 border-thedeal-gold pl-4">
-                   Querem previsibilidade e ROI, não apostas no escuro.
+                   Marcas que querem previsibilidade e ROI, não apostas no escuro.
                  </p>
               </div>
             </div>
         </section>
 
-        {/* PRICING ANUAL */}
+        {/* 6. PRICING ANUAL */}
         <section className="py-20 px-6 bg-black text-center space-y-16">
             <div className="space-y-4">
-              <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter">ACESSO ANUAL AO <span className="text-thedeal-gold">THE DEAL.</span></h2>
+              <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter leading-none">ACESSO ANUAL AO <br/><span className="text-thedeal-gold">THE DEAL.</span></h2>
               <p className="text-thedeal-gray600 text-[10px] font-bold uppercase tracking-[0.3em]">Menos de R$ 1 por dia para transformar influência em contrato.</p>
             </div>
             
@@ -216,23 +266,23 @@ export default function LandingPage(props: any) {
                 </div>
                 <ul className="space-y-4 text-[10px] text-white font-bold uppercase tracking-widest">
                   <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Criar missões privadas</li>
-                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Propostas estruturadas</li>
-                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Criadores validados</li>
+                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Receber propostas estruturadas</li>
+                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Falar só com criadores validados</li>
                   <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Economizar tempo e erro</li>
                 </ul>
                 <button onClick={() => props.onGoToSignup()} className="w-full bg-white text-black font-black py-6 rounded-2xl uppercase text-[11px] tracking-widest shadow-xl shadow-white/5 hover:scale-[1.02] transition-all">SOLICITAR ACESSO</button>
               </div>
             </div>
 
-            <div className="bg-white/5 border border-white/10 p-8 rounded-3xl max-w-2xl mx-auto">
+            <div className="bg-white/5 border border-white/10 p-8 rounded-3xl max-w-xl mx-auto">
                <p className="text-white text-sm md:text-base font-medium leading-relaxed italic">
                  "Um único contrato pode pagar esse valor em um post. <br/><span className="text-thedeal-danger font-black not-italic">UM ERRO CUSTA MUITO MAIS.</span>"
                </p>
             </div>
         </section>
 
-        {/* FINAL CTA */}
-        <section className="py-32 px-8 text-center space-y-12">
+        {/* 7. BLOCO FINAL */}
+        <section className="py-32 px-8 text-center space-y-12 bg-gradient-to-t from-thedeal-card/20 to-transparent">
             <div className="space-y-6">
               <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter leading-none">
                 O THE DEAL NÃO É PARA TODO MUNDO.
