@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { 
   ArrowRight, Briefcase, Menu, X as CloseIcon, Building2, Calculator, Compass, Zap, 
   Check, X, ShieldCheck, TrendingUp, Star, Shield, CheckCircle2, Award, MessageCircle,
-  Instagram, Twitter, Video, Target, FileText, Lock, ShieldOff, Handshake, DollarSign
+  Instagram, Twitter, Video, Target, FileText, Lock, ShieldOff, DollarSign, Handshake
 } from 'lucide-react';
 import AccessModal from './AccessModal';
 import { KwaiIcon } from './Icons';
@@ -55,7 +55,7 @@ export default function LandingPage(props: any) {
               <span className="text-thedeal-gold italic">JÁ VALE DINHEIRO.</span>
             </h1>
             <div className="space-y-3">
-              <p className="text-lg md:text-xl text-white font-bold tracking-tight">
+              <p className="text-lg md:text-xl text-white font-bold tracking-tight uppercase">
                 O problema é que quase ninguém transforma isso em contrato.
               </p>
               <p className="text-sm md:text-base text-thedeal-gray400 max-w-md mx-auto font-medium leading-relaxed">
@@ -105,7 +105,7 @@ export default function LandingPage(props: any) {
         </section>
 
         {/* BLOCO IDENTIDADE: O QUE NÃO SOMOS VS O QUE SOMOS */}
-        <section className="p-8 md:p-12 grid md:grid-cols-2 gap-8 border-b border-white/5">
+        <section className="p-8 md:p-12 grid md:grid-cols-2 gap-8 border-b border-white/5 bg-black/40">
            <div className="space-y-6">
               <h3 className="text-thedeal-danger font-black uppercase text-xs tracking-widest flex items-center gap-2">
                 <X size={16} /> O que NÃO somos
@@ -164,7 +164,7 @@ export default function LandingPage(props: any) {
            </div>
         </section>
 
-        {/* SOBRE O CONTROLE */}
+        {/* BLOCO AUTONOMIA (MEDO) */}
         <section className="p-8 md:p-12 space-y-10 border-b border-white/5 bg-gradient-to-br from-thedeal-card/50 to-transparent">
             <h3 className="text-xl font-display font-black text-white uppercase tracking-tight text-center">VOCÊ NO CONTROLE TOTAL</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -172,10 +172,10 @@ export default function LandingPage(props: any) {
                  { t: "Você decide o preço", i: DollarSign },
                  { t: "Você aprova propostas", i: CheckCircle2 },
                  { t: "Fala direto com a marca", i: MessageCircle },
-                 { t: "Sai quando quiser", i: X },
+                 { t: "Pode sair quando quiser", i: X },
                  { t: "Sem exclusividade", i: ShieldOff }
                ].map((item, i) => (
-                 <div key={i} className="flex flex-col items-center gap-3 p-4 bg-white/5 rounded-2xl text-center">
+                 <div key={i} className="flex flex-col items-center gap-3 p-4 bg-white/5 rounded-2xl text-center border border-white/5 hover:border-thedeal-gold/30 transition-all">
                     <item.i className="text-thedeal-gold" size={20} />
                     <span className="text-[10px] font-black uppercase text-white tracking-widest leading-tight">{item.t}</span>
                  </div>
@@ -227,7 +227,7 @@ export default function LandingPage(props: any) {
               <div className="space-y-6">
                  <p className="text-[10px] font-black text-thedeal-gold uppercase tracking-[0.3em] flex items-center gap-2">MARCAS</p>
                  <p className="text-[11px] font-bold text-white uppercase tracking-widest border-l-2 border-thedeal-gold pl-4">
-                   Marcas que querem previsibilidade e ROI, não apostas no escuro.
+                   Marcas que querem previsibilidade, não apostas.
                  </p>
               </div>
             </div>
@@ -267,7 +267,7 @@ export default function LandingPage(props: any) {
                 <ul className="space-y-4 text-[10px] text-white font-bold uppercase tracking-widest">
                   <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Criar missões privadas</li>
                   <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Receber propostas estruturadas</li>
-                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Falar só com criadores validados</li>
+                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Criadores validados</li>
                   <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Economizar tempo e erro</li>
                 </ul>
                 <button onClick={() => props.onGoToSignup()} className="w-full bg-white text-black font-black py-6 rounded-2xl uppercase text-[11px] tracking-widest shadow-xl shadow-white/5 hover:scale-[1.02] transition-all">SOLICITAR ACESSO</button>
