@@ -3,20 +3,16 @@ import React from 'react';
 import { Check, Zap, Crown, ArrowLeft, Briefcase, ExternalLink, HelpCircle, Instagram, Twitter, Video } from 'lucide-react';
 import { KwaiIcon } from './Icons';
 
-const LINK_CRIADOR = "https://mpago.li/1EQHmNM";
-const LINK_MARCA = "https://mpago.li/27TLyFa";
-
 export default function PricingPage({ onBack }: { onBack?: () => void }) {
-  const handleCheckout = (role: 'creator' | 'brand') => {
-    const url = role === 'creator' ? LINK_CRIADOR : LINK_MARCA;
-    window.open(url, '_blank');
+  const handleGoToSignup = () => {
+    if (onBack) onBack(); // Assuming this triggers a view change in App.tsx
   };
 
   const faqs = [
-    { q: "Por que pagar R$ 297?", a: "Porque você elimina calote, ghosting e burocracia. São R$ 0,81/dia pra nunca mais perder tempo com contrato furado." },
-    { q: "A taxa de 10% não é alta?", a: "Agências cobram 20-30%. Advogado + contrato custa R$ 1.500+. E nós só cobramos se o deal fechar." },
-    { q: "E se a marca não confirmar a entrega?", a: "Você tem 48h pra apresentar prova (print, link, etc). Nossa equipe analisa e libera o pagamento." },
-    { q: "Posso cancelar?", a: "Sim. Sem multa. Sem pegadinha. Você mantém acesso até o fim do período contratado." }
+    { q: "Por que existe uma taxa de curadoria?", a: "Para garantir que o ecossistema contenha apenas profissionais e marcas comprometidas. A taxa única de R$ 99 cobre os custos operacionais da análise técnica de perfil." },
+    { q: "O criador paga comissão sobre os deals?", a: "Não. O criador recebe 100% do valor acordado com a marca. A infraestrutura é financiada pelo acesso profissional das empresas." },
+    { q: "Como funciona o pagamento protegido?", a: "O valor do contrato é depositado pela marca em uma conta de custódia (Escrow) e liberado automaticamente para o criador após a validação da entrega." },
+    { q: "Posso cancelar meu acesso?", a: "Sim. O acesso para marcas é anual e pode ser cancelado a qualquer momento, sem taxas de rescisão." }
   ];
 
   return (
@@ -47,7 +43,7 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
             Escolha Seu <span className="text-thedeal-gold">Acesso.</span>
           </h1>
           <p className="text-thedeal-gray400 text-lg font-medium leading-relaxed">
-            Infraestrutura profissional para quem busca parcerias seguras e contratos de alto valor.
+            Infraestrutura profissional para quem busca parcerias seguras, contratos de alto valor e transparência total.
           </p>
         </header>
 
@@ -59,38 +55,43 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
             </div>
             <div className="mb-10 relative z-10">
               <h2 className="text-3xl font-black text-white uppercase tracking-tight">Criador</h2>
-              <div className="mt-4 flex items-baseline gap-2">
-                <p className="text-5xl font-black text-thedeal-goldBright tracking-tighter">R$ 297</p>
-                <span className="text-xs font-bold text-thedeal-gray600 uppercase">/ano</span>
+              <div className="mt-4">
+                <p className="text-4xl font-black text-thedeal-goldBright tracking-tighter">Acesso Gratuito</p>
+                <p className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-widest mt-2">Mediante Curadoria Profissional</p>
               </div>
             </div>
 
             <ul className="space-y-5 mb-12 flex-1 relative z-10">
                 <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
                   <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                  <span>Seu perfil no marketplace</span>
+                  <span>Sem mensalidade ou comissão</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
                   <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                  <span>Receba propostas de marcas</span>
+                  <span>Recebe 100% do valor do contrato</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
                   <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                  <span>Contrato + Escrow Automático</span>
+                  <span>Negociação direta com marcas de elite</span>
                 </li>
-                <li className="flex items-start gap-3 text-sm font-black uppercase tracking-widest text-thedeal-goldBright">
-                  <Zap size={18} className="shrink-0 mt-0.5" />
-                  <span>Taxa: 10% por deal fechado</span>
+                <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
+                  <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
+                  <span>Suporte técnico contratual</span>
                 </li>
             </ul>
 
+            <div className="bg-black/40 p-5 rounded-2xl border border-white/5 mb-8">
+              <p className="text-[10px] text-thedeal-gray400 leading-relaxed font-medium uppercase text-justify">
+                O acesso ao THE DEAL é gratuito para criadores. Para entrar, existe apenas uma taxa única de curadoria (R$ 99), cobrada após análise do perfil. Essa taxa garante qualidade e um ambiente de alto nível. Quem paga pelo sistema são as marcas.
+              </p>
+            </div>
+
             <button 
-              onClick={() => handleCheckout('creator')}
-              className="w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-6 rounded-2xl transition-all shadow-xl shadow-thedeal-gold/20 uppercase tracking-[0.2em] text-xs active:scale-95 mb-4"
+              onClick={handleGoToSignup}
+              className="w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-6 rounded-2xl transition-all shadow-xl shadow-thedeal-gold/20 uppercase tracking-[0.2em] text-xs active:scale-95"
             >
-              ATIVAR PERFIL
+              SOLICITAR CONVITE
             </button>
-            <p className="text-[10px] text-center font-black text-thedeal-gray600 uppercase tracking-widest">Aprovação em 48h</p>
           </div>
 
           {/* MARCA */}
@@ -109,47 +110,36 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
             <ul className="space-y-5 mb-12 flex-1 relative z-10">
                 <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
                   <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                  <span>Acesso total aos criadores</span>
+                  <span>Acesso a criadores curados</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
                   <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                  <span>Propostas Ilimitadas</span>
+                  <span>Propostas e briefings estruturados</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
                   <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                  <span>Contrato + Escrow Automático</span>
+                  <span>Custódia financeira protegida</span>
                 </li>
-                <li className="flex items-start gap-3 text-sm font-black uppercase tracking-widest text-thedeal-goldBright">
-                  <Zap size={18} className="shrink-0 mt-0.5" />
-                  <span>Taxa: 10% por deal fechado</span>
+                <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
+                  <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
+                  <span>Infraestrutura de contratos TD-IP</span>
                 </li>
             </ul>
 
             <button 
-              onClick={() => handleCheckout('brand')}
-              className="w-full bg-white text-black font-black py-6 rounded-2xl transition-all shadow-xl shadow-white/5 uppercase tracking-[0.2em] text-xs active:scale-95 mb-4"
+              onClick={handleGoToSignup}
+              className="w-full bg-white text-black font-black py-6 rounded-2xl transition-all shadow-xl shadow-white/5 uppercase tracking-[0.2em] text-xs active:scale-95"
             >
-              COMEÇAR A CONTRATAR
+              SOLICITAR ACESSO — MARCA
             </button>
-            <p className="text-[10px] text-center font-black text-thedeal-gray600 uppercase tracking-widest">Ativação Imediata</p>
           </div>
-        </div>
-
-        <div className="text-center py-12 border-t border-white/5">
-             <button 
-                onClick={() => window.open("https://wa.me/5519994497796", "_blank")}
-                className="group inline-flex items-center gap-4 text-thedeal-gray400 hover:text-thedeal-gold transition-colors font-black uppercase tracking-[0.3em] text-[11px]"
-             >
-               Enterprise? Contratos acima de R$ 50k? <span className="text-white group-hover:text-thedeal-gold underline underline-offset-8 decoration-thedeal-gold/30">Falar com o time</span>
-               <ExternalLink size={14} />
-             </button>
         </div>
 
         {/* FAQ SECTION */}
         <section className="max-w-4xl mx-auto space-y-16 pt-16">
             <div className="text-center space-y-4">
-                <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white">Perguntas <span className="text-thedeal-gold">Diretas.</span></h2>
-                <p className="text-thedeal-gray600 font-bold uppercase tracking-[0.3em] text-[10px]">Sem enrolação. Sem burocracia.</p>
+                <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white">Perguntas <span className="text-thedeal-gold">Profissionais.</span></h2>
+                <p className="text-thedeal-gray600 font-bold uppercase tracking-[0.3em] text-[10px]">Esclarecimentos sobre o modelo de infraestrutura</p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
                 {faqs.map((f, i) => (
