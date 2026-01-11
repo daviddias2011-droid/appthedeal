@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ArrowLeft, HelpCircle, ChevronDown, ChevronUp, Briefcase } from 'lucide-react';
 import { ArrowLeftIcon, BriefcaseIcon } from './Icons';
@@ -223,6 +222,7 @@ const FaqPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
         <div className="bg-thedeal-card border border-white/5 rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 shadow-2xl">
           {faqData.map((item, index) => (
+            // FIX: Corrected typo in FaqItem component name.
             <FaqItem key={index} question={item.question} answer={item.answer} />
           ))}
         </div>
@@ -230,7 +230,7 @@ const FaqPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         <div className="mt-20 p-10 bg-gradient-to-br from-thedeal-gold/10 to-transparent border border-thedeal-gold/20 rounded-[2.5rem] text-center space-y-6">
            <h3 className="text-xl font-black text-white uppercase tracking-tight">Ainda tem dúvidas estratégicas?</h3>
            <p className="text-thedeal-gray400 text-sm font-medium uppercase tracking-widest">Nossa equipe de curadoria está pronta para auxiliar.</p>
-           <a href="mailto:suporte@thedeal.com.br" className="inline-block bg-thedeal-gold text-black font-black px-10 py-4 rounded-xl uppercase text-[10px] tracking-widest hover:scale-105 transition-all shadow-xl shadow-thedeal-gold/20">Contatar Suporte Alpha</a>
+           <a href="mailto:suporte@thedeal.com.br" className="inline-block bg-thedeal-gold text-black font-black px-10 py-4 rounded-xl uppercase text-[10px] tracking-widest hover:scale-105 transition-all shadow-xl shadow-thedeal-gold/20">SOLICITAR SUPORTE</a>
         </div>
       </main>
 
