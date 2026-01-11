@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Loader, ArrowRight, ArrowLeft, Building2, User, 
-  ShieldCheck, Check, MessageSquare, Zap, Crown, ExternalLink
+  ShieldCheck, Check, MessageSquare, Zap, Crown, ExternalLink, Mail, Send
 } from 'lucide-react';
 import { UserType } from '../types';
 
@@ -19,18 +19,21 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
+  const [submittedChannel, setSubmittedChannel] = useState<boolean>(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const LINK_PAGAMENTO_PRO = "https://mpago.li/1iwECoa";
+  const SUPPORT_WA = "5519999999999"; // Substitua pelo número real de suporte
+  const SUPPORT_EMAIL = "suporte@thedeal.com.br";
 
   const creatorQuestions: Question[] = [
     { id: 'fullName', text: 'Nome completo', type: 'text' },
     { id: 'location', text: 'Cidade / País', type: 'text' },
-    { id: 'profileLink', text: 'Link principal do perfil (Instagram, TikTok ou YouTube)', type: 'text' },
-    { id: 'followers', text: 'Quantidade atual de seguidores', type: 'number' },
+    { id: 'profileLink', text: 'Link principal do perfil', type: 'text' },
+    { id: 'followers', text: 'Quantidade de seguidores', type: 'number' },
     { 
       id: 'donePaidJobs', 
-      text: 'Você já fechou publis pagas?', 
+      text: 'Já fechou publis pagas?', 
       type: 'select',
       options: [
         { value: 'never', label: 'Nunca' },
@@ -39,28 +42,6 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
       ]
     },
     { id: 'maxDealValue', text: 'Maior valor já recebido em um contrato', type: 'number' },
-    { 
-      id: 'pricingMethod', 
-      text: 'Hoje, como você define seu preço?', 
-      type: 'select',
-      options: [
-        { value: 'intuition', label: 'Intuição' },
-        { value: 'own_table', label: 'Tabela própria' },
-        { value: 'negotiation', label: 'Negociação caso a caso' },
-        { value: 'dont_know', label: 'Não sei precificar' }
-      ]
-    },
-    { 
-      id: 'problems', 
-      text: 'Já teve problemas com:', 
-      type: 'select',
-      options: [
-        { value: 'vanished_brand', label: 'Marca que sumiu' },
-        { value: 'late_payment', label: 'Pagamento atrasado' },
-        { value: 'no_contract', label: 'Contrato inexistente' },
-        { value: 'all', label: 'Todos' }
-      ]
-    },
     { 
       id: 'deadlines', 
       text: 'Você cumpre prazos sem cobrança?', 
@@ -73,7 +54,7 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
     },
     { 
       id: 'understandsStructure', 
-      text: 'Você entende que o The Deal não garante contratos, apenas fornece estrutura?', 
+      text: 'Entende que o The Deal é uma infraestrutura de negócios?', 
       type: 'select',
       options: [
         { value: 'yes', label: 'Sim, entendo' }
@@ -85,31 +66,10 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
     { id: 'companyName', text: 'Nome da empresa', type: 'text' },
     { id: 'officialLink', text: 'Site ou Instagram oficial', type: 'text' },
     { id: 'segment', text: 'Segmento', type: 'text' },
-    { id: 'avgTicket', text: 'Ticket médio mensal em marketing de influência', type: 'number' },
-    { 
-      id: 'workedWithCreators', 
-      text: 'Você já trabalhou com creators?', 
-      type: 'select',
-      options: [
-        { value: 'never', label: 'Nunca' },
-        { value: 'few_times', label: 'Algumas vezes' },
-        { value: 'recurrently', label: 'Recorrentemente' }
-      ]
-    },
-    { 
-      id: 'mainProblem', 
-      text: 'Principal problema hoje:', 
-      type: 'select',
-      options: [
-        { value: 'no_predictability', label: 'Falta de previsibilidade' },
-        { value: 'informal_contracts', label: 'Contratos informais' },
-        { value: 'selection_difficulty', label: 'Dificuldade de escolher criadores' },
-        { value: 'delivery_failure', label: 'Falta de entrega' }
-      ]
-    },
+    { id: 'avgTicket', text: 'Ticket médio mensal em influência', type: 'number' },
     { 
       id: 'understandsRules', 
-      text: 'Você entende que no The Deal criadores são fornecedores, contratos são obrigatórios e existe comissão por deal?', 
+      text: 'Entende que no The Deal contratos são obrigatórios e há comissão?', 
       type: 'select',
       options: [
         { value: 'yes', label: 'Sim, entendo as regras' }
@@ -125,10 +85,6 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
     }
   }, [currentQuestionIndex, userType]);
 
-  const handleStartEvaluation = () => {
-    setCurrentQuestionIndex(0);
-  };
-
   const handleAnswer = (value: string) => {
     const currentQuestion = questions[currentQuestionIndex];
     setAnswers(prev => ({ ...prev, [currentQuestion.id]: value }));
@@ -136,16 +92,47 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
     } else {
-      handleFinish();
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        setIsFinished(true);
+      }, 1500);
     }
   };
 
-  const handleFinish = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setIsFinished(true);
-    }, 2000);
+  const generateReport = () => {
+    let report = `🚀 *NOVA SOLICITAÇÃO DE ACESSO - THE DEAL*\n`;
+    report += `------------------------------------------\n`;
+    report += `*TIPO:* ${userType === UserType.Creator ? 'CRIADOR' : 'MARCA'}\n`;
+    
+    Object.entries(answers).forEach(([key, value]) => {
+      const question = questions.find(q => q.id === key);
+      if (question) {
+        report += `*${question.text.toUpperCase()}:* ${value}\n`;
+      }
+    });
+    
+    report += `------------------------------------------\n`;
+    report += `🔐 Protocolo gerado via Terminal Alpha v3.0`;
+    return report;
+  };
+
+  const sendWhatsApp = () => {
+    const text = encodeURIComponent(generateReport());
+    window.open(`https://wa.me/${SUPPORT_WA}?text=${text}`, '_blank');
+    setSubmittedChannel(true);
+  };
+
+  const sendEmail = () => {
+    const body = encodeURIComponent(generateReport());
+    const subject = encodeURIComponent(`Solicitação de Acesso: ${answers['fullName'] || answers['companyName']}`);
+    window.location.href = `mailto:${SUPPORT_EMAIL}?subject=${subject}&body=${body}`;
+    setSubmittedChannel(true);
+  };
+
+  const sendReceiptWA = () => {
+    const text = encodeURIComponent(`📄 *COMPROVANTE DE ATIVAÇÃO ALPHA*\n\nOlá, acabei de realizar o pagamento do Fast Track e gostaria de enviar o comprovante para liberação imediata.`);
+    window.open(`https://wa.me/${SUPPORT_WA}?text=${text}`, '_blank');
   };
 
   if (isFinished) {
@@ -158,55 +145,70 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
             <div className="w-16 h-16 bg-thedeal-gold/10 rounded-full flex items-center justify-center mb-6">
               <ShieldCheck className="text-thedeal-gold" size={32} />
             </div>
-            <h2 className="text-3xl font-black text-white uppercase tracking-tight mb-2">Protocolo Registrado.</h2>
-            <p className="text-thedeal-gray400 text-sm max-w-md font-medium uppercase tracking-widest">Suas informações foram submetidas à Inteligência Alpha.</p>
+            <h2 className="text-3xl font-black text-white uppercase tracking-tight mb-2">Protocolo Gerado.</h2>
+            <p className="text-thedeal-gold text-[10px] font-black uppercase tracking-[0.4em] mb-8">Agora, finalize o envio para curadoria</p>
           </div>
 
-          {userType === UserType.Creator ? (
-            <div className="grid md:grid-cols-2 gap-6 text-left mb-12">
-               <div className="bg-black/40 border border-white/5 p-8 rounded-3xl space-y-6">
-                  <div>
-                    <h4 className="text-xs font-black text-thedeal-gray600 uppercase tracking-widest mb-1">Caminho Padrão</h4>
-                    <p className="text-xl font-bold text-white uppercase">Aguardar Curadoria</p>
-                  </div>
-                  <ul className="space-y-3 opacity-60">
-                    <li className="flex items-center gap-2 text-[10px] font-bold text-thedeal-gray400 uppercase tracking-widest"><Check size={12}/> Análise em 48-72h</li>
-                    <li className="flex items-center gap-2 text-[10px] font-bold text-thedeal-gray400 uppercase tracking-widest"><Check size={12}/> Sujeito a fila de espera</li>
-                  </ul>
-                  <button onClick={onSuccess} className="w-full py-4 border border-white/10 text-white font-black rounded-xl text-[10px] uppercase tracking-widest hover:bg-white/5 transition-all">Manter na Fila</button>
-               </div>
+          <div className="grid md:grid-cols-2 gap-8 text-left mb-12">
+             {/* COLUNA 1: ENVIO DOS DADOS */}
+             <div className="space-y-6">
+                <h4 className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-widest ml-2">PASSO 01: Enviar Dados Digitados</h4>
+                <div className="bg-black/40 border border-white/5 p-6 rounded-3xl space-y-4">
+                   <button 
+                      onClick={sendWhatsApp}
+                      className="w-full bg-[#25D366] text-white font-black py-4 rounded-2xl flex items-center justify-center gap-3 uppercase text-[10px] tracking-widest hover:scale-[1.02] transition-all shadow-xl shadow-[#25D366]/10"
+                   >
+                     <MessageSquare size={18} /> Enviar via WhatsApp
+                   </button>
+                   <button 
+                      onClick={sendEmail}
+                      className="w-full bg-white/5 border border-white/10 text-white font-black py-4 rounded-2xl flex items-center justify-center gap-3 uppercase text-[10px] tracking-widest hover:bg-white/10 transition-all"
+                   >
+                     <Mail size={18} /> Enviar via E-mail
+                   </button>
+                   <p className="text-[9px] text-thedeal-gray600 text-center uppercase font-bold tracking-widest pt-2">Seus dados já foram preenchidos na mensagem.</p>
+                </div>
+             </div>
 
-               <div className="bg-gradient-to-br from-thedeal-gold/10 to-transparent border-2 border-thedeal-gold/40 p-8 rounded-3xl space-y-6 relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 bg-thedeal-gold text-black text-[8px] font-black px-4 py-1 uppercase tracking-widest">Recomendado</div>
-                  <div>
-                    <h4 className="text-xs font-black text-thedeal-gold uppercase tracking-widest mb-1">Fast Track Alpha</h4>
-                    <p className="text-xl font-bold text-white uppercase">Validação Imediata</p>
-                  </div>
-                  <ul className="space-y-3">
-                    <li className="flex items-center gap-2 text-[10px] font-bold text-white uppercase tracking-widest"><Crown size={12} className="text-thedeal-gold"/> Liberação do Terminal de Deals</li>
-                    <li className="flex items-center gap-2 text-[10px] font-bold text-white uppercase tracking-widest"><Crown size={12} className="text-thedeal-gold"/> +500 PTS de Deal Score</li>
-                    <li className="flex items-center gap-2 text-[10px] font-bold text-white uppercase tracking-widest"><Crown size={12} className="text-thedeal-gold"/> Taxa Única de Curadoria</li>
-                  </ul>
-                  <a 
-                    href={LINK_PAGAMENTO_PRO} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-4 rounded-xl text-[10px] uppercase tracking-widest shadow-xl shadow-thedeal-gold/20 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-95"
-                  >
-                    Ativar Acesso Alpha <ExternalLink size={14} />
-                  </a>
-               </div>
-            </div>
-          ) : (
-            <div className="bg-black/40 border border-white/5 p-10 rounded-3xl mb-12">
-               <p className="text-thedeal-gray400 text-sm leading-relaxed">
-                 Sua solicitação de acesso para Marca entrou em fila de análise prioritária. Você receberá um e-mail de confirmação assim que o terminal for liberado para seu CNPJ.
-               </p>
-            </div>
-          )}
+             {/* COLUNA 2: PAGAMENTO & COMPROVANTE */}
+             <div className="space-y-6">
+                <h4 className="text-[10px] font-black text-thedeal-gold uppercase tracking-widest ml-2">PASSO 02: Ativação Fast Track (Opcional)</h4>
+                <div className="bg-gradient-to-br from-thedeal-gold/10 to-transparent border-2 border-thedeal-gold/30 p-6 rounded-3xl space-y-4">
+                   <div className="flex justify-between items-center mb-2">
+                      <span className="text-[9px] font-black text-thedeal-gold uppercase tracking-widest">Validação Alpha</span>
+                      <span className="text-xl font-black text-white">R$ 99,00</span>
+                   </div>
+                   <a 
+                      href={LINK_PAGAMENTO_PRO}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full bg-thedeal-gold text-black font-black py-4 rounded-2xl flex items-center justify-center gap-3 uppercase text-[10px] tracking-widest hover:brightness-110 transition-all"
+                   >
+                     Pagar Agora <ExternalLink size={16} />
+                   </a>
+                   <button 
+                      onClick={sendReceiptWA}
+                      className="w-full bg-white/5 border border-white/10 text-white font-black py-4 rounded-2xl flex items-center justify-center gap-3 uppercase text-[10px] tracking-widest hover:bg-white/10 transition-all"
+                   >
+                     Enviar Comprovante <Zap size={16} className="text-thedeal-gold" />
+                   </button>
+                </div>
+             </div>
+          </div>
 
-          <div className="pt-6 border-t border-white/5 flex flex-col items-center gap-4">
-            <button onClick={onSuccess} className="text-[10px] font-black uppercase text-thedeal-gray700 hover:text-white tracking-[0.4em] transition-colors">Retornar ao terminal de login</button>
+          <div className="pt-8 border-t border-white/5 flex flex-col items-center gap-6">
+             {submittedChannel ? (
+               <button 
+                  onClick={onSuccess}
+                  className="w-full max-w-sm bg-white text-black font-black py-6 rounded-2xl flex items-center justify-center gap-3 uppercase text-xs tracking-[0.3em] shadow-2xl hover:scale-105 transition-all animate-bounce-subtle"
+               >
+                 Acessar Terminal Alpha <ArrowRight size={20} />
+               </button>
+             ) : (
+               <p className="text-[9px] font-black text-thedeal-gray700 uppercase tracking-[0.4em]">Aguardando envio dos dados para habilitar acesso...</p>
+             )}
+             
+             <button onClick={onBack} className="text-[9px] font-black uppercase text-thedeal-gray700 hover:text-white tracking-[0.4em] transition-colors">Cancelar Protocolo</button>
           </div>
         </div>
       </div>
@@ -221,18 +223,13 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
           <div>
             <h2 className="text-3xl font-display font-black text-white uppercase tracking-tighter mb-4">Curadoria The Deal</h2>
             <p className="text-thedeal-gray400 text-sm leading-relaxed max-w-sm mx-auto">
-              Este processo avalia perfil, maturidade comercial e postura profissional para a <strong>Rede de Inteligência & Performance</strong>.
+              Inicie seu protocolo para a **Rede de Inteligência & Performance**.
             </p>
           </div>
           
-          <div className="space-y-4">
-             <p className="text-[10px] font-black text-thedeal-gold uppercase tracking-[0.3em]">Não é automático. Não é rápido. Não é para todos.</p>
-             <p className="text-[10px] font-bold text-thedeal-gray600 uppercase tracking-widest">Tempo médio: 6–8 minutos.</p>
-          </div>
-
           <div className="grid grid-cols-1 gap-4">
             <button 
-              onClick={() => { setUserType(UserType.Creator); handleStartEvaluation(); }} 
+              onClick={() => { setUserType(UserType.Creator); setCurrentQuestionIndex(0); }} 
               className="group p-6 bg-black/40 border border-white/5 rounded-2xl hover:border-thedeal-gold transition-all flex items-center justify-between"
             >
               <div className="flex items-center gap-4">
@@ -242,7 +239,7 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
               <ArrowRight size={16} className="text-thedeal-gray700 group-hover:text-thedeal-gold transition-colors" />
             </button>
             <button 
-              onClick={() => { setUserType(UserType.Brand); handleStartEvaluation(); }} 
+              onClick={() => { setUserType(UserType.Brand); setCurrentQuestionIndex(0); }} 
               className="group p-6 bg-black/40 border border-white/5 rounded-2xl hover:border-thedeal-gold transition-all flex items-center justify-between"
             >
               <div className="flex items-center gap-4">
@@ -252,8 +249,7 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
               <ArrowRight size={16} className="text-thedeal-gray700 group-hover:text-thedeal-gold transition-colors" />
             </button>
           </div>
-
-          <button onClick={onBack} className="text-[10px] font-black uppercase text-thedeal-gray700 hover:text-white tracking-[0.4em] transition-colors">Retornar</button>
+          <button onClick={onBack} className="text-[10px] font-black uppercase text-thedeal-gray700 hover:text-white tracking-[0.4em] transition-colors">Voltar</button>
         </div>
       </div>
     );
@@ -269,13 +265,12 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
         <div className="mb-12 flex justify-between items-center shrink-0">
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 bg-thedeal-gold rounded-full animate-pulse"></div>
-              <span className="text-[9px] font-black text-thedeal-gold uppercase tracking-[0.4em]">Banca Avaliadora Alpha</span>
+              <span className="text-[9px] font-black text-thedeal-gold uppercase tracking-[0.4em]">Processando Protocolo</span>
             </div>
             <span className="text-[9px] font-black text-thedeal-gray600 uppercase tracking-widest">Questão {currentQuestionIndex + 1} de {questions.length}</span>
         </div>
 
         <div className="flex-1 overflow-y-auto scrollbar-hide space-y-12 pr-2" ref={scrollRef}>
-          {/* History of conversation */}
           {questions.slice(0, currentQuestionIndex).map((q, i) => (
             <div key={q.id} className="space-y-4 animate-fade-in opacity-40">
               <p className="text-xs font-black text-thedeal-gray600 uppercase tracking-widest">{q.text}</p>
@@ -283,7 +278,6 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
             </div>
           ))}
 
-          {/* Current Question */}
           <div className="space-y-8 animate-float-in pb-10">
             <h3 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter leading-tight">
               {currentQuestion.text}
@@ -293,7 +287,7 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
               <input 
                 autoFocus
                 type="text"
-                placeholder="Digite sua resposta..."
+                placeholder="Resposta..."
                 className="w-full bg-transparent border-b-2 border-thedeal-gray700 py-4 text-xl md:text-2xl text-white font-bold focus:border-thedeal-gold outline-none transition-all placeholder:text-zinc-800"
                 onKeyDown={(e) => { if(e.key === 'Enter' && (e.target as HTMLInputElement).value) handleAnswer((e.target as HTMLInputElement).value); }}
               />
@@ -303,7 +297,7 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
               <input 
                 autoFocus
                 type="number"
-                placeholder="Valor numérico..."
+                placeholder="0"
                 className="w-full bg-transparent border-b-2 border-thedeal-gray700 py-4 text-xl md:text-2xl text-white font-bold focus:border-thedeal-gold outline-none transition-all placeholder:text-zinc-800"
                 onKeyDown={(e) => { if(e.key === 'Enter' && (e.target as HTMLInputElement).value) handleAnswer((e.target as HTMLInputElement).value); }}
               />
@@ -328,7 +322,7 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
         {loading && (
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center gap-4">
              <Loader className="text-thedeal-gold animate-spin" size={32} />
-             <p className="text-[10px] font-black text-thedeal-gold uppercase tracking-[0.4em]">Processando Protocolo de Auditoria...</p>
+             <p className="text-[10px] font-black text-thedeal-gold uppercase tracking-[0.4em]">Finalizando Questionário...</p>
           </div>
         )}
       </div>
