@@ -45,7 +45,6 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
     { 
       id: 'd1', 
       title: 'Publi Stories - @marcaX', 
-      // FIX: Added missing description property
       description: 'Divulgação estratégica de nova funcionalidade via stories sequenciais.',
       value: 3500, 
       status: 'pending_delivery', 
@@ -54,7 +53,6 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
     { 
       id: 'd2', 
       title: 'Review Tech - Spark', 
-      // FIX: Added missing description property
       description: 'Análise técnica de gadget premium focado em produtividade.',
       value: 1200, 
       status: 'completed', 
@@ -239,7 +237,10 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
             <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
               <Briefcase size={18} className="text-black" />
             </div>
-            <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
+            <div className="flex flex-col">
+              <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
+              <p className="text-[7px] md:text-[8px] font-bold uppercase text-thedeal-gold tracking-widest leading-tight">Onde influência vira contrato</p>
+            </div>
          </div>
          
          <div className="flex items-center gap-2 sm:gap-6">
