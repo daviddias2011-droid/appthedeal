@@ -100,15 +100,15 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
   };
 
   const generateSummary = () => {
-    let report = `🚀 SOLICITAÇÃO DE ACESSO - THE DEAL\n`;
+    let report = `🚀 SOLICITAÇÃO DE CURADORIA - THE DEAL\n`;
     report += `PROTOCOLO: ${userType === UserType.Creator ? 'CRIADOR' : 'MARCA'}\n`;
     report += `------------------------------------------\n`;
     activeQuestions.forEach(q => {
       report += `${q.label.toUpperCase()}: ${answers[q.id]}\n`;
     });
     report += `------------------------------------------\n`;
-    if (userType === UserType.Creator) report += `STATUS FINANCEIRO: TAXA DE VERIFICAÇÃO PENDENTE DE ANEXO\n`;
-    report += `🔐 Gerado via Terminal de Curadoria Alpha`;
+    if (userType === UserType.Creator) report += `STATUS FINANCEIRO: TAXA DE AVALIAÇÃO PAGA\n`;
+    report += `🔐 Gerado via Terminal de Inteligência Alpha`;
     return report;
   };
 
@@ -120,14 +120,14 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
 
   const openEmail = () => {
     const body = encodeURIComponent(generateSummary());
-    const subject = encodeURIComponent(`CURADORIA THE DEAL: ${answers['fullName'] || answers['companyName']}`);
+    const subject = encodeURIComponent(`SOLICITAÇÃO DE CURADORIA: ${answers['fullName'] || answers['companyName']}`);
     window.location.href = `mailto:${SUPPORT_EMAIL}?subject=${subject}&body=${body}`;
     setStep(3);
   };
 
   const handlePaymentClick = () => {
     window.open(PAYMENT_LINK, '_blank');
-    setIsPaid(true); // Assume usuário pagou para habilitar o botão de envio
+    setIsPaid(true); // Habilita o envio após clicar em pagar
   };
 
   // Render Intro
@@ -139,7 +139,7 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
           <div className="space-y-4">
             <h2 className="text-sm font-black text-thedeal-gray600 uppercase tracking-[0.4em]">Início de Protocolo</h2>
             <p className="text-xl font-bold text-white leading-relaxed">
-              Antes de prosseguir, precisamos identificar seu perfil para iniciar o protocolo correto.
+              Identifique seu perfil para iniciarmos o protocolo de curadoria técnica.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-4">
@@ -177,20 +177,20 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
             {userType === UserType.Creator ? (
               <>
                 <p className="text-white font-medium text-lg leading-relaxed">
-                  O acesso ao THE DEAL é gratuito para criadores aprovados. No entanto, todos os perfis passam por verificação técnica para manter a integridade da rede.
+                  Para garantir a integridade da rede, exigimos uma taxa de avaliação técnica. Seu perfil só será analisado após a confirmação.
                 </p>
-                <p className="text-thedeal-gray600 text-sm font-bold uppercase tracking-widest">Responda com atenção. Suas respostas serão analisadas.</p>
+                <p className="text-thedeal-gray600 text-sm font-bold uppercase tracking-widest">O pagamento da taxa não garante aprovação ou contratos.</p>
               </>
             ) : (
               <>
                 <p className="text-white font-medium text-lg leading-relaxed">
-                  Marcas no THE DEAL operam com contratos, custódia financeira e criadores verificados.
+                  Solicitações de marcas passam por análise de maturidade corporativa e compliance.
                 </p>
-                <p className="text-thedeal-gray600 text-sm font-bold uppercase tracking-widest">Suas respostas ajudam a validar se a plataforma atende ao seu modelo de negócio.</p>
+                <p className="text-thedeal-gray600 text-sm font-bold uppercase tracking-widest">Responda para validar seu terminal de acesso corporativo.</p>
               </>
             )}
           </div>
-          <button onClick={() => setStep(1)} className="w-full bg-thedeal-gold text-black font-black py-5 rounded-2xl uppercase text-[11px] tracking-[0.3em] hover:scale-105 transition-all">Iniciar Verificação</button>
+          <button onClick={() => setStep(1)} className="w-full bg-thedeal-gold text-black font-black py-5 rounded-2xl uppercase text-[11px] tracking-[0.3em] hover:scale-105 transition-all">Iniciar Protocolo</button>
         </div>
       </div>
     );
@@ -205,7 +205,7 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-thedeal-gold to-transparent"></div>
           
           <div className="mb-12 flex justify-between items-center">
-            <span className="text-[9px] font-black text-thedeal-gold uppercase tracking-[0.4em]">Protocolo de Curadoria</span>
+            <span className="text-[9px] font-black text-thedeal-gold uppercase tracking-[0.4em]">Protocolo de Dados</span>
             <span className="text-[9px] font-black text-thedeal-gray600 uppercase tracking-widest">{currentQuestionIndex + 1} / {activeQuestions.length}</span>
           </div>
 
@@ -280,31 +280,33 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
           
           <div className="space-y-4">
              <div className="w-16 h-16 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Check size={32} className="text-thedeal-gold" />
+                <ShieldCheck size={32} className="text-thedeal-gold" />
              </div>
-             <h2 className="text-2xl font-black text-white uppercase tracking-tight">Análise Preliminar Concluída.</h2>
+             <h2 className="text-2xl font-black text-white uppercase tracking-tight">Finalização de Protocolo.</h2>
              
              {userType === UserType.Creator ? (
                <div className="space-y-6">
                   <p className="text-white font-medium leading-relaxed">
-                    Seu perfil foi pré-analisado. Para concluir a solicitação de curadoria, é necessário realizar a Taxa Única de Verificação de Perfil no valor de **R$ 99**.
+                    Seu formulário foi preenchido. Para submetê-lo à nossa curadoria técnica, realize a **Taxa de Avaliação de Perfil** no valor de **R$ 99**.
                   </p>
                   <div className="bg-black/40 border border-white/5 p-6 rounded-2xl text-left space-y-4">
                     <div className="flex gap-3 items-start">
                        <AlertCircle size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                       <p className="text-[11px] text-thedeal-gray400 leading-relaxed font-bold uppercase">Essa taxa não é mensalidade. Ela existe para garantir que apenas criadores profissionais entrem na rede. Sem o pagamento, a solicitação não é enviada.</p>
+                       <p className="text-[11px] text-thedeal-gray400 leading-relaxed font-bold uppercase">
+                         Esta taxa refere-se ao custo da análise manual e técnica. Ela não garante aprovação na rede nem o fechamento de contratos futuros. O perfil só será analisado após o pagamento.
+                       </p>
                     </div>
                   </div>
-                  <button onClick={handlePaymentClick} className="w-full bg-thedeal-gold text-black font-black py-5 rounded-2xl uppercase text-[10px] tracking-[0.2em] shadow-xl shadow-thedeal-gold/10 hover:scale-[1.02] transition-all">Pagar Taxa de Verificação e Enviar Solicitação</button>
+                  <button onClick={handlePaymentClick} className="w-full bg-thedeal-gold text-black font-black py-5 rounded-2xl uppercase text-[10px] tracking-[0.2em] shadow-xl shadow-thedeal-gold/10 hover:scale-[1.02] transition-all">Pagar Taxa de Avaliação e Submeter</button>
                </div>
              ) : (
                <div className="space-y-6">
                   <p className="text-white font-medium leading-relaxed">
-                    Sua solicitação de acesso será analisada pela nossa inteligência de mercado.
+                    Sua solicitação de acesso corporativo está pronta para envio.
                   </p>
                   <div className="bg-black/40 border border-white/5 p-6 rounded-2xl text-left">
-                     <p className="text-xs text-white font-bold uppercase tracking-widest mb-2">Informações de Acesso:</p>
-                     <p className="text-thedeal-gray400 text-[11px] leading-relaxed font-medium uppercase">O acesso à plataforma é anual, no valor de R$ 497, com comissão fixa de 10% apenas sobre contratos fechados no terminal.</p>
+                     <p className="text-xs text-white font-bold uppercase tracking-widest mb-2">Informações Adicionais:</p>
+                     <p className="text-thedeal-gray400 text-[11px] leading-relaxed font-medium uppercase">Após envio, nosso time comercial entrará em contato para liberar o terminal anual e formalizar o onboarding corporativo.</p>
                   </div>
                   <div className="grid grid-cols-1 gap-3">
                     <button onClick={openEmail} className="bg-white/5 border border-white/10 text-white font-black py-4 rounded-xl flex items-center justify-center gap-3 text-[10px] uppercase tracking-widest hover:bg-white/10">
@@ -314,19 +316,18 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
                       <MessageSquare size={16} /> Enviar via WhatsApp
                     </button>
                   </div>
-                  <p className="text-[9px] text-thedeal-gray700 font-black uppercase tracking-widest">Nossa equipe retornará após análise.</p>
                </div>
              )}
           </div>
           
           {userType === UserType.Creator && isPaid && (
             <div className="pt-6 border-t border-white/5 space-y-4 animate-float-in">
-               <p className="text-sm font-bold text-white uppercase tracking-tight">Pagamento Reconhecido?</p>
+               <p className="text-sm font-bold text-white uppercase tracking-tight">Pagamento Realizado?</p>
                <div className="grid grid-cols-2 gap-3">
-                  <button onClick={openEmail} className="bg-white/5 border border-white/10 text-white font-black py-3 rounded-xl text-[9px] uppercase tracking-widest">E-mail</button>
-                  <button onClick={openWhatsApp} className="bg-[#25D366] text-white font-black py-3 rounded-xl text-[9px] uppercase tracking-widest">WhatsApp</button>
+                  <button onClick={openEmail} className="bg-white/5 border border-white/10 text-white font-black py-3 rounded-xl text-[9px] uppercase tracking-widest">Enviar por E-mail</button>
+                  <button onClick={openWhatsApp} className="bg-[#25D366] text-white font-black py-3 rounded-xl text-[9px] uppercase tracking-widest">Enviar por WhatsApp</button>
                </div>
-               <p className="text-[9px] text-thedeal-gray600 uppercase font-black tracking-widest">Anexe o comprovante de pagamento junto com este resumo.</p>
+               <p className="text-[9px] text-thedeal-gray600 uppercase font-black tracking-widest">Anexe o comprovante no envio para análise prioritária.</p>
             </div>
           )}
         </div>
@@ -343,13 +344,13 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
           <ShieldCheck size={40} className="text-thedeal-success" />
         </div>
         <div className="space-y-4">
-          <h2 className="text-3xl font-display font-black text-white uppercase tracking-tighter">Solicitação <br/><span className="text-thedeal-success">Recebida.</span></h2>
+          <h2 className="text-3xl font-display font-black text-white uppercase tracking-tighter">Protocolo <br/><span className="text-thedeal-success">Enviado.</span></h2>
           <p className="text-thedeal-gray400 text-sm leading-relaxed">
-            Você entrou no fluxo de curadoria do THE DEAL. Nossa equipe irá analisar seu perfil tecnicamente. Se aprovado, você receberá as instruções de acesso em breve.
+            Sua solicitação de curadoria foi registrada. Nossa inteligência processará seus dados e retornaremos com o veredito via terminal ou WhatsApp em breve.
           </p>
         </div>
         <div className="p-6 bg-black/40 border border-white/5 rounded-2xl">
-          <p className="text-[10px] text-thedeal-gold font-black uppercase tracking-[0.3em]">Aqui, influência opera como ativo profissional.</p>
+          <p className="text-[10px] text-thedeal-gold font-black uppercase tracking-[0.3em]">Integridade e performance em primeiro lugar.</p>
         </div>
         <button onClick={onSuccess} className="w-full bg-white text-black font-black py-6 rounded-2xl uppercase text-[10px] tracking-[0.3em] hover:scale-105 transition-all shadow-xl">Ir para Página de Boas-Vindas</button>
       </div>

@@ -24,13 +24,13 @@ export default function ValidationPage({ userName, userEmail, onSelectFree, onBa
       <header className="text-center mb-12 space-y-4 relative z-10 max-w-2xl">
         <div className="inline-flex items-center gap-2 bg-thedeal-gold/10 border border-thedeal-goldDim/30 rounded-full px-4 py-1.5 mb-2">
           <ShieldCheck size={14} className="text-thedeal-gold" />
-          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-thedeal-gold">Protocolo de Identidade</span>
+          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-thedeal-gold">Protocolo de Entrada Alpha</span>
         </div>
         <h1 className="text-3xl md:text-5xl font-display font-black uppercase tracking-tighter leading-tight text-white">
-          Libere seu <span className="text-thedeal-goldBright">Potencial Total.</span>
+          Inicie sua <span className="text-thedeal-goldBright">Análise Técnica.</span>
         </h1>
         <p className="text-thedeal-gray400 text-sm md:text-lg font-medium">
-          {userName.split(' ')[0]}, sua conta foi ativada. Escolha seu modo de ingresso na rede.
+          {userName.split(' ')[0]}, seu formulário foi registrado. Realize o pagamento da taxa de avaliação para que nosso comitê inicie a auditoria do seu perfil.
         </p>
       </header>
 
@@ -42,20 +42,20 @@ export default function ValidationPage({ userName, userEmail, onSelectFree, onBa
               <div className="bg-white/5 p-3 rounded-2xl">
                 <Clock size={24} className="text-thedeal-gray400" />
               </div>
-              <span className="text-[10px] font-black uppercase text-thedeal-gray600 tracking-widest">Acesso Padrão</span>
+              <span className="text-[10px] font-black uppercase text-thedeal-gray600 tracking-widest">Aguardar Prioridade</span>
             </div>
             
             <div>
-              <h2 className="text-2xl font-black uppercase tracking-tight text-white mb-2">Análise Gratuita</h2>
+              <h2 className="text-2xl font-black uppercase tracking-tight text-white mb-2">Análise Tardia</h2>
               <p className="text-4xl font-black text-white">R$ 0</p>
             </div>
 
             <ul className="space-y-4 pt-6 border-t border-white/5">
               {[
-                "Fila de espera prioritária (48h-72h)",
-                "Candidatura a contratos bloqueada inicialmente",
+                "Fila de espera de até 180 dias",
+                "Sem prioridade no terminal de inteligência",
                 "Sem bônus de Deal Score inicial",
-                "Perfil em modo de auditoria passiva"
+                "Acesso restrito apenas como observador"
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-[11px] font-bold uppercase tracking-widest text-thedeal-gray400">
                   <Check size={14} className="text-thedeal-gray600 mt-0.5" />
@@ -69,35 +69,35 @@ export default function ValidationPage({ userName, userEmail, onSelectFree, onBa
             onClick={onSelectFree}
             className="mt-10 w-full py-4 rounded-xl border border-white/10 text-thedeal-gray400 font-black uppercase text-[10px] tracking-widest hover:bg-white/5 transition-all"
           >
-            Aguardar Análise
+            Aguardar sem Prioridade
           </button>
         </div>
 
         <div className="bg-thedeal-card border-2 border-thedeal-goldBright/40 rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between relative shadow-[0_0_50px_rgba(212,175,55,0.1)] group hover:border-thedeal-gold transition-all overflow-hidden">
-          <div className="absolute top-0 right-0 bg-thedeal-goldBright text-black text-[9px] font-black px-5 py-2 rounded-bl-2xl uppercase tracking-widest">Ativação Alpha</div>
+          <div className="absolute top-0 right-0 bg-thedeal-goldBright text-black text-[9px] font-black px-5 py-2 rounded-bl-2xl uppercase tracking-widest">Protocolo de Prioridade</div>
           
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div className="bg-thedeal-gold/10 p-3 rounded-2xl">
                 <Crown size={24} className="text-thedeal-gold" />
               </div>
-              <span className="text-[10px] font-black uppercase text-thedeal-gold tracking-widest">Fast Track Alpha</span>
+              <span className="text-[10px] font-black uppercase text-thedeal-gold tracking-widest">Curadoria Prioritária</span>
             </div>
             
             <div>
-              <h2 className="text-2xl font-black uppercase tracking-tight text-white mb-2">Validação Imediata</h2>
+              <h2 className="text-2xl font-black uppercase tracking-tight text-white mb-2">Taxa de Avaliação</h2>
               <div className="flex items-baseline gap-2">
-                <p className="text-4xl font-black text-white">R$ 99,90</p>
-                <span className="text-[10px] font-black text-thedeal-gray600 uppercase">Anual</span>
+                <p className="text-4xl font-black text-white">R$ 99,00</p>
+                <span className="text-[10px] font-black text-thedeal-gray600 uppercase">Análise Única</span>
               </div>
             </div>
 
             <ul className="space-y-4 pt-6 border-t border-white/5">
               {[
-                { t: "Liberação instantânea do terminal de deals", ok: true },
-                { t: "+500 Pontos de Bônus (Deal Score)", ok: true },
-                { t: "Acesso total a contratos de performance", ok: true },
-                { t: "Badge PRO verificada e prioritária", ok: true }
+                { t: "Análise técnica prioritária (até 48h)", ok: true },
+                { t: "+500 Pontos de Deal Score (se aprovado)", ok: true },
+                { t: "Acesso total a contratos de elite (se aprovado)", ok: true },
+                { t: "Processamento de compliance imediato", ok: true }
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-[11px] font-black uppercase tracking-widest text-white">
                   <Check size={14} className="text-thedeal-success mt-0.5" />
@@ -111,7 +111,7 @@ export default function ValidationPage({ userName, userEmail, onSelectFree, onBa
             onClick={handleFastTrack}
             className="mt-10 w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-5 rounded-xl text-xs uppercase tracking-widest transition-all shadow-xl shadow-thedeal-gold/20 flex items-center justify-center gap-3 active:scale-95"
           >
-            Validar com Mercado Pago <ExternalLink size={14} />
+            Iniciar Avaliação Alpha <ExternalLink size={14} />
           </button>
         </div>
 

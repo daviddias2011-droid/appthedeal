@@ -32,7 +32,7 @@ export default function LandingPage(props: any) {
           </div>
           <div className="flex flex-col">
             <h1 className="text-lg md:text-xl font-display font-black text-white uppercase leading-none tracking-tighter">THE DEAL</h1>
-            <p className="text-[7px] md:text-[8px] font-bold uppercase text-[#F4C542] tracking-widest leading-tight">Onde influência vira contrato</p>
+            <p className="text-[7px] md:text-[8px] font-bold uppercase text-[#F4C542] tracking-widest leading-tight">Exclusividade e Performance</p>
           </div>
         </div>
         
@@ -64,7 +64,7 @@ export default function LandingPage(props: any) {
               </div>
               <div className="flex flex-col">
                 <h2 className="text-xl font-display font-black text-white leading-none">THE DEAL</h2>
-                <p className="text-[8px] font-bold uppercase text-[#F4C542] tracking-widest">Onde influência vira contrato</p>
+                <p className="text-[8px] font-bold uppercase text-[#F4C542] tracking-widest">Exclusividade e Performance</p>
               </div>
             </div>
             <button onClick={() => setIsMobileMenuOpen(false)} className="text-white"><CloseIcon size={28}/></button>
@@ -143,10 +143,10 @@ export default function LandingPage(props: any) {
               <h3 className="text-3xl font-black uppercase tracking-tight">Criadores</h3>
               <ul className="space-y-4">
                 {[
-                  "Acesso gratuito à infraestrutura",
+                  "Acesso a contratos de alto ticket",
                   "100% do valor do contrato é seu",
                   "Pagamento garantido em custódia (Escrow)",
-                  "Contrato digital com validade jurídica"
+                  "Protocolo de curadoria técnica profissional"
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-[#A0A0A0]">
                     <Check size={18} className="text-[#F4C542]" /> {item}
@@ -154,7 +154,7 @@ export default function LandingPage(props: any) {
                 ))}
               </ul>
               <div className="pt-6 border-t border-white/5">
-                <p className="text-[10px] font-black text-[#F4C542] uppercase tracking-[0.4em]">Taxa única de verificação de perfil: R$ 99 (aplicada após aprovação)</p>
+                <p className="text-[10px] font-black text-[#F4C542] uppercase tracking-[0.4em]">Taxa de avaliação técnica: R$ 99 (paga para solicitar curadoria)</p>
               </div>
             </div>
 
@@ -167,7 +167,7 @@ export default function LandingPage(props: any) {
               <ul className="space-y-4">
                 {[
                   "Rede curada de criadores profissionais",
-                  "Acesso anual: R$ 497",
+                  "Acesso anual ao terminal estratégico",
                   "Pagamento liberado somente após a entrega",
                   "Formalização contratual para cada deal"
                 ].map((item, i) => (
@@ -232,10 +232,10 @@ export default function LandingPage(props: any) {
 
              <div className="grid md:grid-cols-4 gap-8">
                 {[
-                  { n: "1", t: "· Verificação", d: "Perfis passam por análise técnica antes de entrar na rede.", i: Shield },
-                  { n: "2", t: "· Conexão", d: "Criadores se candidatam ou marcas convidam diretamente.", i: TrendingUp },
-                  { n: "3", t: "· Contrato", d: "Acordo digital assinado com validade jurídica para ambos.", i: FileText },
-                  { n: "4", t: "· Pagamento Protegido", d: "O valor fica em custódia e só é liberado após a entrega.", i: ShieldCheck }
+                  { n: "1", t: "· Protocolo", d: "Pagamento da taxa e submissão para análise técnica.", i: Shield },
+                  { n: "2", t: "· Curadoria", d: "Avaliação da maturidade e ativos do perfil.", i: TrendingUp },
+                  { n: "3", t: "· Contrato", d: "Aprovação e acesso a deals com validade jurídica.", i: FileText },
+                  { n: "4", t: "· Liquidação", d: "Entrega aprovada e pagamento liberado da custódia.", i: ShieldCheck }
                 ].map((step, i) => (
                   <div key={i} className="relative group p-8 bg-black/40 border border-white/5 rounded-3xl hover:border-[#F4C542]/30 transition-all">
                     <div className="text-6xl font-black text-white/5 absolute top-4 right-4 group-hover:text-[#F4C542]/10 transition-colors">{step.n}</div>
@@ -298,7 +298,7 @@ export default function LandingPage(props: any) {
 
           <div className="space-y-2 opacity-30">
             <p className="text-[8px] font-black uppercase tracking-[0.5em]">THE DEAL • CNPJ: 59.440.114/0001-03</p>
-            <p className="text-[7px] font-bold text-[#F4C542] uppercase tracking-[0.2em]">Ambiente profissional em operação • © 2026</p>
+            <p className="text-[7px] font-bold text-[#F4C542] uppercase tracking-[0.2em]">Rede Social Privada • © 2026</p>
           </div>
         </footer>
       </main>

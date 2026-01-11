@@ -19,7 +19,7 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
                 </div>
                 <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
               </div>
-              <p className="text-[7px] md:text-[8px] font-black uppercase text-thedeal-gold tracking-[0.3em] pl-0.5">Rede Social Privada</p>
+              <p className="text-[7px] md:text-[8px] font-black uppercase text-thedeal-gold tracking-[0.3em] pl-0.5">Exclusividade e Performance</p>
             </div>
             
             <button onClick={onBack} className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-thedeal-gray400 hover:text-white transition-colors flex items-center gap-2">
@@ -45,28 +45,28 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
             <div className="mb-10 relative z-10">
               <h2 className="text-3xl font-black text-white uppercase tracking-tight">Criadores</h2>
               <div className="mt-4">
-                <p className="text-4xl font-black text-thedeal-goldBright tracking-tighter">Acesso Gratuito</p>
-                <p className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-widest mt-2">Criadores não pagam mensalidade. Nunca.</p>
+                <p className="text-4xl font-black text-thedeal-goldBright tracking-tighter">Gratuidade Mensal</p>
+                <p className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-widest mt-2">Você recebe 100% dos seus deals. Sem mensalidade.</p>
               </div>
             </div>
 
             <div className="space-y-6 mb-12 flex-1 relative z-10">
                 <p className="text-sm text-thedeal-gray400 leading-relaxed font-medium uppercase">
-                  O acesso ao The Deal é gratuito para criadores aprovados pela curadoria técnica.
+                  O acesso ao The Deal é restrito a criadores que cumprem o protocolo de curadoria.
                 </p>
                 <div className="p-6 bg-black/40 rounded-2xl border border-thedeal-gold/20">
-                  <h4 className="text-xs font-black text-thedeal-gold uppercase tracking-widest mb-4">Taxa de Curadoria:</h4>
+                  <h4 className="text-xs font-black text-thedeal-gold uppercase tracking-widest mb-4">Protocolo de Avaliação:</h4>
                   <p className="text-3xl font-black text-white tracking-tighter">R$ 99</p>
-                  <p className="text-[9px] font-black text-thedeal-gray600 uppercase tracking-widest mt-2">Pagamento Único pós-aprovação</p>
+                  <p className="text-[9px] font-black text-thedeal-gray600 uppercase tracking-widest mt-2">Valor pago para iniciar a curadoria técnica</p>
                   <ul className="mt-6 space-y-3">
                     <li className="flex items-center gap-2 text-[9px] font-bold text-thedeal-gray400 uppercase tracking-widest">
-                       <Check size={12} className="text-thedeal-gold" /> Não é mensalidade
+                       <Check size={12} className="text-thedeal-gold" /> Não garante admissão na rede
                     </li>
                     <li className="flex items-center gap-2 text-[9px] font-bold text-thedeal-gray400 uppercase tracking-widest">
-                       <Check size={12} className="text-thedeal-gold" /> Não é comissão
+                       <Check size={12} className="text-thedeal-gold" /> Não garante fechamento de contratos
                     </li>
                     <li className="flex items-center gap-2 text-[9px] font-bold text-thedeal-gray400 uppercase tracking-widest">
-                       <Check size={12} className="text-thedeal-gold" /> Mantém a qualidade da rede
+                       <Check size={12} className="text-thedeal-gold" /> Filtro contra amadorismo e spam
                     </li>
                   </ul>
                 </div>
@@ -76,7 +76,7 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
               onClick={handleGoToSignup}
               className="w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-6 rounded-2xl transition-all shadow-xl shadow-thedeal-gold/20 uppercase tracking-[0.2em] text-xs active:scale-95"
             >
-              SOLICITAR CURADORIA
+              SOLICITAR AVALIAÇÃO TÉCNICA
             </button>
           </div>
 
@@ -93,17 +93,17 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
             <div className="space-y-8 mb-12 flex-1 relative z-10">
                 <div className="space-y-2">
                   <p className="text-5xl font-black text-white tracking-tighter">R$ 497</p>
-                  <p className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-widest">Acesso anual ao terminal</p>
+                  <p className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-widest">Acesso anual ao terminal estratégico</p>
                 </div>
 
                 <div className="p-6 bg-thedeal-gold/5 rounded-2xl border border-thedeal-gold/20">
                    <h4 className="text-xs font-black text-thedeal-gold uppercase tracking-widest mb-2">Comissão por Deal:</h4>
-                   <p className="text-2xl font-black text-white">10% <span className="text-xs text-thedeal-gray600">sobre o valor do contrato</span></p>
+                   <p className="text-2xl font-black text-white">10% <span className="text-xs text-thedeal-gray600">sobre negócios fechados</span></p>
                 </div>
 
                 <div className="space-y-4">
                   <p className="text-[10px] text-thedeal-gray400 leading-relaxed font-bold uppercase text-justify">
-                    Você não paga por seguidores. Você paga por segurança, estrutura e execução profissional. Pagamentos protegidos via escrow e contratos com validade jurídica TD-IP.
+                    Você paga por segurança, estrutura e criadores verificados. Pagamentos protegidos via escrow e contratos com validade jurídica TD-IP.
                   </p>
                 </div>
             </div>
@@ -112,7 +112,7 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
               onClick={handleGoToSignup}
               className="w-full bg-white text-black font-black py-6 rounded-2xl transition-all shadow-xl shadow-white/5 uppercase tracking-[0.2em] text-xs active:scale-95"
             >
-              SOLICITAR ACESSO PARA MARCAS
+              SOLICITAR ACESSO CORPORATIVO
             </button>
           </div>
         </div>
@@ -121,7 +121,7 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
           <div className="flex flex-col md:flex-row gap-8 items-start opacity-40 max-w-4xl mx-auto mb-10">
               <Info size={24} className="text-thedeal-gold shrink-0" />
               <p className="text-[10px] text-thedeal-gray400 leading-relaxed font-medium uppercase text-justify">
-                  O The Deal opera como infraestrutura técnica e jurídica. Não somos agência de talentos. Todos os acordos são formalizados entre as partes dentro de nosso protocolo de segurança.
+                  O The Deal é uma rede privada. A taxa de avaliação de criadores é não-reembolsável, referindo-se exclusivamente ao serviço de análise de perfil. A admissão na rede depende inteiramente da análise técnica do comitê de curadoria.
               </p>
           </div>
           <div className="space-y-4 opacity-50">
