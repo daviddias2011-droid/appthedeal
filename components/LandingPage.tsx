@@ -183,30 +183,38 @@ export default function LandingPage(props: any) {
           </div>
         </section>
 
-        {/* COMPARISON TABLE */}
-        <section className="py-32 px-6">
-          <div className="max-w-5xl mx-auto space-y-16">
+        {/* COMPARISON TABLE - RESPONSIVE FIX */}
+        <section className="py-24 md:py-32 px-4 md:px-6">
+          <div className="max-w-5xl mx-auto space-y-12 md:space-y-16">
             <div className="text-center space-y-4">
-              <h2 className="text-3xl md:text-6xl font-display font-black uppercase tracking-tighter">O Mercado Está Quebrado.<br/><span className="text-[#FF0033]">Nós Consertamos.</span></h2>
+              <h2 className="text-2xl md:text-6xl font-display font-black uppercase tracking-tighter leading-none">
+                O Mercado Está Quebrado.<br/><span className="text-[#FF0033]">Nós Consertamos.</span>
+              </h2>
             </div>
 
-            <div className="grid grid-cols-2 bg-thedeal-card rounded-[3rem] border border-white/5 overflow-hidden shadow-2xl">
-              <div className="p-8 md:p-12 border-r border-white/5">
-                <h4 className="text-[#FF0033] font-black uppercase text-xs tracking-[0.4em] mb-10">Como o mercado opera hoje</h4>
-                <ul className="space-y-8">
-                  {["DMs perdidas", "Pagamento inseguro", "Acordos informais", "Ghosting sem consequência", "Acordos baseados em confiança informal"].map((text, i) => (
-                    <li key={i} className="flex items-center gap-4 text-[#A0A0A0] text-sm font-bold uppercase tracking-widest opacity-50">
-                      <X size={20} className="text-[#FF0033] shrink-0" /> {text}
+            <div className="grid grid-cols-1 md:grid-cols-2 bg-thedeal-card rounded-[2rem] md:rounded-[3rem] border border-white/5 overflow-hidden shadow-2xl">
+              {/* BLOCK 1: MERCADO HOJE */}
+              <div className="p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/5 bg-black/20">
+                <h4 className="text-[#FF0033] font-black uppercase text-[10px] md:text-xs tracking-[0.3em] md:tracking-[0.4em] mb-8 md:mb-10">Como o mercado opera hoje</h4>
+                <ul className="space-y-6 md:space-y-8">
+                  {["DMs perdidas", "Pagamento inseguro", "Acordos informais", "Ghosting sem consequência", "Dependência de confiança informal"].map((text, i) => (
+                    <li key={i} className="flex items-center gap-3 md:gap-4 text-[#A0A0A0] text-xs md:text-sm font-bold uppercase tracking-widest opacity-60">
+                      <X size={18} className="text-[#FF0033] shrink-0" /> {text}
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="p-8 md:p-12 bg-[#F4C542]/5">
-                <h4 className="text-[#F4C542] font-black uppercase text-xs tracking-[0.4em] mb-10">O padrão quando existe infraestrutura</h4>
-                <ul className="space-y-8">
-                  {["Contratos digitais assinados", "Custódia financeira (Escrow)", "Contratos com validade jurídica", "Proteção jurídica bilateral", "ROI mensurável e auditado"].map((text, i) => (
-                    <li key={i} className="flex items-center gap-4 text-white text-sm font-black uppercase tracking-widest">
-                      <CheckCircle2 size={20} className="text-[#F4C542] shrink-0" /> {text}
+              
+              {/* BLOCK 2: THE DEAL */}
+              <div className="p-8 md:p-12 bg-[#F4C542]/5 relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-5 rotate-12">
+                   <ShieldCheck size={120} className="text-[#F4C542]" />
+                </div>
+                <h4 className="text-[#F4C542] font-black uppercase text-[10px] md:text-xs tracking-[0.3em] md:tracking-[0.4em] mb-8 md:mb-10">O padrão com infraestrutura</h4>
+                <ul className="space-y-6 md:space-y-8 relative z-10">
+                  {["Contratos digitais registrados", "Custódia financeira (Escrow)", "Cláusulas com validade jurídica", "Proteção jurídica bilateral", "ROI mensurável e auditado"].map((text, i) => (
+                    <li key={i} className="flex items-center gap-3 md:gap-4 text-white text-xs md:text-sm font-black uppercase tracking-widest">
+                      <CheckCircle2 size={18} className="text-[#F4C542] shrink-0" /> {text}
                     </li>
                   ))}
                 </ul>
