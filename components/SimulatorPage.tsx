@@ -201,44 +201,44 @@ const SimulatorPage: React.FC<SimulatorPageProps> = ({ userIsLoggedIn, onRestric
              <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase text-thedeal-gray600 tracking-widest ml-1">Total de Seguidores</label>
-                  <input type="number" value={followers} onChange={e => setFollowers(e.target.value)} className="w-full bg-black border border-thedeal-gray700 rounded-2xl p-5 text-white font-black focus:border-thedeal-gold outline-none transition-all" placeholder="Ex: 50000" />
+                  <input type="number" value={followers} onChange={e => setFollowers(e.target.value)} className="w-full bg-black border border-thedeal-gray700 rounded-2xl p-5 text-thedeal-gray100 font-black focus:border-thedeal-gold outline-none transition-all placeholder:text-thedeal-gray700" placeholder="Ex: 50000" />
                   <p className="text-[9px] text-thedeal-gold font-black uppercase tracking-widest ml-1">Categoria: {getTierName()}</p>
                 </div>
                 
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase text-thedeal-gray600 tracking-widest ml-1">Taxa de Engajamento (%)</label>
-                  <input type="number" step="0.1" value={engagementRate} onChange={e => setEngagementRate(e.target.value)} className="w-full bg-black border border-thedeal-gray700 rounded-2xl p-5 text-white font-black focus:border-thedeal-gold outline-none transition-all" placeholder="Ex: 5.5" />
+                  <input type="number" step="0.1" value={engagementRate} onChange={e => setEngagementRate(e.target.value)} className="w-full bg-black border border-thedeal-gray700 rounded-2xl p-5 text-thedeal-gray100 font-black focus:border-thedeal-gold outline-none transition-all placeholder:text-thedeal-gray700" placeholder="Ex: 5.5" />
                   <p className="text-[9px] text-thedeal-gray600 font-bold uppercase tracking-widest ml-1">Curtidas + Comentários / Seguidores x 100</p>
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase text-thedeal-gray600 tracking-widest ml-1">Views Médias - Stories (24h)</label>
-                  <input type="number" value={storyViews} onChange={e => setStoryViews(e.target.value)} className="w-full bg-black border border-thedeal-gray700 rounded-2xl p-5 text-white font-black focus:border-thedeal-gold outline-none transition-all" placeholder="Ex: 5000" />
+                  <input type="number" value={storyViews} onChange={e => setStoryViews(e.target.value)} className="w-full bg-black border border-thedeal-gray700 rounded-2xl p-5 text-thedeal-gray100 font-black focus:border-thedeal-gold outline-none transition-all placeholder:text-thedeal-gray700" placeholder="Ex: 5000" />
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase text-thedeal-gray600 tracking-widest ml-1">Views Médias - Reels</label>
-                  <input type="number" value={reelsViews} onChange={e => setReelsViews(e.target.value)} className="w-full bg-black border border-thedeal-gray700 rounded-2xl p-5 text-white font-black focus:border-thedeal-gold outline-none transition-all" placeholder="Ex: 15000" />
+                  <input type="number" value={reelsViews} onChange={e => setReelsViews(e.target.value)} className="w-full bg-black border border-thedeal-gray700 rounded-2xl p-5 text-thedeal-gray100 font-black focus:border-thedeal-gold outline-none transition-all placeholder:text-thedeal-gray700" placeholder="Ex: 15000" />
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase text-thedeal-gray600 tracking-widest ml-1">Engajamento Médio - Feed</label>
-                  <input type="number" value={feedEngagement} onChange={e => setFeedEngagement(e.target.value)} className="w-full bg-black border border-thedeal-gray700 rounded-2xl p-5 text-white font-black focus:border-thedeal-gold outline-none transition-all" placeholder="Curtidas + Comentários" />
+                  <input type="number" value={feedEngagement} onChange={e => setFeedEngagement(e.target.value)} className="w-full bg-black border border-thedeal-gray700 rounded-2xl p-5 text-thedeal-gray100 font-black focus:border-thedeal-gold outline-none transition-all placeholder:text-thedeal-gray700" placeholder="Curtidas + Comentários" />
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase text-thedeal-gray600 tracking-widest ml-1">Nicho de Atuação</label>
-                  <select value={niche} onChange={e => setNiche(e.target.value)} className="w-full bg-black border border-thedeal-gray700 rounded-2xl p-5 text-white font-black focus:border-thedeal-gold outline-none transition-all appearance-none cursor-pointer">
-                    <option value="geral">Geral / Variedades</option>
-                    <option value="financas">Finanças / Investimentos</option>
-                    <option value="tecnologia">Tecnologia</option>
-                    <option value="saude">Saúde / Medicina</option>
-                    <option value="beleza">Beleza / Cosméticos</option>
-                    <option value="moda">Moda</option>
-                    <option value="fitness">Fitness / Nutrição</option>
-                    <option value="games">Games / eSports</option>
-                    <option value="lifestyle">Lifestyle</option>
-                    <option value="entretenimento">Entretenimento</option>
+                  <select value={niche} onChange={e => setNiche(e.target.value)} className="w-full bg-black border border-thedeal-gray700 rounded-2xl p-5 text-thedeal-gray100 font-black focus:border-thedeal-gold outline-none transition-all appearance-none cursor-pointer">
+                    <option value="geral" className="bg-zinc-900 text-white">Geral / Variedades</option>
+                    <option value="financas" className="bg-zinc-900 text-white">Finanças / Investimentos</option>
+                    <option value="tecnologia" className="bg-zinc-900 text-white">Tecnologia</option>
+                    <option value="saude" className="bg-zinc-900 text-white">Saúde / Medicina</option>
+                    <option value="beleza" className="bg-zinc-900 text-white">Beleza / Cosméticos</option>
+                    <option value="moda" className="bg-zinc-900 text-white">Moda</option>
+                    <option value="fitness" className="bg-zinc-900 text-white">Fitness / Nutrição</option>
+                    <option value="games" className="bg-zinc-900 text-white">Games / eSports</option>
+                    <option value="lifestyle" className="bg-zinc-900 text-white">Lifestyle</option>
+                    <option value="entretenimento" className="bg-zinc-900 text-white">Entretenimento</option>
                   </select>
                 </div>
              </div>
@@ -281,7 +281,7 @@ const SimulatorPage: React.FC<SimulatorPageProps> = ({ userIsLoggedIn, onRestric
                             {selectedFormats.stories && (
                                 <div className="flex items-center gap-4 mb-4 animate-fade-in">
                                     <label className="text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest">Quantidade:</label>
-                                    <input type="number" min="1" value={quantities.stories} onChange={e => setQuantities({...quantities, stories: parseInt(e.target.value) || 1})} className="w-20 bg-black border border-thedeal-gray700 rounded-lg p-2 text-white text-xs font-black text-center" />
+                                    <input type="number" min="1" value={quantities.stories} onChange={e => setQuantities({...quantities, stories: parseInt(e.target.value) || 1})} className="w-20 bg-black border border-thedeal-gray700 rounded-lg p-2 text-thedeal-gray100 text-xs font-black text-center" />
                                 </div>
                             )}
                             <div className="text-lg font-black text-thedeal-goldBright">
@@ -305,7 +305,7 @@ const SimulatorPage: React.FC<SimulatorPageProps> = ({ userIsLoggedIn, onRestric
                             {selectedFormats.reels && (
                                 <div className="flex items-center gap-4 mb-4 animate-fade-in">
                                     <label className="text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest">Quantidade:</label>
-                                    <input type="number" min="1" value={quantities.reels} onChange={e => setQuantities({...quantities, reels: parseInt(e.target.value) || 1})} className="w-20 bg-black border border-thedeal-gray700 rounded-lg p-2 text-white text-xs font-black text-center" />
+                                    <input type="number" min="1" value={quantities.reels} onChange={e => setQuantities({...quantities, reels: parseInt(e.target.value) || 1})} className="w-20 bg-black border border-thedeal-gray700 rounded-lg p-2 text-thedeal-gray100 text-xs font-black text-center" />
                                 </div>
                             )}
                             <div className="text-lg font-black text-thedeal-goldBright">
@@ -329,7 +329,7 @@ const SimulatorPage: React.FC<SimulatorPageProps> = ({ userIsLoggedIn, onRestric
                             {selectedFormats.feed && (
                                 <div className="flex items-center gap-4 mb-4 animate-fade-in">
                                     <label className="text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest">Quantidade:</label>
-                                    <input type="number" min="1" value={quantities.feed} onChange={e => setQuantities({...quantities, feed: parseInt(e.target.value) || 1})} className="w-20 bg-black border border-thedeal-gray700 rounded-lg p-2 text-white text-xs font-black text-center" />
+                                    <input type="number" min="1" value={quantities.feed} onChange={e => setQuantities({...quantities, feed: parseInt(e.target.value) || 1})} className="w-20 bg-black border border-thedeal-gray700 rounded-lg p-2 text-thedeal-gray100 text-xs font-black text-center" />
                                 </div>
                             )}
                             <div className="text-lg font-black text-thedeal-goldBright">
@@ -353,7 +353,7 @@ const SimulatorPage: React.FC<SimulatorPageProps> = ({ userIsLoggedIn, onRestric
                             {selectedFormats.youtube && (
                                 <div className="flex items-center gap-4 mb-4 animate-fade-in">
                                     <label className="text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest">Quantidade:</label>
-                                    <input type="number" min="1" value={quantities.youtube} onChange={e => setQuantities({...quantities, youtube: parseInt(e.target.value) || 1})} className="w-20 bg-black border border-thedeal-gray700 rounded-lg p-2 text-white text-xs font-black text-center" />
+                                    <input type="number" min="1" value={quantities.youtube} onChange={e => setQuantities({...quantities, youtube: parseInt(e.target.value) || 1})} className="w-20 bg-black border border-thedeal-gray700 rounded-lg p-2 text-thedeal-gray100 text-xs font-black text-center" />
                                 </div>
                             )}
                             <div className="text-lg font-black text-thedeal-goldBright">
@@ -379,20 +379,20 @@ const SimulatorPage: React.FC<SimulatorPageProps> = ({ userIsLoggedIn, onRestric
                                     <div className="grid grid-cols-2 gap-6">
                                         <div className="space-y-2">
                                             <label className="text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest">Horas no Evento</label>
-                                            <input type="number" min="1" value={campaignDetails.eventHours} onChange={e => setCampaignDetails({...campaignDetails, eventHours: parseInt(e.target.value) || 2})} className="w-full bg-black border border-thedeal-gray700 rounded-lg p-3 text-white text-xs font-black" />
+                                            <input type="number" min="1" value={campaignDetails.eventHours} onChange={e => setCampaignDetails({...campaignDetails, eventHours: parseInt(e.target.value) || 2})} className="w-full bg-black border border-thedeal-gray700 rounded-lg p-3 text-thedeal-gray100 text-xs font-black" />
                                         </div>
                                         <div className="space-y-2">
                                             <label className="text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest">Dias de Deslocamento</label>
-                                            <input type="number" min="0" value={campaignDetails.lostProductionDays} onChange={e => setCampaignDetails({...campaignDetails, lostProductionDays: parseInt(e.target.value) || 0})} className="w-full bg-black border border-thedeal-gray700 rounded-lg p-3 text-white text-xs font-black" />
+                                            <input type="number" min="0" value={campaignDetails.lostProductionDays} onChange={e => setCampaignDetails({...campaignDetails, lostProductionDays: parseInt(e.target.value) || 0})} className="w-full bg-black border border-thedeal-gray700 rounded-lg p-3 text-thedeal-gray100 text-xs font-black" />
                                         </div>
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest">Distância Geográfica</label>
-                                        <select value={campaignDetails.eventDistance} onChange={e => setCampaignDetails({...campaignDetails, eventDistance: e.target.value as any})} className="w-full bg-black border border-thedeal-gray700 rounded-lg p-3 text-white text-xs font-black outline-none appearance-none cursor-pointer">
-                                            <option value="local">Local (mesma cidade)</option>
-                                            <option value="proximidade">Proximidade (até 100km)</option>
-                                            <option value="estadual">Estadual (outro estado)</option>
-                                            <option value="nacional">Nacional (voo necessário)</option>
+                                        <select value={campaignDetails.eventDistance} onChange={e => setCampaignDetails({...campaignDetails, eventDistance: e.target.value as any})} className="w-full bg-black border border-thedeal-gray700 rounded-lg p-3 text-thedeal-gray100 text-xs font-black outline-none appearance-none cursor-pointer">
+                                            <option value="local" className="bg-zinc-900">Local (mesma cidade)</option>
+                                            <option value="proximidade" className="bg-zinc-900">Proximidade (até 100km)</option>
+                                            <option value="estadual" className="bg-zinc-900">Estadual (outro estado)</option>
+                                            <option value="nacional" className="bg-zinc-900">Nacional (voo necessário)</option>
                                         </select>
                                     </div>
                                 </div>
@@ -436,7 +436,7 @@ const SimulatorPage: React.FC<SimulatorPageProps> = ({ userIsLoggedIn, onRestric
                    {campaignDetails.trafficRights && (
                       <div className="animate-fade-in flex items-center gap-4 pt-4 border-t border-white/5">
                         <label className="text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest">Duração (dias):</label>
-                        <input type="number" min="1" value={campaignDetails.trafficDuration} onChange={e => setCampaignDetails({...campaignDetails, trafficDuration: parseInt(e.target.value) || 30})} className="w-24 bg-black border border-thedeal-gray700 rounded-lg p-2 text-white text-xs font-black text-center" />
+                        <input type="number" min="1" value={campaignDetails.trafficDuration} onChange={e => setCampaignDetails({...campaignDetails, trafficDuration: parseInt(e.target.value) || 30})} className="w-24 bg-black border border-thedeal-gray700 rounded-lg p-2 text-thedeal-gray100 text-xs font-black text-center" />
                       </div>
                    )}
                 </div>
@@ -452,7 +452,7 @@ const SimulatorPage: React.FC<SimulatorPageProps> = ({ userIsLoggedIn, onRestric
                    {campaignDetails.offlineRights && (
                       <div className="animate-fade-in flex items-center gap-4 pt-4 border-t border-white/5">
                         <label className="text-[9px] font-black uppercase text-thedeal-gray600 tracking-widest">Duração (dias):</label>
-                        <input type="number" min="1" value={campaignDetails.offlineDuration} onChange={e => setCampaignDetails({...campaignDetails, offlineDuration: parseInt(e.target.value) || 90})} className="w-24 bg-black border border-thedeal-gray700 rounded-lg p-2 text-white text-xs font-black text-center" />
+                        <input type="number" min="1" value={campaignDetails.offlineDuration} onChange={e => setCampaignDetails({...campaignDetails, offlineDuration: parseInt(e.target.value) || 90})} className="w-24 bg-black border border-thedeal-gray700 rounded-lg p-2 text-thedeal-gray100 text-xs font-black text-center" />
                       </div>
                    )}
                 </div>

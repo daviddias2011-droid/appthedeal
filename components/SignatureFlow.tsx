@@ -80,7 +80,7 @@ const SignatureFlow: React.FC<SignatureFlowProps> = ({ onComplete, onCancel, dea
         <div className="flex-1 overflow-y-auto p-8 md:p-12 scrollbar-hide">
           {step === 'preview' && (
             <div className="space-y-10 animate-fade-in">
-              <div className="p-10 bg-black/40 border border-white/5 rounded-[2.5rem] font-mono text-[11px] leading-relaxed text-thedeal-gray400 space-y-6 shadow-inner">
+              <div className="p-10 bg-black/40 border border-white/5 rounded-[2.5rem] font-mono text-[11px] leading-relaxed text-thedeal-gray100 space-y-6 shadow-inner">
                 <div className="flex justify-between items-center pb-6 border-b border-white/5">
                    <p className="text-white font-black uppercase tracking-widest">Instrumento de Acordo Comercial</p>
                    <p className="text-thedeal-gold font-black">TD-REG-V3-{Math.floor(Math.random()*900000 + 100000)}</p>
@@ -92,7 +92,7 @@ const SignatureFlow: React.FC<SignatureFlowProps> = ({ onComplete, onCancel, dea
                   <p>CONDIÇÃO: Capital alocado em custódia digital. Liberação vinculada à entrega técnica validada.</p>
                   <p>CLÁUSULA 01: O criador compromete-se com a conformidade técnica conforme o briefing registrado.</p>
                   <p>CLÁUSULA 02: A marca autoriza o licenciamento de IP conforme os termos TD-IP v2.0.</p>
-                  <div className="pt-10 opacity-30 italic">[...] Continuação do contrato criptografado via terminal seguro para garantir a integridade dos dados [...]</div>
+                  <div className="pt-10 opacity-30 italic text-thedeal-gray600">[...] Continuação do contrato criptografado via terminal seguro para garantir a integridade dos dados [...]</div>
                 </div>
               </div>
 
@@ -106,7 +106,7 @@ const SignatureFlow: React.FC<SignatureFlowProps> = ({ onComplete, onCancel, dea
             <div className="space-y-10 animate-fade-in">
               <div className="text-center space-y-2">
                  <h4 className="text-white font-black uppercase text-sm tracking-widest">Rubrica Digital Alpha</h4>
-                 <p className="text-thedeal-gray400 text-xs font-medium tracking-wide">Desenhe sua assinatura no terminal seguro abaixo</p>
+                 <p className="text-thedeal-gray400 text-xs font-medium tracking-wide uppercase">Desenhe sua assinatura no terminal seguro abaixo</p>
               </div>
 
               <div className="bg-black border-2 border-dashed border-thedeal-gray700 rounded-[2.5rem] overflow-hidden relative group shadow-inner">
@@ -181,7 +181,7 @@ const SignatureFlow: React.FC<SignatureFlowProps> = ({ onComplete, onCancel, dea
                   </div>
                </div>
 
-               <button onClick={onComplete} className="w-full bg-thedeal-gold text-black font-black py-6 rounded-2xl uppercase text-[10px] tracking-widest hover:scale-[1.02] transition-all shadow-2xl shadow-thedeal-gold/20">Acessar Painel de Controle do Deal</button>
+               <button onClick={onComplete} className="w-full bg-thedeal-gold text-black font-black py-6 rounded-2xl uppercase text-[10px] tracking-widest hover:scale-[1.02] transition-all shadow-xl shadow-thedeal-gold/20">Acessar Painel de Controle do Deal</button>
             </div>
           )}
         </div>
