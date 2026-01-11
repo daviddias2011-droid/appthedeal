@@ -47,16 +47,6 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
       options: [{ value: 'Sim', label: 'Sim' }, { value: 'Não', label: 'Não' }]
     },
     { id: 'avgPrice', label: 'Valor médio cobrado por publi', type: 'text' },
-    { 
-      id: 'canIssueInvoice', 
-      label: 'Já emitiu Nota Fiscal?', 
-      type: 'select',
-      options: [
-        { value: 'Sim', label: 'Sim' }, 
-        { value: 'Não', label: 'Não' }, 
-        { value: 'Pode emitir', label: 'Não, mas posso emitir' }
-      ]
-    },
     // Compromisso
     { id: 'whyJoin', label: 'Por que você acredita que seu perfil deve fazer parte de uma rede profissional e curada?', type: 'textarea' }
   ];

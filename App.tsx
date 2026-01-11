@@ -133,7 +133,7 @@ const AppContent = () => {
             <tr>
               <td className="border border-white/10 p-3">Dados financeiros/transacionais</td>
               <td className="border border-white/10 p-3">Cumprimento de Obrigação Legal (Art. 7º, II)</td>
-              <td className="border border-white/10 p-3">Emissão de notas fiscais</td>
+              <td className="border border-white/10 p-3">Formalização de acordos e prestação de contas</td>
             </tr>
             <tr className="bg-white/[0.02]">
               <td className="border border-white/10 p-3">Análise de perfil para curadoria</td>

@@ -169,7 +169,7 @@ export default function LandingPage(props: any) {
                   "Rede curada de criadores profissionais",
                   "Acesso anual: R$ 497",
                   "Pagamento liberado somente após a entrega",
-                  "Nota Fiscal automatizada para cada deal"
+                  "Formalização contratual para cada deal"
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-[#A0A0A0]">
                     <Check size={18} className="text-[#F4C542]" /> {item}
@@ -194,7 +194,7 @@ export default function LandingPage(props: any) {
               <div className="p-8 md:p-12 border-r border-white/5">
                 <h4 className="text-[#FF0033] font-black uppercase text-xs tracking-[0.4em] mb-10">Como o mercado opera hoje</h4>
                 <ul className="space-y-8">
-                  {["DMs perdidas", "Pagamento inseguro", "Sem Nota Fiscal", "Ghosting sem consequência", "Acordos baseados em confiança informal"].map((text, i) => (
+                  {["DMs perdidas", "Pagamento inseguro", "Acordos informais", "Ghosting sem consequência", "Acordos baseados em confiança informal"].map((text, i) => (
                     <li key={i} className="flex items-center gap-4 text-[#A0A0A0] text-sm font-bold uppercase tracking-widest opacity-50">
                       <X size={20} className="text-[#FF0033] shrink-0" /> {text}
                     </li>
@@ -204,7 +204,7 @@ export default function LandingPage(props: any) {
               <div className="p-8 md:p-12 bg-[#F4C542]/5">
                 <h4 className="text-[#F4C542] font-black uppercase text-xs tracking-[0.4em] mb-10">O padrão quando existe infraestrutura</h4>
                 <ul className="space-y-8">
-                  {["Contratos digitais assinados", "Custódia financeira (Escrow)", "NF automatizada", "Proteção jurídica bilateral", "ROI mensurável e auditado"].map((text, i) => (
+                  {["Contratos digitais assinados", "Custódia financeira (Escrow)", "Contratos com validade jurídica", "Proteção jurídica bilateral", "ROI mensurável e auditado"].map((text, i) => (
                     <li key={i} className="flex items-center gap-4 text-white text-sm font-black uppercase tracking-widest">
                       <CheckCircle2 size={20} className="text-[#F4C542] shrink-0" /> {text}
                     </li>
