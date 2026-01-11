@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   TrendingUp, Target, DollarSign, Shield, Check, ArrowRight, Briefcase, Building2, CheckCircle2, X,
@@ -97,7 +96,7 @@ const ForBrandsPage: React.FC<ForBrandsPageProps> = ({ onBack, onGoToSignup }) =
             </div>
 
             <div className="pt-8 border-t border-white/5 text-center">
-                <button onClick={onGoToSignup} className="bg-white text-black font-black px-16 py-6 rounded-2xl uppercase text-[11px] tracking-[0.3em] shadow-2xl hover:scale-105 transition-all">Contratar com Blindagem Jurídica</button>
+                <button onClick={onGoToSignup} className="bg-white text-black font-black px-16 py-6 rounded-2xl uppercase text-[11px] tracking-[0.3em] shadow-2xl hover:scale-105 transition-all">ENTRE PARA O THE DEAL</button>
             </div>
         </section>
 

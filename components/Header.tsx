@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { User, DashboardTab, UserType } from '../types';
 import { LogoIcon } from './Icons';
+import { Briefcase } from 'lucide-react';
 
 interface HeaderProps {
   user: User;
@@ -17,16 +17,21 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout }) => {
           onClick={() => onNavigate('feed')} 
           className="flex items-center gap-3 group transition-all"
         >
-          <div className="bg-brand-primary p-1.5 rounded-lg shadow-lg shadow-brand-primary/20 group-hover:scale-110 transition-transform">
-            <LogoIcon className="w-6 h-6 text-brand-dark" />
+          <div className="bg-thedeal-gold p-1.5 rounded-lg shadow-lg shadow-thedeal-gold/20 group-hover:scale-110 transition-transform">
+            <Briefcase className="w-5 h-5 md:w-6 md:h-6 text-brand-dark" />
           </div>
-          <span className="font-black tracking-[0.2em] text-sm uppercase text-white group-hover:text-brand-primary transition-colors">
-            THE DEAL
-          </span>
+          <div className="flex flex-col items-start">
+            <span className="font-black tracking-tighter text-sm md:text-base uppercase text-white group-hover:text-thedeal-gold transition-colors leading-none">
+              THE DEAL
+            </span>
+            <span className="text-[7px] md:text-[8px] font-bold uppercase text-thedeal-gold tracking-widest leading-tight mt-1">
+              Onde influência vira contrato
+            </span>
+          </div>
         </button>
         
         <nav className="hidden xl:flex items-center gap-6">
-          <button onClick={() => onNavigate('feed')} className="text-[10px] font-black uppercase tracking-widest text-white hover:text-brand-primary transition-colors">Dashboard</button>
+          <button onClick={() => onNavigate('feed')} className="text-[10px] font-black uppercase tracking-widest text-white hover:text-thedeal-gold transition-colors">Dashboard</button>
           <button onClick={() => onNavigate('discover')} className="text-[10px] font-black uppercase tracking-widest text-brand-text-secondary hover:text-white transition-colors">Descubra</button>
           <button onClick={() => onNavigate('explorar')} className="text-[10px] font-black uppercase tracking-widest text-brand-text-secondary hover:text-white transition-colors">Deals</button>
           <button onClick={() => onNavigate('clubalpha')} className="text-[10px] font-black uppercase tracking-widest text-brand-text-secondary hover:text-white transition-colors">ClubAlpha</button>
@@ -48,10 +53,10 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout }) => {
       <div className="flex items-center gap-5">
         <button 
             onClick={() => onNavigate('mensagens')}
-            className="p-2 text-brand-text-secondary hover:text-brand-primary transition-colors relative"
+            className="p-2 text-brand-text-secondary hover:text-thedeal-gold transition-colors relative"
         >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
-            <span className="absolute top-1 right-1 w-2 h-2 bg-brand-primary rounded-full border-2 border-brand-dark"></span>
+            <span className="absolute top-1 right-1 w-2 h-2 bg-thedeal-gold rounded-full border-2 border-brand-dark"></span>
         </button>
 
         <div className="w-px h-6 bg-brand-border mx-1"></div>
@@ -62,15 +67,15 @@ const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout }) => {
         >
           <div className="text-right hidden sm:block">
             <p className="text-[10px] font-black text-white uppercase tracking-wider leading-none">{user.name}</p>
-            <p className="text-[8px] font-bold text-brand-primary uppercase tracking-widest mt-1">
+            <p className="text-[8px] font-bold text-thedeal-gold uppercase tracking-widest mt-1">
                 {user.type === UserType.Admin ? 'Master Access' : user.isVetted ? 'Membro Vetted' : 'Acesso Beta'}
             </p>
           </div>
-          <div className="w-10 h-10 rounded-xl border border-brand-border bg-brand-gray overflow-hidden group-hover:border-brand-primary transition-colors flex items-center justify-center shadow-lg">
+          <div className="w-10 h-10 rounded-xl border border-brand-border bg-brand-gray overflow-hidden group-hover:border-thedeal-gold transition-colors flex items-center justify-center shadow-lg">
             {user.logoUrl ? (
               <img src={user.logoUrl} className="w-full h-full object-cover" alt={user.name} />
             ) : (
-              <span className="text-xs font-black text-brand-primary">{user.name.charAt(0)}</span>
+              <span className="text-xs font-black text-thedeal-gold">{user.name.charAt(0)}</span>
             )}
           </div>
         </button>

@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { ArrowLeft, User, Mail, Phone, FileText, Check, Copy, Trophy, Target, ShieldCheck, Loader, ArrowRight, Briefcase, Zap, Star, Users, Clock, Instagram, Twitter, Video } from 'lucide-react';
+import { ArrowLeft, User, Mail, Phone, FileText, Check, Copy, Trophy, Target, Loader, ArrowRight, Briefcase, Users, Clock, Instagram, Twitter, Video } from 'lucide-react';
 import { api } from '../lib/api';
 import { ReferralSystem } from '../lib/referral';
 import { KwaiIcon } from './Icons';
@@ -62,24 +61,24 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
   if (success) {
     return (
       <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col items-center justify-center p-6 animate-fade-in text-left">
-        <div className="max-w-md w-full bg-[#141414] border border-[#D4AF37]/30 rounded-[2.5rem] p-10 text-center space-y-8 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-[#D4AF37]"></div>
+        <div className="max-w-md w-full bg-[#141414] border border-thedeal-gold/30 rounded-[2.5rem] p-10 text-center space-y-8 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-thedeal-gold"></div>
           
-          <div className="w-20 h-20 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mx-auto ring-4 ring-[#D4AF37]/20 animate-subtle-pulse">
-            <Trophy className="text-[#D4AF37]" size={40} />
+          <div className="w-20 h-20 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto ring-4 ring-thedeal-gold/20 animate-subtle-pulse">
+            <Trophy className="text-thedeal-gold" size={40} />
           </div>
           
           <div className="space-y-2">
-            <h2 className="text-3xl font-display font-black uppercase tracking-tighter">Missão<br/><span className="text-[#D4AF37]">Iniciada.</span></h2>
+            <h2 className="text-3xl font-display font-black uppercase tracking-tighter">Missão<br/><span className="text-thedeal-gold">Iniciada.</span></h2>
             <p className="text-[#A0A0A0] text-sm font-medium">Seu código exclusivo foi gerado. Compartilhe para acelerar sua aprovação.</p>
           </div>
 
           <div className="bg-black border border-white/10 p-8 rounded-3xl space-y-4 shadow-inner">
-             <p className="text-[10px] font-black text-[#D4AF37] uppercase tracking-[0.3em]">CÓDIGO ATIVADOR</p>
+             <p className="text-[10px] font-black text-thedeal-gold uppercase tracking-[0.3em]">CÓDIGO ATIVADOR</p>
              <div className="text-3xl font-black tracking-[0.2em] text-white uppercase">{referralCode}</div>
              <button 
                 onClick={handleCopy}
-                className="w-full bg-[#D4AF37] text-black py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-[#D4AF37]/10"
+                className="w-full bg-thedeal-gold text-black py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-thedeal-gold/10"
              >
                {copied ? <Check size={16} strokeWidth={4} /> : <Copy size={16} />}
                {copied ? 'Link Copiado' : 'Copiar Convite'}
@@ -100,12 +99,14 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
             <div className="flex flex-col items-start gap-1 cursor-pointer group" onClick={onBack}>
                 <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                    <div className="w-8 h-8 md:w-10 md:h-10 bg-thedeal-gold rounded flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
                         <Briefcase size={18} className="text-black" />
                     </div>
-                    <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
+                    <div className="flex flex-col">
+                        <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
+                        <p className="text-[7px] md:text-[8px] font-bold uppercase text-thedeal-gold tracking-widest leading-tight">Onde influência vira contrato</p>
+                    </div>
                 </div>
-                <p className="text-[7px] md:text-[8px] font-black uppercase text-thedeal-gold tracking-[0.3em] pl-0.5">Rede Social Privada</p>
             </div>
             
             <div className="flex items-center gap-3">
@@ -118,12 +119,12 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
 
       <div className="max-w-4xl w-full space-y-12 pt-32 md:pt-40 pb-20 px-6">
         <header className="text-center space-y-4">
-           <div className="inline-flex items-center gap-3 bg-[#D4AF37]/10 border border-[#D4AF37]/20 px-5 py-2 rounded-full mb-4">
-              <Target size={14} className="text-[#D4AF37]" />
-              <span className="text-[9px] font-black text-[#D4AF37] uppercase tracking-[0.3em]">HUB DE MISSÕES ALPHA</span>
+           <div className="inline-flex items-center gap-3 bg-thedeal-gold/10 border border-thedeal-gold/20 px-5 py-2 rounded-full mb-4">
+              <Target size={14} className="text-thedeal-gold" />
+              <span className="text-[9px] font-black text-thedeal-gold uppercase tracking-[0.3em]">HUB DE MISSÕES ALPHA</span>
            </div>
            <h1 className="text-4xl md:text-7xl font-display font-black uppercase tracking-tighter leading-none">
-             CONQUISTE SEU <br/><span className="text-[#D4AF37]">VITALÍCIO.</span>
+             CONQUISTE SEU <br/><span className="text-thedeal-gold">VITALÍCIO.</span>
            </h1>
            <p className="text-[#A0A0A0] text-lg md:text-xl max-w-lg mx-auto font-light leading-relaxed text-center">
              O acesso definitivo à rede é por mérito. Cumpra os requisitos técnicos e garanta sua vaga permanente no ecossistema.
@@ -155,13 +156,13 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
         </section>
 
         <form onSubmit={handleSubmit} className="bg-[#141414] border border-white/5 p-8 md:p-12 rounded-[3rem] shadow-2xl space-y-8 relative overflow-hidden">
-           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent"></div>
+           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-thedeal-gold/20 to-transparent"></div>
            <div className="grid gap-6">
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#666666] ml-4 text-left block">Nome Completo</label>
                 <div className="relative">
                   <User className="absolute left-6 top-1/2 -translate-y-1/2 text-[#404040]" size={20} />
-                  <input name="fullName" required value={formData.fullName} onChange={handleChange} className="w-full bg-black border border-white/10 rounded-[1.5rem] p-6 pl-16 text-sm font-bold focus:border-[#D4AF37] outline-none transition-all placeholder:text-[#333]" placeholder="Nome do Candidato" />
+                  <input name="fullName" required value={formData.fullName} onChange={handleChange} className="w-full bg-black border border-white/10 rounded-[1.5rem] p-6 pl-16 text-sm font-bold focus:border-thedeal-gold outline-none transition-all placeholder:text-[#333]" placeholder="Nome do Candidato" />
                 </div>
               </div>
               <div className="grid md:grid-cols-2 gap-6">
@@ -169,14 +170,14 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#666666] ml-4 text-left block">CPF</label>
                     <div className="relative">
                       <FileText className="absolute left-6 top-1/2 -translate-y-1/2 text-[#404040]" size={20} />
-                      <input name="cpf" required value={formData.cpf} onChange={handleChange} className="w-full bg-black border border-white/10 rounded-[1.5rem] p-6 pl-16 text-sm font-bold focus:border-[#D4AF37] outline-none transition-all placeholder:text-[#333]" placeholder="000.000.000-00" />
+                      <input name="cpf" required value={formData.cpf} onChange={handleChange} className="w-full bg-black border border-white/10 rounded-[1.5rem] p-6 pl-16 text-sm font-bold focus:border-thedeal-gold outline-none transition-all placeholder:text-[#333]" placeholder="000.000.000-00" />
                     </div>
                  </div>
                  <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#666666] ml-4 text-left block">WhatsApp</label>
                     <div className="relative">
                       <Phone className="absolute left-6 top-1/2 -translate-y-1/2 text-[#404040]" size={20} />
-                      <input name="phone" required value={formData.phone} onChange={handleChange} className="w-full bg-black border border-white/10 rounded-[1.5rem] p-6 pl-16 text-sm font-bold focus:border-[#D4AF37] outline-none transition-all placeholder:text-[#333]" placeholder="(00) 00000-0000" />
+                      <input name="phone" required value={formData.phone} onChange={handleChange} className="w-full bg-black border border-white/10 rounded-[1.5rem] p-6 pl-16 text-sm font-bold focus:border-thedeal-gold outline-none transition-all placeholder:text-[#333]" placeholder="(00) 00000-0000" />
                     </div>
                  </div>
               </div>
@@ -184,12 +185,12 @@ const MissionsPage: React.FC<MissionsPageProps> = ({ onBack }) => {
                 <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#666666] ml-4 text-left block">E-mail Profissional</label>
                 <div className="relative">
                   <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-[#404040]" size={20} />
-                  <input name="email" type="email" required value={formData.email} onChange={handleChange} className="w-full bg-black border border-white/10 rounded-[1.5rem] p-6 pl-16 text-sm font-bold focus:border-[#D4AF37] outline-none transition-all placeholder:text-[#333]" placeholder="voce@dominio.com.br" />
+                  <input name="email" type="email" required value={formData.email} onChange={handleChange} className="w-full bg-black border border-white/10 rounded-[1.5rem] p-6 pl-16 text-sm font-bold focus:border-thedeal-gold outline-none transition-all placeholder:text-[#333]" placeholder="voce@dominio.com.br" />
                 </div>
               </div>
            </div>
            <div className="pt-6">
-              <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-black font-black py-6 rounded-[1.5rem] uppercase text-[11px] tracking-[0.4em] shadow-2xl shadow-[#D4AF37]/10 transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50 flex items-center justify-center gap-4">
+              <button type="submit" disabled={loading} className="w-full bg-thedeal-gold text-black font-black py-6 rounded-[1.5rem] uppercase text-[11px] tracking-[0.4em] shadow-2xl shadow-thedeal-gold/10 transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50 flex items-center justify-center gap-4">
                 {loading ? <Loader className="animate-spin" size={20} /> : <>Participar das Missões <ArrowRight size={20} /></>}
               </button>
            </div>

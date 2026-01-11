@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { User, DashboardTab, UserType, Deal, Mission, Activity, DealStatus } from '../types';
 import Sidebar from './Sidebar';
@@ -102,7 +101,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
         </div>
 
         <div className="bg-thedeal-card border border-thedeal-gray700 p-8 rounded-3xl shadow-xl relative overflow-hidden group">
-          <p className="text-4xl font-black text-thedeal-goldBright tracking-tighter">R$ 12.450</p>
+          <p className="text-4xl font-black text-thedeal-gold tracking-tighter">R$ 12.450</p>
           <p className="text-thedeal-gray400 text-xs font-bold uppercase tracking-widest mt-1">
             {user.type === UserType.Creator ? 'Ganhos do Mês' : 'Investimento do Mês'}
           </p>
@@ -120,7 +119,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
           <div className="bg-thedeal-card border border-thedeal-gray700 rounded-3xl p-8 space-y-8 shadow-2xl">
             <div className="space-y-6">
               {missions.map(m => (
-                <div key={m.id} className="flex items-center gap-4 group">
+                <div className="flex items-center gap-4 group">
                   <div className={`w-5 h-5 rounded border flex items-center justify-center transition-all ${m.completed ? 'bg-thedeal-success border-thedeal-success' : 'border-thedeal-gray700 group-hover:border-thedeal-gold'}`}>
                     {m.completed && <CheckCircle size={12} className="text-white" />}
                   </div>
@@ -228,13 +227,11 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
     }
   };
 
-  const isAdmin = user.type === UserType.Admin;
-
   return (
     <div className="min-h-screen bg-thedeal-bg text-thedeal-gray100 font-sans flex flex-col items-center w-full overflow-x-hidden relative">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20 flex items-center justify-between px-6">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-thedeal-bg/80 backdrop-blur-xl border-b border-thedeal-gray700 h-16 md:h-20 flex items-center justify-between px-6 text-left">
          <div className="flex items-center gap-3 cursor-pointer group" onClick={() => setActiveTab('home')}>
-            <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 md:w-10 md:h-10 bg-thedeal-gold rounded flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
               <Briefcase size={18} className="text-black" />
             </div>
             <div className="flex flex-col">
@@ -251,7 +248,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
 
             <div className="h-8 w-px bg-thedeal-gray700 mx-1 hidden md:block"></div>
 
-            <button onClick={() => setActiveTab('profile')} className="flex items-center gap-3 group px-2 py-1 rounded-2xl hover:bg-white/5 transition-all">
+            <button onClick={() => setActiveTab('profile')} className="flex items-center gap-3 group px-2 py-1 rounded-2xl hover:bg-white/5 transition-all text-left">
                <div className="text-right hidden sm:block">
                  <p className="text-[10px] font-black text-white uppercase leading-none">{user.name}</p>
                  <p className="text-[8px] font-black text-thedeal-gold uppercase tracking-[0.2em] mt-1">{user.type === UserType.Creator ? 'Nível 2: Aspirante' : 'Marca Verificada'}</p>

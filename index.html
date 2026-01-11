@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR" class="dark">
   <head>
@@ -45,6 +44,7 @@
               'fade-in': 'fadeIn 0.5s ease-out forwards',
               'subtle-pulse': 'subtlePulse 2s infinite ease-in-out',
               'scroll-slow': 'scrollSlow 40s linear infinite',
+              'background-pan': 'backgroundPan 3s linear infinite',
             },
             keyframes: {
               floatIn: {
@@ -62,6 +62,10 @@
               scrollSlow: {
                 '0%': { transform: 'translateX(0)' },
                 '100%': { transform: 'translateX(-50%)' }
+              },
+              backgroundPan: {
+                '0%': { backgroundPosition: '0% 50%' },
+                '100%': { backgroundPosition: '200% 50%' }
               }
             }
           }

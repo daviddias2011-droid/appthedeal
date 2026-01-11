@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Check, Zap, Crown, ArrowLeft, Briefcase, Info } from 'lucide-react';
+import { Check, ArrowLeft, Briefcase, Info } from 'lucide-react';
 
 export default function PricingPage({ onBack }: { onBack?: () => void }) {
   const handleGoToSignup = () => {
@@ -14,12 +13,14 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
           <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
             <div className="flex flex-col items-start gap-1 cursor-pointer group" onClick={onBack}>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                <div className="w-8 h-8 md:w-10 md:h-10 bg-thedeal-gold rounded flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
                   <Briefcase size={18} className="text-black" />
                 </div>
-                <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
+                <div className="flex flex-col">
+                  <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
+                  <p className="text-[7px] md:text-[8px] font-bold uppercase text-thedeal-gold tracking-widest leading-tight">Onde influência vira contrato</p>
+                </div>
               </div>
-              <p className="text-[7px] md:text-[8px] font-black uppercase text-thedeal-gold tracking-[0.3em] pl-0.5">Exclusividade e Performance</p>
             </div>
             
             <button onClick={onBack} className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-thedeal-gray400 hover:text-white transition-colors flex items-center gap-2">
@@ -45,7 +46,7 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
             <div className="mb-10 relative z-10">
               <h2 className="text-3xl font-black text-white uppercase tracking-tight">Criadores</h2>
               <div className="mt-4">
-                <p className="text-4xl font-black text-thedeal-goldBright tracking-tighter">Gratuidade Mensal</p>
+                <p className="text-4xl font-black text-thedeal-gold tracking-tighter">Gratuidade Mensal</p>
                 <p className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-widest mt-2">Você recebe 100% dos seus deals. Sem mensalidade.</p>
               </div>
             </div>
@@ -74,7 +75,7 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
 
             <button 
               onClick={handleGoToSignup}
-              className="w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-6 rounded-2xl transition-all shadow-xl shadow-thedeal-gold/20 uppercase tracking-[0.2em] text-xs active:scale-95"
+              className="w-full bg-thedeal-gold text-black font-black py-6 rounded-2xl transition-all shadow-xl shadow-thedeal-gold/20 uppercase tracking-[0.2em] text-xs active:scale-95"
             >
               SOLICITAR AVALIAÇÃO TÉCNICA
             </button>

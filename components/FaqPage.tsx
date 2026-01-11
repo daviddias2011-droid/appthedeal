@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { ArrowLeft, HelpCircle, ChevronDown, ChevronUp, Briefcase } from 'lucide-react';
-import { ArrowLeftIcon, BriefcaseIcon } from './Icons';
+import { ArrowLeftIcon } from './Icons';
 
 interface FaqItemProps {
   question: string;
@@ -118,12 +117,14 @@ const FaqPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
             <div className="flex flex-col items-start gap-1 cursor-pointer group" onClick={onBack}>
                 <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-thedeal-goldBright to-thedeal-gold rounded flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                    <div className="w-8 h-8 md:w-10 md:h-10 bg-thedeal-gold rounded flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
                         <Briefcase size={18} className="text-black" />
                     </div>
-                    <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
+                    <div className="flex flex-col">
+                        <h1 className="text-lg md:text-xl font-display font-black tracking-tighter text-white uppercase leading-none">THE DEAL</h1>
+                        <p className="text-[7px] md:text-[8px] font-bold uppercase text-thedeal-gold tracking-widest leading-tight">Onde influência vira contrato</p>
+                    </div>
                 </div>
-                <p className="text-[7px] md:text-[8px] font-black uppercase text-thedeal-gold tracking-[0.3em] pl-0.5">Exclusividade e Performance</p>
             </div>
             
             <button onClick={onBack} className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all">
