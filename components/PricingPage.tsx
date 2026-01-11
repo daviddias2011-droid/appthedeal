@@ -1,19 +1,11 @@
 
 import React from 'react';
-import { Check, Zap, Crown, ArrowLeft, Briefcase, ExternalLink, HelpCircle, Instagram, Twitter, Video } from 'lucide-react';
-import { KwaiIcon } from './Icons';
+import { Check, Zap, Crown, ArrowLeft, Briefcase, Info } from 'lucide-react';
 
 export default function PricingPage({ onBack }: { onBack?: () => void }) {
   const handleGoToSignup = () => {
-    if (onBack) onBack(); // Assuming this triggers a view change in App.tsx
+    if (onBack) onBack();
   };
-
-  const faqs = [
-    { q: "Por que existe uma taxa de curadoria?", a: "Para garantir que o ecossistema contenha apenas profissionais e marcas comprometidas. A taxa única de R$ 99 cobre os custos operacionais da análise técnica de perfil." },
-    { q: "O criador paga comissão sobre os deals?", a: "Não. O criador recebe 100% do valor acordado com a marca. A infraestrutura é financiada pelo acesso profissional das empresas." },
-    { q: "Como funciona o pagamento protegido?", a: "O valor do contrato é depositado pela marca em uma conta de custódia (Escrow) e liberado automaticamente para o criador após a validação da entrega." },
-    { q: "Posso cancelar meu acesso?", a: "Sim. O acesso para marcas é anual e pode ser cancelado a qualquer momento, sem taxas de rescisão." }
-  ];
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-thedeal-gold selection:text-black text-left">
@@ -40,126 +32,97 @@ export default function PricingPage({ onBack }: { onBack?: () => void }) {
       <div className={`p-4 md:p-8 space-y-24 animate-fade-in pb-32 ${onBack ? 'pt-32' : 'pt-12'}`}>
         <header className="text-center space-y-6 max-w-3xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-display font-black text-white uppercase tracking-tighter leading-none">
-            Escolha Seu <span className="text-thedeal-gold">Acesso.</span>
+            Acessos & <span className="text-thedeal-gold">Protocolos.</span>
           </h1>
           <p className="text-thedeal-gray400 text-lg font-medium leading-relaxed">
-            Infraestrutura profissional para quem busca parcerias seguras, contratos de alto valor e transparência total.
+            Infraestrutura profissional para quem busca parcerias seguras, contratos de alto valor e transparência absoluta.
           </p>
         </header>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* CRIADOR */}
           <div className="bg-thedeal-card border border-white/5 p-10 md:p-12 rounded-[3rem] flex flex-col group hover:border-thedeal-gold/40 transition-all shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
-                <Zap size={120} className="text-thedeal-gold" />
-            </div>
             <div className="mb-10 relative z-10">
-              <h2 className="text-3xl font-black text-white uppercase tracking-tight">Criador</h2>
+              <h2 className="text-3xl font-black text-white uppercase tracking-tight">Criadores</h2>
               <div className="mt-4">
                 <p className="text-4xl font-black text-thedeal-goldBright tracking-tighter">Acesso Gratuito</p>
-                <p className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-widest mt-2">Mediante Curadoria Profissional</p>
+                <p className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-widest mt-2">Criadores não pagam mensalidade. Nunca.</p>
               </div>
             </div>
 
-            <ul className="space-y-5 mb-12 flex-1 relative z-10">
-                <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
-                  <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                  <span>Sem mensalidade ou comissão</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
-                  <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                  <span>Recebe 100% do valor do contrato</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
-                  <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                  <span>Negociação direta com marcas de elite</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
-                  <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                  <span>Suporte técnico contratual</span>
-                </li>
-            </ul>
-
-            <div className="bg-black/40 p-5 rounded-2xl border border-white/5 mb-8">
-              <p className="text-[10px] text-thedeal-gray400 leading-relaxed font-medium uppercase text-justify">
-                O acesso ao THE DEAL é gratuito para criadores. Para entrar, existe apenas uma taxa única de curadoria (R$ 99), cobrada após análise do perfil. Essa taxa garante qualidade e um ambiente de alto nível. Quem paga pelo sistema são as marcas.
-              </p>
+            <div className="space-y-6 mb-12 flex-1 relative z-10">
+                <p className="text-sm text-thedeal-gray400 leading-relaxed font-medium uppercase">
+                  O acesso ao The Deal é gratuito para criadores aprovados pela curadoria técnica.
+                </p>
+                <div className="p-6 bg-black/40 rounded-2xl border border-thedeal-gold/20">
+                  <h4 className="text-xs font-black text-thedeal-gold uppercase tracking-widest mb-4">Taxa de Curadoria:</h4>
+                  <p className="text-3xl font-black text-white tracking-tighter">R$ 99</p>
+                  <p className="text-[9px] font-black text-thedeal-gray600 uppercase tracking-widest mt-2">Pagamento Único pós-aprovação</p>
+                  <ul className="mt-6 space-y-3">
+                    <li className="flex items-center gap-2 text-[9px] font-bold text-thedeal-gray400 uppercase tracking-widest">
+                       <Check size={12} className="text-thedeal-gold" /> Não é mensalidade
+                    </li>
+                    <li className="flex items-center gap-2 text-[9px] font-bold text-thedeal-gray400 uppercase tracking-widest">
+                       <Check size={12} className="text-thedeal-gold" /> Não é comissão
+                    </li>
+                    <li className="flex items-center gap-2 text-[9px] font-bold text-thedeal-gray400 uppercase tracking-widest">
+                       <Check size={12} className="text-thedeal-gold" /> Mantém a qualidade da rede
+                    </li>
+                  </ul>
+                </div>
             </div>
 
             <button 
               onClick={handleGoToSignup}
               className="w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-6 rounded-2xl transition-all shadow-xl shadow-thedeal-gold/20 uppercase tracking-[0.2em] text-xs active:scale-95"
             >
-              SOLICITAR CONVITE
+              SOLICITAR CURADORIA
             </button>
           </div>
 
           {/* MARCA */}
           <div className="bg-thedeal-card border-2 border-thedeal-gold/40 p-10 md:p-12 rounded-[3rem] flex flex-col group hover:border-thedeal-gold transition-all shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
-                <Crown size={120} className="text-thedeal-gold" />
-            </div>
             <div className="mb-10 relative z-10">
-              <h2 className="text-3xl font-black text-white uppercase tracking-tight">Marca</h2>
-              <div className="mt-4 flex items-baseline gap-2">
-                <p className="text-5xl font-black text-white tracking-tighter">R$ 497</p>
-                <span className="text-xs font-bold text-thedeal-gray600 uppercase">/ano</span>
+              <h2 className="text-3xl font-black text-white uppercase tracking-tight">Marcas</h2>
+              <div className="mt-4">
+                <p className="text-sm font-black text-thedeal-gray600 uppercase tracking-widest mb-1">Infraestrutura Profissional</p>
+                <p className="text-4xl font-black text-white tracking-tighter">Assinatura Anual</p>
               </div>
             </div>
 
-            <ul className="space-y-5 mb-12 flex-1 relative z-10">
-                <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
-                  <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                  <span>Acesso a criadores curados</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
-                  <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                  <span>Propostas e briefings estruturados</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
-                  <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                  <span>Custódia financeira protegida</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm font-bold uppercase tracking-widest text-thedeal-gray100">
-                  <Check size={18} className="text-thedeal-gold shrink-0 mt-0.5" />
-                  <span>Infraestrutura de contratos TD-IP</span>
-                </li>
-            </ul>
+            <div className="space-y-8 mb-12 flex-1 relative z-10">
+                <div className="space-y-2">
+                  <p className="text-5xl font-black text-white tracking-tighter">R$ 497</p>
+                  <p className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-widest">Acesso anual ao terminal</p>
+                </div>
+
+                <div className="p-6 bg-thedeal-gold/5 rounded-2xl border border-thedeal-gold/20">
+                   <h4 className="text-xs font-black text-thedeal-gold uppercase tracking-widest mb-2">Comissão por Deal:</h4>
+                   <p className="text-2xl font-black text-white">10% <span className="text-xs text-thedeal-gray600">sobre o valor do contrato</span></p>
+                </div>
+
+                <div className="space-y-4">
+                  <p className="text-[10px] text-thedeal-gray400 leading-relaxed font-bold uppercase text-justify">
+                    Você não paga por seguidores. Você paga por segurança, estrutura e execução profissional. Pagamentos protegidos via escrow e contratos com validade jurídica TD-IP.
+                  </p>
+                </div>
+            </div>
 
             <button 
               onClick={handleGoToSignup}
               className="w-full bg-white text-black font-black py-6 rounded-2xl transition-all shadow-xl shadow-white/5 uppercase tracking-[0.2em] text-xs active:scale-95"
             >
-              SOLICITAR ACESSO — MARCA
+              SOLICITAR ACESSO PARA MARCAS
             </button>
           </div>
         </div>
 
-        {/* FAQ SECTION */}
-        <section className="max-w-4xl mx-auto space-y-16 pt-16">
-            <div className="text-center space-y-4">
-                <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white">Perguntas <span className="text-thedeal-gold">Profissionais.</span></h2>
-                <p className="text-thedeal-gray600 font-bold uppercase tracking-[0.3em] text-[10px]">Esclarecimentos sobre o modelo de infraestrutura</p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-8">
-                {faqs.map((f, i) => (
-                    <div key={i} className="bg-thedeal-card border border-white/5 p-8 rounded-3xl space-y-4">
-                        <div className="flex items-center gap-3 text-thedeal-gold">
-                            <HelpCircle size={18} />
-                            <h4 className="text-xs font-black uppercase tracking-widest">{f.q}</h4>
-                        </div>
-                        <p className="text-thedeal-gray400 text-sm leading-relaxed font-medium">{f.a}</p>
-                    </div>
-                ))}
-            </div>
-        </section>
-
-        <footer className="py-20 px-6 text-center space-y-10 opacity-60 border-t border-white/5">
-          <div className="flex justify-center gap-8">
-            <a href="https://www.instagram.com/thedealbrasil?igsh=eDE0NWI3eTl1Y3pt" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Instagram size={22} /></a>
-            <a href="https://x.com/TheDealBr" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Twitter size={22} /></a>
-            <a href="https://www.tiktok.com/@thedealbr?_r=1&_t=ZS-92u7SKxtzGy" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Video size={22} /></a>
-            <a href="https://k.kwai.com/u/@thedeal/Ctxw0sJD" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><KwaiIcon className="w-5 h-5" /></a>
+        <footer className="py-20 px-6 text-center space-y-10 opacity-60 border-t border-white/5 mt-20">
+          <div className="flex flex-col md:flex-row gap-8 items-start opacity-40 max-w-4xl mx-auto mb-10">
+              <Info size={24} className="text-thedeal-gold shrink-0" />
+              <p className="text-[10px] text-thedeal-gray400 leading-relaxed font-medium uppercase text-justify">
+                  O The Deal opera como infraestrutura técnica e jurídica. Não somos agência de talentos. Todos os acordos são formalizados entre as partes dentro de nosso protocolo de segurança.
+              </p>
           </div>
           <div className="space-y-4 opacity-50">
             <p className="text-[8px] font-black uppercase tracking-[0.5em]">THE DEAL • CNPJ: 59.440.114/0001-03</p>

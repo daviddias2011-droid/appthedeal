@@ -61,7 +61,7 @@ export default function LandingPage(props: any) {
           </div>
           
           <p className="text-base md:text-lg text-thedeal-gray400 max-w-md mx-auto font-medium leading-relaxed">
-            O THE DEAL é a infraestrutura onde criadores viram fornecedores e marcas contratam mídia como se contrata qualquer serviço profissional.
+            O THE DEAL é a infraestrutura onde criadores viram fornecedores e marcas contratam mídia com proteção jurídica e financeira.
           </p>
 
           <div className="bg-black/40 border border-white/5 px-6 py-3 rounded-full inline-flex items-center gap-3 mx-auto">
@@ -71,38 +71,52 @@ export default function LandingPage(props: any) {
 
           <div className="flex flex-col gap-4 px-4 sm:px-12 pt-4">
             <button onClick={() => props.onGoToSignup()} className="w-full bg-thedeal-goldBright text-black font-black py-6 rounded-2xl shadow-2xl flex flex-col items-center justify-center transition-all hover:scale-105 active:scale-95 group">
-              <span className="uppercase text-xs tracking-[0.2em]">SOLICITAR CONVITE</span>
-              <span className="text-[9px] opacity-60 font-bold uppercase mt-1 tracking-widest flex items-center gap-1 group-hover:opacity-100 transition-opacity">⚡ Acesso por curadoria — não é automático</span>
+              <span className="uppercase text-xs tracking-[0.2em]">SOLICITAR CURADORIA</span>
+              <span className="text-[9px] opacity-60 font-bold uppercase mt-1 tracking-widest flex items-center gap-1 group-hover:opacity-100 transition-opacity">Avaliação Técnica de Perfil</span>
             </button>
           </div>
         </section>
 
-        {/* O PROBLEMA QUE NINGUÉM FALA */}
+        {/* COMMISSION MODEL */}
+        <section className="p-8 md:p-12 space-y-10 border-b border-white/5 bg-thedeal-gold/5">
+           <div className="text-center space-y-4">
+              <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter leading-none">MODELO JUSTO. <br/><span className="text-thedeal-gold">SEM ABUSO.</span></h2>
+              <p className="text-thedeal-gray400 text-sm font-black uppercase tracking-widest leading-relaxed">Quem ganha dinheiro, paga a infraestrutura.</p>
+           </div>
+
+           <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-thedeal-card border border-white/5 p-8 rounded-3xl space-y-4">
+                <h4 className="text-white font-black uppercase text-xs tracking-widest">Para Criadores</h4>
+                <p className="text-thedeal-gray400 text-[11px] font-medium leading-relaxed uppercase">Criadores não pagam mensalidade. O acesso é gratuito para membros aprovados.</p>
+              </div>
+              <div className="bg-thedeal-card border border-white/5 p-8 rounded-3xl space-y-4">
+                <h4 className="text-white font-black uppercase text-xs tracking-widest">Para Marcas</h4>
+                <p className="text-thedeal-gray400 text-[11px] font-medium leading-relaxed uppercase">Marcas pagam acesso anual + comissão de 10% apenas quando fecham contrato.</p>
+              </div>
+           </div>
+
+           <p className="text-center text-[10px] font-black text-thedeal-gold uppercase tracking-[0.3em]">Comissão clara. Termos claros. Pagamento protegido.</p>
+        </section>
+
+        {/* O PROBLEMA */}
         <section className="p-8 md:p-12 space-y-12 border-b border-white/5">
            <div className="text-center md:text-left space-y-4">
-              <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter leading-none">O PROBLEMA QUE <br/><span className="text-thedeal-danger">NINGUÉM FALA</span></h2>
-              <p className="text-thedeal-gray400 text-sm font-medium leading-relaxed">Você tem audiência, engajamento e proposta de marca toda semana. Mas no final do mês, o que entra na conta?</p>
+              <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tighter leading-none">A BARREIRA DO <br/><span className="text-thedeal-danger">AMADORISMO</span></h2>
+              <p className="text-thedeal-gray400 text-sm font-medium leading-relaxed">Você tem audiência e propostas, mas falta o processo que garante a recorrência e a segurança financeira.</p>
            </div>
 
            <div className="grid gap-4">
               {[
-                "Marca some depois do 'vamos conversar'",
-                "Pagamento que vira 'próximo mês'",
-                "Contrato que nunca chega",
-                "Você aceitando menos porque tem pressa"
+                "Ausência de garantias de pagamento",
+                "Contratos informais ou inexistentes",
+                "Dificuldade na mensuração de ROI real",
+                "Processos comerciais fragmentados"
               ].map((text, i) => (
-                <div key={i} className="flex items-center gap-4 p-5 bg-thedeal-danger/5 border border-thedeal-danger/20 rounded-2xl group">
-                   <X className="text-thedeal-danger group-hover:scale-110 transition-transform" size={20} />
+                <div key={i} className="flex items-center gap-4 p-5 bg-white/5 border border-white/10 rounded-2xl group">
+                   <Shield className="text-thedeal-gray600 group-hover:text-thedeal-gold transition-colors" size={20} />
                    <span className="text-white font-black uppercase text-[11px] tracking-widest">{text}</span>
                 </div>
               ))}
-           </div>
-
-           <div className="bg-thedeal-card border border-thedeal-gray700 p-8 rounded-[2.5rem] relative overflow-hidden group">
-              <TrendingUp className="absolute -bottom-4 -right-4 w-32 h-32 text-thedeal-gold opacity-5 group-hover:opacity-10 transition-opacity" />
-              <p className="text-lg md:text-xl font-serif italic text-thedeal-gray100 leading-relaxed relative z-10">
-                "Isso não é mercado. É loteria. Enquanto você reza para a marca responder, ela também está perdida — sem saber quem contratar, quanto pagar, como medir. <span className="text-thedeal-gold">Os dois lados perdem porque não existe infraestrutura.</span>"
-              </p>
            </div>
         </section>
 
@@ -115,8 +129,7 @@ export default function LandingPage(props: any) {
             
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto text-left">
               <div className="p-10 bg-thedeal-card border border-white/5 rounded-[3rem] space-y-8 hover:border-thedeal-gold transition-all shadow-2xl relative overflow-hidden group">
-                <Zap size={80} className="absolute -top-4 -right-4 text-thedeal-gold opacity-5 group-hover:opacity-10 transition-opacity" />
-                <h3 className="text-white font-black text-2xl uppercase tracking-tighter">💼 Criador</h3>
+                <h3 className="text-white font-black text-2xl uppercase tracking-tighter">Criador</h3>
                 <div className="flex items-baseline gap-2">
                   <p className="text-4xl font-black text-thedeal-goldBright tracking-tighter">Acesso Gratuito</p>
                 </div>
@@ -127,25 +140,24 @@ export default function LandingPage(props: any) {
                   <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Infraestrutura de contratos inclusa</li>
                 </ul>
                 <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-                  <p className="text-[9px] text-thedeal-gray400 uppercase leading-relaxed">
-                    O acesso é gratuito. Para entrar, existe apenas uma taxa única de curadoria (R$ 99), cobrada após análise do perfil. Essa taxa garante qualidade e um ambiente profissional. Quem paga pelo sistema são as marcas.
+                  <p className="text-[9px] text-thedeal-gray400 uppercase leading-relaxed text-justify">
+                    Acesso gratuito para aprovados. Taxa única de curadoria de R$ 99 aplicada pós-aprovação para manutenção da integridade da rede.
                   </p>
                 </div>
-                <button onClick={() => props.onGoToSignup()} className="w-full bg-thedeal-goldBright text-black font-black py-6 rounded-2xl uppercase text-[11px] tracking-widest shadow-xl shadow-thedeal-gold/20 hover:scale-[1.02] transition-all">SOLICITAR CONVITE</button>
+                <button onClick={() => props.onGoToSignup()} className="w-full bg-thedeal-goldBright text-black font-black py-6 rounded-2xl uppercase text-[11px] tracking-widest shadow-xl shadow-thedeal-gold/20 hover:scale-[1.02] transition-all">SOLICITAR CURADORIA</button>
               </div>
 
-              <div className="p-10 bg-thedeal-card border border-white/5 rounded-[3rem] space-y-8 hover:border-thedeal-gold transition-all shadow-2xl relative overflow-hidden group">
-                <Building2 size={80} className="absolute -top-4 -right-4 text-thedeal-gold opacity-5 group-hover:opacity-10 transition-opacity" />
-                <h3 className="text-white font-black text-2xl uppercase tracking-tighter">🏢 Marca</h3>
+              <div className="p-10 bg-thedeal-card border border-thedeal-gold/40 rounded-[3rem] space-y-8 hover:border-thedeal-gold transition-all shadow-2xl relative overflow-hidden group">
+                <h3 className="text-white font-black text-2xl uppercase tracking-tighter">Marca</h3>
                 <div className="flex items-baseline gap-2">
                   <p className="text-5xl font-black text-white tracking-tighter">R$ 497</p>
                   <span className="text-sm font-bold text-thedeal-gray600 uppercase">/ano</span>
                 </div>
                 <ul className="space-y-4 text-[10px] text-white font-bold uppercase tracking-widest">
                   <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Acesso a criadores curados</li>
-                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Propostas estruturadas</li>
-                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Pagamento em custódia (Escrow)</li>
                   <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Gestão centralizada de contratos</li>
+                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> Pagamento em custódia (Escrow)</li>
+                  <li className="flex gap-2"><Check size={16} className="text-thedeal-gold"/> 10% de comissão por deal fechado</li>
                 </ul>
                 <button onClick={() => props.onGoToSignup()} className="w-full bg-white text-black font-black py-6 rounded-2xl uppercase text-[11px] tracking-widest shadow-xl shadow-white/5 hover:scale-[1.02] transition-all">SOLICITAR ACESSO — MARCA</button>
               </div>
@@ -160,7 +172,7 @@ export default function LandingPage(props: any) {
                 <span className="text-thedeal-gold">SEPARA O AMADOR.</span>
               </h2>
               <p className="text-thedeal-gray400 text-lg md:text-xl font-light italic">
-                Influência é mídia. Mídia sem processo vira bagunça. Bagunça não escala. O THE DEAL é a infraestrutura que faltava.
+                Influência é mídia. Mídia sem processo não escala. O THE DEAL é a infraestrutura definitiva.
               </p>
             </div>
 
@@ -169,9 +181,9 @@ export default function LandingPage(props: any) {
                 onClick={() => props.onGoToSignup()}
                 className="w-full sm:w-auto bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black px-16 py-8 rounded-3xl text-sm transition-all shadow-2xl shadow-thedeal-gold/30 uppercase tracking-[0.3em] hover:scale-105 active:scale-95"
               >
-                SOLICITAR CONVITE DE ACESSO
+                SOLICITAR ACESSO AO TERMINAL
               </button>
-              <p className="text-[11px] font-black uppercase text-thedeal-gray600 mt-6 tracking-widest">⚡ Vagas limitadas por curadoria — não deixe para depois</p>
+              <p className="text-[11px] font-black uppercase text-thedeal-gray600 mt-6 tracking-widest">Vagas limitadas por curadoria técnica</p>
             </div>
         </section>
 
