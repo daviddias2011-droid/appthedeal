@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Loader, ArrowRight, ArrowLeft, Building2, User, 
-  ShieldCheck, Check, MessageSquare
+  ShieldCheck, Check, MessageSquare, Zap, Crown, ExternalLink
 } from 'lucide-react';
 import { UserType } from '../types';
 
@@ -20,6 +20,8 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
   const [loading, setLoading] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const LINK_PAGAMENTO_PRO = "https://mpago.li/1iwECoa";
 
   const creatorQuestions: Question[] = [
     { id: 'fullName', text: 'Nome completo', type: 'text' },
@@ -148,23 +150,64 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
 
   if (isFinished) {
     return (
-      <div className="max-w-xl mx-auto px-4 py-20 animate-fade-in text-center">
-        <div className="bg-thedeal-card border border-white/5 rounded-[2.5rem] p-12 shadow-2xl relative overflow-hidden">
+      <div className="max-w-4xl mx-auto px-4 py-10 animate-fade-in text-center">
+        <div className="bg-thedeal-card border border-white/5 rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-thedeal-gold"></div>
-          <div className="w-20 h-20 bg-thedeal-gold/10 rounded-full flex items-center justify-center mx-auto mb-8">
-            <ShieldCheck className="text-thedeal-gold" size={40} />
+          
+          <div className="flex flex-col items-center mb-10">
+            <div className="w-16 h-16 bg-thedeal-gold/10 rounded-full flex items-center justify-center mb-6">
+              <ShieldCheck className="text-thedeal-gold" size={32} />
+            </div>
+            <h2 className="text-3xl font-black text-white uppercase tracking-tight mb-2">Protocolo Registrado.</h2>
+            <p className="text-thedeal-gray400 text-sm max-w-md font-medium uppercase tracking-widest">Suas informações foram submetidas à Inteligência Alpha.</p>
           </div>
-          <h2 className="text-2xl font-black text-white uppercase tracking-tight mb-6">Obrigado.</h2>
-          <p className="text-thedeal-gray400 text-sm leading-relaxed mb-8">
-            {userType === UserType.Creator 
-              ? 'Seu perfil entrou em análise. Caso aprovado, você receberá um convite oficial. Acesso para criadores é gratuito. Para entrar na rede, existe apenas uma taxa única de curadoria.'
-              : 'Sua solicitação será analisada. Caso aprovada, você receberá acesso à rede curada de criadores.'}
-          </p>
-          <div className="bg-black/40 border border-white/5 p-6 rounded-2xl mb-8">
-            <p className="text-[10px] font-black text-thedeal-gray600 uppercase tracking-[0.4em] mb-1">Status</p>
-            <p className="text-thedeal-gold font-black text-lg uppercase tracking-widest">EM ANÁLISE</p>
+
+          {userType === UserType.Creator ? (
+            <div className="grid md:grid-cols-2 gap-6 text-left mb-12">
+               <div className="bg-black/40 border border-white/5 p-8 rounded-3xl space-y-6">
+                  <div>
+                    <h4 className="text-xs font-black text-thedeal-gray600 uppercase tracking-widest mb-1">Caminho Padrão</h4>
+                    <p className="text-xl font-bold text-white uppercase">Aguardar Curadoria</p>
+                  </div>
+                  <ul className="space-y-3 opacity-60">
+                    <li className="flex items-center gap-2 text-[10px] font-bold text-thedeal-gray400 uppercase tracking-widest"><Check size={12}/> Análise em 48-72h</li>
+                    <li className="flex items-center gap-2 text-[10px] font-bold text-thedeal-gray400 uppercase tracking-widest"><Check size={12}/> Sujeito a fila de espera</li>
+                  </ul>
+                  <button onClick={onSuccess} className="w-full py-4 border border-white/10 text-white font-black rounded-xl text-[10px] uppercase tracking-widest hover:bg-white/5 transition-all">Manter na Fila</button>
+               </div>
+
+               <div className="bg-gradient-to-br from-thedeal-gold/10 to-transparent border-2 border-thedeal-gold/40 p-8 rounded-3xl space-y-6 relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 bg-thedeal-gold text-black text-[8px] font-black px-4 py-1 uppercase tracking-widest">Recomendado</div>
+                  <div>
+                    <h4 className="text-xs font-black text-thedeal-gold uppercase tracking-widest mb-1">Fast Track Alpha</h4>
+                    <p className="text-xl font-bold text-white uppercase">Validação Imediata</p>
+                  </div>
+                  <ul className="space-y-3">
+                    <li className="flex items-center gap-2 text-[10px] font-bold text-white uppercase tracking-widest"><Crown size={12} className="text-thedeal-gold"/> Liberação do Terminal de Deals</li>
+                    <li className="flex items-center gap-2 text-[10px] font-bold text-white uppercase tracking-widest"><Crown size={12} className="text-thedeal-gold"/> +500 PTS de Deal Score</li>
+                    <li className="flex items-center gap-2 text-[10px] font-bold text-white uppercase tracking-widest"><Crown size={12} className="text-thedeal-gold"/> Taxa Única de Curadoria</li>
+                  </ul>
+                  <a 
+                    href={LINK_PAGAMENTO_PRO} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-full bg-thedeal-goldBright hover:bg-thedeal-gold text-black font-black py-4 rounded-xl text-[10px] uppercase tracking-widest shadow-xl shadow-thedeal-gold/20 flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-95"
+                  >
+                    Ativar Acesso Alpha <ExternalLink size={14} />
+                  </a>
+               </div>
+            </div>
+          ) : (
+            <div className="bg-black/40 border border-white/5 p-10 rounded-3xl mb-12">
+               <p className="text-thedeal-gray400 text-sm leading-relaxed">
+                 Sua solicitação de acesso para Marca entrou em fila de análise prioritária. Você receberá um e-mail de confirmação assim que o terminal for liberado para seu CNPJ.
+               </p>
+            </div>
+          )}
+
+          <div className="pt-6 border-t border-white/5 flex flex-col items-center gap-4">
+            <button onClick={onSuccess} className="text-[10px] font-black uppercase text-thedeal-gray700 hover:text-white tracking-[0.4em] transition-colors">Retornar ao terminal de login</button>
           </div>
-          <button onClick={onSuccess} className="w-full bg-white text-black font-black py-5 rounded-2xl uppercase text-[10px] tracking-widest hover:bg-thedeal-gold transition-all">Retornar ao Terminal</button>
         </div>
       </div>
     );
@@ -178,7 +221,7 @@ const SignupForm: React.FC<{ onBack: () => void; onSuccess: () => void }> = ({ o
           <div>
             <h2 className="text-3xl font-display font-black text-white uppercase tracking-tighter mb-4">Curadoria The Deal</h2>
             <p className="text-thedeal-gray400 text-sm leading-relaxed max-w-sm mx-auto">
-              Este processo avalia perfil, maturidade comercial e postura profissional.
+              Este processo avalia perfil, maturidade comercial e postura profissional para a <strong>Rede de Inteligência & Performance</strong>.
             </p>
           </div>
           
