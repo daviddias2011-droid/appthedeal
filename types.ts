@@ -71,7 +71,7 @@ export interface User {
 }
 
 // FIX: Expanded AppView to include all views used in the application
-export type AppView = 'landing' | 'login' | 'invitation' | 'dashboard' | 'validation' | 'thank-you' | 'welcome' | 'admin-approval' | 'privacy' | 'terms' | 'for-brands' | 'for-creators' | 'how-it-works' | 'blog' | 'academy' | 'missions' | 'investor' | 'simulator' | 'discover' | 'pricing' | 'verify-email';
+export type AppView = 'landing' | 'login' | 'invitation' | 'dashboard' | 'validation' | 'thank-you' | 'welcome' | 'admin-approval' | 'privacy' | 'terms' | 'for-brands' | 'for-creators' | 'how-it-works' | 'blog' | 'academy' | 'missions' | 'investor' | 'simulator' | 'discover' | 'pricing' | 'verify-email' | 'faq';
 
 // FIX: Added 'in progress' and 'awaiting_signature' to DealStatus
 export type DealStatus = 'active' | 'pending_delivery' | 'disputed' | 'completed' | 'cancelled' | 'awaiting_signature' | 'in progress';

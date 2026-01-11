@@ -14,6 +14,7 @@ import ForBrandsPage from './components/ForBrandsPage';
 import ForCreatorsPage from './components/ForCreatorsPage';
 import DiscoverPage from './components/DiscoverPage';
 import PricingPage from './components/PricingPage';
+import FaqPage from './components/FaqPage';
 import Footer from './components/Footer';
 import { translations } from './translations';
 import { BriefcaseIcon, ArrowLeftIcon } from './components/Icons';
@@ -40,12 +41,13 @@ const AppContent = () => {
               onGoToBlog={() => setView('blog')} onGoToAcademy={() => setView('academy')}
               onGoToMissions={() => setView('missions')} onGoToInvestor={() => setView('investor')}
               onGoToSimulator={() => setView('simulator')} onGoToDiscover={() => setView('discover')}
-              onGoToPricing={() => setView('pricing')}
+              onGoToPricing={() => setView('pricing')} onGoToFaq={() => setView('faq')}
               language={language} t={t}
             />;
           
           case 'pricing': return <PricingPage onBack={() => setView('landing')} />;
           case 'how-it-works': return <HowItWorksPage onBack={() => setView('landing')} onGoToSignup={() => setView('invitation')} />;
+          case 'faq': return <FaqPage onBack={() => setView('landing')} />;
           
           case 'simulator':
             return (

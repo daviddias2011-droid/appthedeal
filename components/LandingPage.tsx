@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   ArrowRight, Briefcase, Menu, X as CloseIcon, Building2, Calculator, Compass, Zap, 
   Check, X, ShieldCheck, TrendingUp, AlertTriangle, Star, Shield, CheckCircle2, Award, MessageCircle,
-  Instagram, Twitter, Video
+  Instagram, Twitter, Video, HelpCircle
 } from 'lucide-react';
 import FeedItem from './FeedItem';
 import AccessModal from './AccessModal';
@@ -41,6 +41,7 @@ export default function LandingPage(props: any) {
             <button onClick={() => { props.onGoToForCreators(); setIsMobileMenuOpen(false); }} className="text-xl font-bold flex items-center gap-3 text-white uppercase tracking-tighter"><Zap size={20} className="text-thedeal-gold" /> CRIADORES</button>
             <button onClick={() => { props.onGoToSimulator(); setIsMobileMenuOpen(false); }} className="text-xl font-bold flex items-center gap-3 text-white uppercase tracking-tighter"><Calculator size={20} className="text-thedeal-gold" /> CALCULADORA</button>
             <button onClick={() => { props.onGoToDiscover(); setIsMobileMenuOpen(false); }} className="text-xl font-bold flex items-center gap-3 text-white uppercase tracking-tighter"><Compass size={20} className="text-thedeal-gold" /> DESCUBRA</button>
+            <button onClick={() => { props.onGoToFaq(); setIsMobileMenuOpen(false); }} className="text-xl font-bold flex items-center gap-3 text-white uppercase tracking-tighter"><HelpCircle size={20} className="text-thedeal-gold" /> FAQ</button>
             <button onClick={() => { props.onGoToSignup(); setIsMobileMenuOpen(false); }} className="mt-8 bg-thedeal-gold text-black font-black py-4 rounded-xl uppercase tracking-widest text-xs">SOLICITAR CONVITE</button>
           </nav>
         </div>
@@ -188,6 +189,11 @@ export default function LandingPage(props: any) {
         </section>
 
         <footer className="py-20 px-6 text-center space-y-10 opacity-60 border-t border-white/5">
+          <div className="flex justify-center gap-8 mb-6">
+            <button onClick={props.onGoToFaq} className="text-[10px] font-black uppercase tracking-widest text-thedeal-gray400 hover:text-thedeal-gold transition-colors">FAQ</button>
+            <button onClick={props.onGoToTerms} className="text-[10px] font-black uppercase tracking-widest text-thedeal-gray400 hover:text-thedeal-gold transition-colors">Termos</button>
+            <button onClick={props.onGoToPrivacy} className="text-[10px] font-black uppercase tracking-widest text-thedeal-gray400 hover:text-thedeal-gold transition-colors">Privacidade</button>
+          </div>
           <div className="flex justify-center gap-8">
             <a href="https://www.instagram.com/thedealbrasil?igsh=eDE0NWI3eTl1Y3pt" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Instagram size={22} /></a>
             <a href="https://x.com/TheDealBr" target="_blank" rel="noopener noreferrer" className="text-thedeal-gray400 hover:text-thedeal-gold transition-colors"><Twitter size={22} /></a>
